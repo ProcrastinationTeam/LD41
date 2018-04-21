@@ -773,6 +773,9 @@ class CdbLevel {
 					finrodSprite.animation.play("idle");
 					
 					npcSprites.add(finrodSprite);
+					
+				default:
+					// Ignore for now
 			}
 		}
 	}

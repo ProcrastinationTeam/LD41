@@ -685,7 +685,8 @@
 							"height": 1,
 							"action": [
 								1,
-								"Kitchen"
+								"Kitchen",
+								"Start"
 							]
 						},
 						{

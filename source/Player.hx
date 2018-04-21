@@ -46,8 +46,6 @@ class Player extends FlxSprite
 		loadGraphic(AssetPaths.cook__png, true, spriteResolution, spriteResolution);
 		setSize(20, 10);
 		offset.set(6, 22);
-		//scale.set(0.5, 0.5);
-		//updateHitbox();
 		//setFacingFlip(FlxObject.LEFT, false, false);
 		//setFacingFlip(FlxObject.RIGHT, true, false);
 		//animation.add("lr", [3, 4, 3, 5], 6, false);
@@ -57,8 +55,7 @@ class Player extends FlxSprite
 		
 		peeler = new Peeler();
 		
-		peeler.setSize(spriteResolution - 5, 10);
-		peeler.offset.set(0, spriteResolution / 3);
+		
 		
 		peeler.visible = false;
 		
@@ -152,7 +149,7 @@ class Player extends FlxSprite
 	{
 		peeler.visible = false;
 		peeler.facing = FlxObject.RIGHT;
-		peeler.angle = 0;
+		//peeler.angle = 0;
 		//peeler.set_alpha(1);
 		//trace("end attack");
 	}
@@ -184,38 +181,49 @@ class Player extends FlxSprite
 			{
 				aimAt = 0;
 				facing = FlxObject.UP;
-				offsetY = -offsetValue;
-				offsetX = 0;
+				offsetY = -offsetValue - spriteResolution/2;
+				offsetX = 5;
 				peeler.facing = FlxObject.UP;
 				peeler.angle = -90;
-				//UpPath = [FlxPoint.get(x+spriteResolution/2, y), FlxPoint.get(x+spriteResolution/4, y - spriteResolution / 4), FlxPoint.get(x, y - spriteResolution)];
+				
+				peeler.setSize(10, spriteResolution - 5);
+				peeler.offset.set(spriteResolution / 3, 0);
 			}
 			else if (_down)
 			{
 				aimAt = 1;
 				facing = FlxObject.DOWN;
-				offsetY = offsetValue;
-				offsetX = 0;
+				offsetY = offsetValue - spriteResolution/2;
+				offsetX = 5;
 				peeler.facing = FlxObject.DOWN;
 				peeler.angle = 90;
+				
+				peeler.setSize(10, spriteResolution - 5);
+				peeler.offset.set(spriteResolution / 3, 0);
 			}
 			else if (_left)
 			{
 				aimAt = 2;
 				facing = FlxObject.LEFT;
-				offsetX = -offsetValue;
-				offsetY = 0;
+				offsetX = -offsetValue -5;
+				offsetY = -spriteResolution/3;
 				peeler.facing = FlxObject.LEFT;
 				peeler.angle = 0;
+				
+				peeler.setSize(spriteResolution - 5, 10);
+				peeler.offset.set(0, spriteResolution / 3);
 			}
 			else if (_right)
 			{
 				aimAt = 3;
 				facing = FlxObject.RIGHT;
-				offsetX = offsetValue;
-				offsetY = 0;
+				offsetX = offsetValue -5;
+				offsetY = -spriteResolution/3;
 				peeler.facing = FlxObject.RIGHT;
 				peeler.angle = 0;
+				
+				peeler.setSize(spriteResolution - 5, 10);
+				peeler.offset.set(0, spriteResolution / 3);
 			}
 			peeler.x = this.x + offsetX;
 			peeler.y = this.y + offsetY;

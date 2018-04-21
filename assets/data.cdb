@@ -4604,7 +4604,7 @@
 			],
 			"lines": [
 				{
-					"name": "chicken",
+					"name": "Chicken",
 					"value": 1,
 					"sprite": {
 						"file": "images/ChickenLeg.1.0.png",
@@ -4615,7 +4615,7 @@
 					"type": 0
 				},
 				{
-					"name": "fish",
+					"name": "Fish",
 					"value": 2,
 					"sprite": {
 						"file": "images/DeadFish.png",
@@ -4626,7 +4626,7 @@
 					"type": 0
 				},
 				{
-					"name": "steak",
+					"name": "Steak",
 					"value": 3,
 					"sprite": {
 						"file": "images/steak.1.0.png",
@@ -4697,6 +4697,39 @@
 					"type": 1,
 					"sprite": {
 						"file": "images/carrot.1.0.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"name": "Chilipper",
+					"value": 5,
+					"type": 1,
+					"sprite": {
+						"file": "images/chilipepper.1.0.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"name": "Eggplant",
+					"value": 10,
+					"type": 1,
+					"sprite": {
+						"file": "images/eggplant.1.1.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"name": "Bread",
+					"value": 3,
+					"type": 2,
+					"sprite": {
+						"file": "images/bread.1.0.png",
 						"size": 32,
 						"x": 0,
 						"y": 0

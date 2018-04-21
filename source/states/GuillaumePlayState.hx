@@ -36,11 +36,6 @@ class GuillaumePlayState extends FlxState {
 			levelDataName = "FirstVillage";
 		}
 		
-		// Init cdb
-		//var content:String = File.getContent(AssetPaths.data__cdb);
-		var content:String = Assets.getText(AssetPaths.data__cdb);
-		Data.load(content);
-		
 		//levelData = Data.levelDatas.resolve(levelDataName);
 		
 		level = new CdbLevel(levelDataName, anchor);

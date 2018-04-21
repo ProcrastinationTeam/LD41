@@ -32,12 +32,17 @@ class Player extends FlxSprite
 	public var attackTimer:FlxTimer;
 	public var canAttackTimer:FlxTimer;
 	public var canAttack:Bool = true;
+	public var cooledDown:Bool = true;
+	public var keyReleased:Bool = true;
 	
 	public var aimAt:Int = 1;  //0 : Up , 1 Down, 2 Left, 3 Right
 	
 	public var offsetValue:Int = 0;
 	
 	public var peeler:Peeler;
+	public var knife:Knife;
+	
+	public var currentWeapon:Int = 0;
 	
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
@@ -54,18 +59,16 @@ class Player extends FlxSprite
 		drag.x = drag.y = 1600;
 		
 		peeler = new Peeler();
-		
+		knife = new Knife();
 		
 		
 		peeler.visible = false;
+		knife.visible = false;
 		
 		offsetValue = Std.int(spriteResolution/2) + Std.int((2 * spriteResolution / 6));
 		
 		attackTimer = new FlxTimer();
 		canAttackTimer = new FlxTimer();
-		
-		
-		
 		
 	}
 	
@@ -75,12 +78,21 @@ class Player extends FlxSprite
 		var _down:Bool = false;
 		var _left:Bool = false;
 		var _right:Bool = false;
+		var _change:Bool = false;
 		
 		_up = FlxG.keys.anyPressed([Z]);
 		_down = FlxG.keys.anyPressed([S]);
 		_left = FlxG.keys.anyPressed([Q]);
 		_right = FlxG.keys.anyPressed([D]);
-		
+		_change = FlxG.keys.anyPressed([SPACE]);
+
+		if (_change) 
+		{
+			if (currentWeapon == 0)
+				currentWeapon = 1;
+			else
+				currentWeapon = 0;
+		}
 		if (_up && _down)
 			_up = _down = false;
 		if (_left && _right)
@@ -137,11 +149,13 @@ class Player extends FlxSprite
 		}
 		peeler.x = this.x + offsetX;
 		peeler.y = this.y + offsetY;
+		knife.x = this.x + offsetX;
+		knife.y = this.y + offsetY;
 	}
 	
 	private function resetAttack(Timer:FlxTimer):Void
 	{
-		canAttack = true;
+		cooledDown = true;
 	}
 	
 	//private function attackEnd(_):Void
@@ -149,12 +163,11 @@ class Player extends FlxSprite
 	{
 		peeler.visible = false;
 		peeler.facing = FlxObject.RIGHT;
-		//peeler.angle = 0;
-		//peeler.set_alpha(1);
-		//trace("end attack");
+		knife.visible = false;
+		knife.facing = FlxObject.RIGHT;
 	}
 	
-	private function aim():Void
+	private function aimKnife():Void
 	{
 		if (!canAttack)
 		{
@@ -177,6 +190,89 @@ class Player extends FlxSprite
 			
 		if (_up || _down || _left || _right)
 		{
+			keyReleased = false;
+			if (_up)
+			{
+				aimAt = 0;
+				facing = FlxObject.UP;
+				offsetY = -offsetValue - spriteResolution/2;
+				offsetX = 5;
+				knife.facing = FlxObject.UP;
+				knife.angle = -90;
+				
+				knife.setSize(10, spriteResolution - 5);
+				knife.offset.set(spriteResolution / 3, 0);
+			}
+			else if (_down)
+			{
+				aimAt = 1;
+				facing = FlxObject.DOWN;
+				offsetY = offsetValue - spriteResolution/2;
+				offsetX = 5;
+				knife.facing = FlxObject.DOWN;
+				knife.angle = 90;
+				
+				knife.setSize(10, spriteResolution - 5);
+				knife.offset.set(spriteResolution / 3, 0);
+			}
+			else if (_left)
+			{
+				aimAt = 2;
+				facing = FlxObject.LEFT;
+				offsetX = -offsetValue -5;
+				offsetY = -spriteResolution/3;
+				knife.facing = FlxObject.LEFT;
+				knife.angle = 0;
+				
+				knife.setSize(spriteResolution - 5, 10);
+				knife.offset.set(0, spriteResolution / 3);
+			}
+			else if (_right)
+			{
+				aimAt = 3;
+				facing = FlxObject.RIGHT;
+				offsetX = offsetValue -5;
+				offsetY = -spriteResolution/3;
+				knife.facing = FlxObject.RIGHT;
+				knife.angle = 0;
+				
+				knife.setSize(spriteResolution - 5, 10);
+				knife.offset.set(0, spriteResolution / 3);
+			}
+			knife.x = this.x + offsetX;
+			knife.y = this.y + offsetY;
+			knife.visible = true;
+			canAttack = false;
+			cooledDown = false;
+			attackTimer.start(atckDuration, attackEnd);
+			canAttackTimer.start(atckSpeed, resetAttack);
+		}
+	}
+	
+private function aimPeeler():Void
+	{
+		if (!canAttack)
+		{
+			return;
+		}
+		var _up:Bool = false;
+		var _down:Bool = false;
+		var _left:Bool = false;
+		var _right:Bool = false;
+		
+		_up = FlxG.keys.anyPressed([UP]);
+		_down = FlxG.keys.anyPressed([DOWN]);
+		_left = FlxG.keys.anyPressed([LEFT]);
+		_right = FlxG.keys.anyPressed([RIGHT]);
+		
+		if (_up && _down)
+			_up = _down = false;
+		if (_left && _right)
+			_left = _right = false;
+			
+		if (_up || _down || _left || _right)
+		{
+			keyReleased = false;
 			if (_up)
 			{
 				aimAt = 0;
@@ -229,9 +325,7 @@ class Player extends FlxSprite
 			peeler.y = this.y + offsetY;
 			peeler.visible = true;
 			canAttack = false;
-			//var options:TweenOptions = { type: FlxTween.ONESHOT, ease: FlxEase.circInOut, onComplete: attackEnd };
-			//FlxTween.linearPath(peeler, UpPath, atckDuration, options);
-			//FlxTween.circularMotion(peeler, x, y, spriteResolution, peeler.angle - 90, true, atckDuration, true, options);
+			cooledDown = false;
 			attackTimer.start(atckDuration, attackEnd);
 			canAttackTimer.start(atckSpeed, resetAttack);
 		}
@@ -261,8 +355,24 @@ class Player extends FlxSprite
 	
 	override public function update(elapsed:Float):Void 
 	{
+		if (FlxG.keys.anyJustReleased([UP, DOWN, RIGHT, LEFT]))
+		{
+			keyReleased = true;
+		}
+		if (keyReleased && cooledDown)
+		{
+			canAttack = true;
+		}
 		movement();
-		aim();
+		if (currentWeapon == 0)
+		{
+			aimPeeler();
+		}
+		else
+		{
+			aimKnife();
+		}
+		
 		attack();
 		super.update(elapsed);
 	}

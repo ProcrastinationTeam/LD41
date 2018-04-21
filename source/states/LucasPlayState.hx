@@ -25,23 +25,9 @@ class LucasPlayState extends FlxState
 		inventory = new PlayerInventory(10);
 		add(inventory);
 		
-		//cookBook = new CookBook();
-		
-		//var chicken = new Ingredient(100, 100, 10, "", IngredientType.Meat);
-		//var fish = new Ingredient(150, 100, 10, "fish", IngredientType.Meat);
-		//var steak = new Ingredient(200, 100, 10, "steak", IngredientType.Meat);
-		
-		//add(chicken);
-		//add(fish);
-		//add(steak);
-		
-		
-		
 		
 		gameIngredientList = new FlxTypedGroup<Ingredient>();
-		//gameIngredientList.add(chicken);
-		//gameIngredientList.add(fish);
-		//gameIngredientList.add(steak);
+
 		
 		
 		
@@ -57,9 +43,14 @@ class LucasPlayState extends FlxState
 			FlxG.resetState();
 		}
 		
-		if (FlxG.keys.justPressed.NUMPADPLUS)
+		if (FlxG.keys.justPressed.NUMPADTHREE)
 		{
-			
+			inventory.updateValueSub(Data.IngredientsKind.Avocado, 1);
+		}
+		
+		if (FlxG.keys.justPressed.NUMPADSIX)
+		{
+			inventory.updateValueAdd(Data.IngredientsKind.Avocado, 1);
 		}
 		
 		if (FlxG.keys.justPressed.ENTER)

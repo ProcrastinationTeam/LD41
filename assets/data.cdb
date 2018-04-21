@@ -4598,7 +4598,7 @@
 					"name": "value"
 				},
 				{
-					"typeStr": "5:Meat,Vegetable",
+					"typeStr": "5:Meat,Vegetable,Other",
 					"name": "type"
 				}
 			],
@@ -4664,6 +4664,39 @@
 					"type": 1,
 					"sprite": {
 						"file": "images/AvocadoSlice.1.0.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"name": "Milk",
+					"value": 0,
+					"type": 2,
+					"sprite": {
+						"file": "images/Milk.1.0.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"name": "Cheese",
+					"value": 5,
+					"type": 2,
+					"sprite": {
+						"file": "images/cheese.1.0.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
+				},
+				{
+					"name": "Carrot",
+					"value": 1,
+					"type": 1,
+					"sprite": {
+						"file": "images/carrot.1.0.png",
 						"size": 32,
 						"x": 0,
 						"y": 0

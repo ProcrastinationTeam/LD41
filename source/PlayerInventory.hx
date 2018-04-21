@@ -15,7 +15,7 @@ class PlayerInventory extends FlxSpriteGroup
 	var _numberOfInGameItems: Int;
 	
 	var _ingredientSpriteArray: FlxSpriteGroup;
-	var _ingredientArray: ArrayRead<Data.Ingredients>;
+	var _ingredientArray: ArrayRead<CdbData.Ingredients>;
 	
 	
 	
@@ -27,7 +27,7 @@ class PlayerInventory extends FlxSpriteGroup
 		
 		_ingredientSpriteArray = new FlxSpriteGroup();
 		
-		_ingredientArray = Data.ingredients.all;
+		_ingredientArray = CdbData.ingredients.all;
 		
 		
 		for (ingredient in _ingredientArray)

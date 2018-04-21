@@ -12,7 +12,7 @@ class Main extends Sprite
 		super();
 		
 		// Init cdb
-		Data.load(Assets.getText(AssetPaths.data__cdb));
+		CdbData.load(Assets.getText(AssetPaths.data__cdb));
 		
 		addChild(new FlxGame(300, 300, MenuState));
 	}

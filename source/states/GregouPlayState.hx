@@ -1,7 +1,7 @@
 package states;
 
 import AssetPaths;
-import Data;
+import CdbData;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -33,11 +33,6 @@ class GregouPlayState extends FlxState {
 		if (levelDataName == null) {
 			levelDataName = "FirstVillage";
 		}
-		
-		// Init cdb
-		//var content:String = File.getContent(AssetPaths.data__cdb);
-		var content:String = Assets.getText(AssetPaths.data__cdb);
-		Data.load(content);
 		
 		//levelData = Data.levelDatas.resolve(levelDataName);
 		

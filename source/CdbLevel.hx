@@ -1,6 +1,6 @@
 package;
 
-import Data;
+import CdbData;
 import cdb.Data.LayerMode;
 import cdb.TileBuilder;
 import cdb.Types.ArrayRead;
@@ -16,12 +16,12 @@ import flixel.util.FlxColor;
 import typedefs.Goto;
 import typedefs.Set;
 
-//var jdffdgdfg:cdb.Data.TilesetProps;
+//var jdffdgdfg:cdb.CdbData.TilesetProps;
 
 //var tileBuilder = new TileBuilder(tileSetProps, stride, total);
 //var ground:Array<Int> = tileBuilder.buildGrounds(input, width);
 
-//Data.decode(Data.levelDatas.all); // ?? cf issue
+//CdbData.decode(CdbData.levelDatas.all); // ?? cf issue
 
 //[DB].[sheet].get([field]).[...]
 //[DB].[sheet].resolve(["field"]).[...]
@@ -81,8 +81,8 @@ class CdbLevel {
 	
 	// BORDEL
 	public var levelDataName			: String;
-	public var levelDataKind			: Data.LevelDatasKind;
-	public var levelData 				: Data.LevelDatas;
+	public var levelDataKind			: CdbData.LevelDatasKind;
+	public var levelData 				: CdbData.LevelDatas;
 	
 	public var anchor					: String;
 	
@@ -90,7 +90,7 @@ class CdbLevel {
 		this.levelDataName = levelDataName;
 		this.anchor = anchor;
 		
-		levelData = Data.levelDatas.resolve(levelDataName);
+		levelData = CdbData.levelDatas.resolve(levelDataName);
 		
 		//traces(levelData);
 		
@@ -133,7 +133,7 @@ class CdbLevel {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// TODO: More generic
 		//
-		var forestTileset = levelData.props.getTileset(Data.levelDatas, "forest.png");
+		var forestTileset = levelData.props.getTileset(CdbData.levelDatas, "forest.png");
 		
 		computeMapOfProps(forestTileset);
 		computeMapOfObjects(forestTileset);
@@ -219,7 +219,7 @@ class CdbLevel {
 		//}
 	}
 	
-	private function processLayers(levelData:Data.LevelDatas):Void {
+	private function processLayers(levelData:CdbData.LevelDatas):Void {
 		for (layer in levelData.layers) {
 			
 			// Process the layer depending on the layer mode
@@ -243,16 +243,16 @@ class CdbLevel {
 		}
 	}
 	
-	private function processTileLayer(tileLayer: Data.LevelDatas_layers, levelData:Data.LevelDatas, tilemap:FlxTilemap):Void {
+	private function processTileLayer(tileLayer: CdbData.LevelDatas_layers, levelData:CdbData.LevelDatas, tilemap:FlxTilemap):Void {
 		tilemap.loadMapFromArray(tileLayer.data.data.decode(), levelData.width, levelData.height, "assets/" + tileLayer.data.file, tileLayer.data.size, tileLayer.data.size, FlxTilemapAutoTiling.OFF, 1);
 	}
 	
-	private function processGroundLayer(groundLayer: Data.LevelDatas_layers, levelData:Data.LevelDatas):Void {
+	private function processGroundLayer(groundLayer: CdbData.LevelDatas_layers, levelData:CdbData.LevelDatas):Void {
 		// Simple ground
 		processTileLayer(groundLayer, levelData, tilemapGround);
 		
 		// Borders
-		var tileset = levelData.props.getTileset(Data.levelDatas, groundLayer.data.file);
+		var tileset = levelData.props.getTileset(CdbData.levelDatas, groundLayer.data.file);
 		
 		// TODO:
 		// total argument seems useless, 624 in cdb (???), works for any value
@@ -335,10 +335,10 @@ class CdbLevel {
 		}
 	}
 	
-	private function processObjectLayer(objectsLayer: Data.LevelDatas_layers, levelData:Data.LevelDatas):Void {
+	private function processObjectLayer(objectsLayer: CdbData.LevelDatas_layers, levelData:CdbData.LevelDatas):Void {
 		var objectsDataMap:Array<Int> = [for (i in 0...(levelData.width * levelData.height)) 0];
 		
-		var tileset = levelData.props.getTileset(Data.levelDatas, objectsLayer.data.file);
+		var tileset = levelData.props.getTileset(CdbData.levelDatas, objectsLayer.data.file);
 		
 		// TODO: supporter la superposition
 		var objectsArray:Array<Int> = objectsLayer.data.data.decode();
@@ -752,14 +752,14 @@ class CdbLevel {
 		}
 	}
 	
-	private function processNpcs(npcs:ArrayRead < Data.LevelDatas_npcs > ):Void {
+	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
 		for (npc in npcs) {
 			switch(npc.kindId) {
 				case NpcsKind.Hero:			
 					player = new Player(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
 					
 				case NpcsKind.Finrod:
-					var finrod = Data.npcs.get(Data.NpcsKind.Finrod);
+					var finrod = CdbData.npcs.get(CdbData.NpcsKind.Finrod);
 					var finrodSprite = new FlxSprite(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
 					finrodSprite.immovable = true;
 					finrodSprite.x -= finrod.image.size / 2;
@@ -780,23 +780,23 @@ class CdbLevel {
 		}
 	}
 	
-	private function processPickups(pickups:ArrayRead < Data.LevelDatas_pickups > ):Void {
+	private function processPickups(pickups:ArrayRead < CdbData.LevelDatas_pickups > ):Void {
 		for (pickup in pickups) {
 			var pickupSprite = new Pickup(pickup);
 			pickupSprites.add(pickupSprite);
 		}
 	}
 	
-	private function processTriggerZones(triggers:ArrayRead < Data.LevelDatas_triggers > ):Void {
+	private function processTriggerZones(triggers:ArrayRead < CdbData.LevelDatas_triggers > ):Void {
 		for (trigger in triggers) {
 			switch(trigger.action) {
-				case Data.Action.Anchor(id):
+				case CdbData.Action.Anchor(id):
 					// Spawn point
 					trace('Anchor - id: [$id]');
 					
 					mapOfAnchor.set(id, new FlxPoint(trigger.x, trigger.y));
 					
-				case Data.Action.Goto(l, anchor):
+				case CdbData.Action.Goto(l, anchor):
 					// Departure point
 					trace('Goto - l: [$l] - anchor: [$anchor]');
 					
@@ -813,13 +813,13 @@ class CdbLevel {
 					changeScreenTriggers.add(sprite);
 					mapOfGoto.set(sprite, goto);
 					
-				case Data.Action.ScrollStop:
+				case CdbData.Action.ScrollStop:
 					// Osef (scrollbounds ?)
 			}
 		}
 	}
 	
-	private function traceLayers(levelData:Data.LevelDatas):Void {
+	private function traceLayers(levelData:CdbData.LevelDatas):Void {
 		// List of layers in the "layers" column
 		for (layer in levelData.layers) {
 			trace("name : " + layer.name);
@@ -846,35 +846,35 @@ class CdbLevel {
 		}
 	}
 	
-	private function traces(levelData:Data.LevelDatas):Void {
+	private function traces(levelData:CdbData.LevelDatas):Void {
 		trace("items : ");
-		for (item in Data.items.all) {
+		for (item in CdbData.items.all) {
 			trace(item);
 		}
 		trace("npcs : ");
-		for (npc in Data.npcs.all) {
+		for (npc in CdbData.npcs.all) {
 			trace(npc);
 		}
 		trace("collides :");
-		for (collide in Data.collides.all) {
+		for (collide in CdbData.collides.all) {
 			trace(collide);
 		}
 		
-		//trace(Data.ItemsKind);
-		trace(Data.items.get(Data.ItemsKind.Sword));
-		trace(Data.items.resolve("Sword"));
+		//trace(CdbData.ItemsKind);
+		trace(CdbData.items.get(CdbData.ItemsKind.Sword));
+		trace(CdbData.items.resolve("Sword"));
 		
 		// Ok
-		trace(Data.items.resolve("Guinea Pig", true));
+		trace(CdbData.items.resolve("Guinea Pig", true));
 		
 		// Would crash because there is no "Guinea Pig" object (sadly)
-		//trace(Data.items.resolve("Guinea Pig", false));
+		//trace(CdbData.items.resolve("Guinea Pig", false));
 		
 		//trace(forestTileset.props.length);
 		//trace(forestTileset.sets.length);
 		
-		//Data.collides.all
-		//Data.levelDatas.get().collide.
+		//CdbData.collides.all
+		//CdbData.levelDatas.get().collide.
 		//var ertert:Layer<Collides>;
 		
 		//trace("sets:");
@@ -883,7 +883,7 @@ class CdbLevel {
 		//levelData.props.getLayer("ground").alpha
 		//levelData.props.tileSize
 		
-		//var something:cdb.Data.SOME_TYPE;
+		//var something:cdb.CdbData.SOME_TYPE;
 	}
 	
 }

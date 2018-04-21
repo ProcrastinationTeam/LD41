@@ -641,7 +641,6 @@
 			],
 			"props": {
 				"separatorTitles": [
-					"Antik"
 				],
 				"displayIcon": "image"
 			}
@@ -1556,8 +1555,7 @@
 					}
 				}
 			],
-			"separators": [
-			],
+			"separators": [],
 			"props": {
 				"level": {
 					"tileSets": {
@@ -4334,8 +4332,6 @@
 						}
 					}
 				},
-				"separatorTitles": [
-				],
 				"hasGroup": true
 			}
 		},

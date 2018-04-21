@@ -1,7 +1,7 @@
 package states;
 
 import AssetPaths;
-import Data;
+import CdbData;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;

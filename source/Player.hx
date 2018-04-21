@@ -1,6 +1,6 @@
 package;
 
-import Data;
+import CdbData;
 
 import flixel.FlxG;
 import flixel.FlxObject;

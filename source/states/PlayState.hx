@@ -97,6 +97,7 @@ class PlayState extends FlxState {
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, true);
 		
+		FlxG.sound.playMusic(AssetPaths.Darkjungle__ogg, 0.5);
 	}
 	
 	override public function update(elapsed:Float):Void {
@@ -179,7 +180,8 @@ class PlayState extends FlxState {
 	private var enemiesHurtTweenMap: Map<Enemy, FlxTween> = new Map<Enemy, FlxTween>();
 	
 	private function OnEnemyHurtCallback(player: Player, enemy: Enemy) {
-		enemy.hp -= player.sliceDmg;
+		// TODO ISSUE: on CPP, it crashes because player is null wtf
+		enemy.hp -= level.player.sliceDmg;
 		
 		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
 			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
@@ -191,7 +193,6 @@ class PlayState extends FlxState {
 				}
 			});
 		}
-		
 		
 		if (enemy.hp <= 0) {
 			OnEnemyDiesCallBack(enemy);

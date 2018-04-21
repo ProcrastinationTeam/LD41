@@ -86,6 +86,7 @@ class CdbLevel {
 	public var anchor					: String;
 	
 	public var tileSize = 16;
+	private var stride = 15;
 	
 	public function new(levelDataName:String, ?anchor:String) {
 		this.levelDataName = levelDataName;
@@ -188,7 +189,12 @@ class CdbLevel {
 			// TODO: temp
 			var pickupSprite = new IngredientPickup(pickup.x, pickup.y, pickup.kindId);
 			pickupSprites.add(pickupSprite);
-			trace(pickupSprite);
+		}
+	}
+	
+	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
+		for (npc in npcs) {
+			spawnNpc(FlxPoint.weak(npc.x, npc.y), CdbData.npcs.get(npc.kindId));
 		}
 	}
 	
@@ -196,29 +202,28 @@ class CdbLevel {
 		for (spawnPoint in spawnPoints) {
 			for (mob in spawnPoint.mobs) {
 				if (FlxG.random.bool(mob.chance * 100)) {
-					var mobSprite = new FlxSprite(spawnPoint.x * levelData.props.tileSize, spawnPoint.y * levelData.props.tileSize);
-					mobSprite.immovable = true;
-					
-					mobSprite.x -= mob.npc.image.size / 2;
-					mobSprite.y -= mob.npc.image.size;
-					mobSprite.loadGraphic("assets/" + mob.npc.image.file, true, mob.npc.image.size, mob.npc.image.size, false);
-					mobSprite.animation.frameIndex = 2;
-					
-					for(anim in mob.npc.animations) {
-						mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y], anim.frameRate);
-					}
-					
-					//mobSprite.scale.set(0.5, 0.5);
-					//mobSprite.updateHitbox();
-					
-					mobSprite.animation.play("idle");
-					
-					npcSprites.add(mobSprite);
-					
+					spawnNpc(FlxPoint.weak(spawnPoint.x, spawnPoint.y), mob.npc);
 					break;
 				}
 			}
 		}
+	}
+	
+	private function spawnNpc(position: FlxPoint, npcData: CdbData.Npcs) {
+		var mobSprite = new FlxSprite(position.x * levelData.props.tileSize, position.y * levelData.props.tileSize);
+		mobSprite.drag.set(800, 800);
+		
+		mobSprite.loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
+		
+		for (anim in npcData.animations) {
+			trace(npcData.image);
+			mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * stride], anim.frameRate);
+		}
+		
+		mobSprite.animation.play("idle");
+		npcSprites.add(mobSprite);
+		
+		trace(mobSprite.getPosition(), npcData);
 	}
 	
 	// the first tile id is 1
@@ -788,15 +793,6 @@ class CdbLevel {
 					// No object with collision at this position
 					//trace('($x, $y)');
 				}
-			}
-		}
-	}
-	
-	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
-		for (npc in npcs) {
-			switch(npc.kindId) {
-				default:
-					// Ignore for now
 			}
 		}
 	}

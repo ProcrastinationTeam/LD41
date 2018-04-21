@@ -62,6 +62,8 @@ class PlayState extends FlxState {
 		// Adding the collisions group
 		add(level.collisionsGroup);
 		
+		add(level.player.peeler);
+		
 		// Camera setup
 		FlxG.camera.follow(level.player, FlxCameraFollowStyle.LOCKON, 0.5);
 		FlxG.camera.snapToTarget();

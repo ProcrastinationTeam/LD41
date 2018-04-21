@@ -16,7 +16,7 @@ class MenuState extends FlxState
 		super.update(elapsed);
 		
 		if (FlxG.mouse.justPressed) {
-			FlxG.switchState(new PlayState("FirstVillage"));
+			FlxG.switchState(new PlayState("Jungle", "Start"));
 		}
 		
 		if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE) {
@@ -24,7 +24,7 @@ class MenuState extends FlxState
 		} else if (FlxG.keys.justPressed.TWO  || FlxG.keys.justPressed.NUMPADTWO) {
 			FlxG.switchState(new LucasPlayState());
 		} else if (FlxG.keys.justPressed.THREE  || FlxG.keys.justPressed.NUMPADTHREE) {
-			FlxG.switchState(new GregouPlayState("FirstVillage"));
+			FlxG.switchState(new GregouPlayState("Jungle", "Start"));
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

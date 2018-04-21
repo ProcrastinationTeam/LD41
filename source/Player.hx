@@ -1,7 +1,6 @@
 package;
 
 import CdbData;
-import Data;
 import flixel.util.FlxTimer;
 
 import flixel.FlxG;

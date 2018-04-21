@@ -39,10 +39,10 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		loadGraphic(AssetPaths.cook__png, true, spriteResolution, spriteResolution);
-		//setSize(8, 14);
-		//offset.set(4, 2);
+		setSize(20, 10);
+		offset.set(6, 22);
 		//scale.set(0.5, 0.5);
-		updateHitbox();
+		//updateHitbox();
 		//setFacingFlip(FlxObject.LEFT, false, false);
 		//setFacingFlip(FlxObject.RIGHT, true, false);
 		//animation.add("lr", [3, 4, 3, 5], 6, false);

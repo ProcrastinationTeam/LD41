@@ -513,39 +513,47 @@
 							"frames": [
 								{
 									"frame": {
-										"file": "images/CarrotHit.png",
+										"file": "images/sprite_shit.png",
 										"size": 32,
-										"x": 0,
+										"x": 7,
+										"y": 0
+									}
+								},
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 8,
 										"y": 0
 									}
 								}
 							],
-							"frameRate": 1
+							"frameRate": 2
 						},
 						{
 							"name": "attack",
 							"frames": [
 								{
 									"frame": {
-										"file": "images/CarrotHit.png",
+										"file": "images/sprite_shit.png",
 										"size": 32,
-										"x": 0,
+										"x": 10,
 										"y": 0
 									}
 								},
 								{
 									"frame": {
-										"file": "images/CarrotHit.png",
+										"file": "images/sprite_shit.png",
 										"size": 32,
-										"x": 1,
+										"x": 12,
 										"y": 0
 									}
 								},
 								{
 									"frame": {
-										"file": "images/CarrotHit.png",
+										"file": "images/sprite_shit.png",
 										"size": 32,
-										"x": 2,
+										"x": 11,
 										"y": 0
 									}
 								}
@@ -554,9 +562,9 @@
 						}
 					],
 					"image": {
-						"file": "images/CarrotHit.png",
+						"file": "images/sprite_shit.png",
 						"size": 32,
-						"x": 0,
+						"x": 7,
 						"y": 0
 					},
 					"drop": "Carrot"
@@ -570,14 +578,36 @@
 							"frames": [
 								{
 									"frame": {
-										"file": "images/mrpepper.0.1.png",
+										"file": "images/sprite_shit.png",
 										"size": 32,
-										"x": 0,
-										"y": 0
+										"x": 9,
+										"y": 1
 									}
 								}
 							],
 							"frameRate": 5
+						},
+						{
+							"name": "attack",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 10,
+										"y": 1
+									}
+								},
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 11,
+										"y": 1
+									}
+								}
+							],
+							"frameRate": 8
 						}
 					],
 					"image": {

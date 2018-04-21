@@ -31,8 +31,8 @@ import flixel.FlxG;
 class CdbLevel {
 	// "Entities"
 	public var player 					: Player;
-	public var npcSprites 				: FlxTypedSpriteGroup<Enemy>	= new FlxTypedSpriteGroup<Enemy>();
-	public var pickupSprites 			: FlxSpriteGroup				= new FlxSpriteGroup();
+	public var npcSprites 				: FlxTypedSpriteGroup<Enemy>						= new FlxTypedSpriteGroup<Enemy>();
+	public var pickupSprites 			: FlxTypedSpriteGroup<IngredientPickup>				= new FlxTypedSpriteGroup<IngredientPickup>();
 	
 	// Properties of the map (tile props and object props)
 	public var mapOfObjects				: Map<Int, Set> 				= new Map<Int, Set>();
@@ -85,7 +85,7 @@ class CdbLevel {
 	
 	public var anchor					: String;
 	
-	public var tileSize = 16;
+	public var tileSize = 32;
 	private var stride = 15;
 	
 	public function new(levelDataName:String, ?anchor:String) {
@@ -187,7 +187,7 @@ class CdbLevel {
 	private function processPickups(pickups:ArrayRead < CdbData.LevelDatas_ingredients > ):Void {
 		for (pickup in pickups) {
 			// TODO: temp
-			var pickupSprite = new IngredientPickup(pickup.x, pickup.y, pickup.kindId);
+			var pickupSprite = new IngredientPickup(pickup.x * tileSize, pickup.y * tileSize, pickup.kindId);
 			pickupSprites.add(pickupSprite);
 		}
 	}

@@ -32,6 +32,8 @@ class Player extends FlxSprite
 	public var attackTimer:FlxTimer;
 	public var canAttackTimer:FlxTimer;
 	public var canAttack:Bool = true;
+	public var cooledDown:Bool = true;
+	public var keyReleased:Bool = true;
 	
 	public var aimAt:Int = 1;  //0 : Up , 1 Down, 2 Left, 3 Right
 	
@@ -141,7 +143,7 @@ class Player extends FlxSprite
 	
 	private function resetAttack(Timer:FlxTimer):Void
 	{
-		canAttack = true;
+		cooledDown = true;
 	}
 	
 	//private function attackEnd(_):Void
@@ -149,9 +151,6 @@ class Player extends FlxSprite
 	{
 		peeler.visible = false;
 		peeler.facing = FlxObject.RIGHT;
-		//peeler.angle = 0;
-		//peeler.set_alpha(1);
-		//trace("end attack");
 	}
 	
 	private function aim():Void
@@ -177,6 +176,7 @@ class Player extends FlxSprite
 			
 		if (_up || _down || _left || _right)
 		{
+			keyReleased = false;
 			if (_up)
 			{
 				aimAt = 0;
@@ -229,9 +229,7 @@ class Player extends FlxSprite
 			peeler.y = this.y + offsetY;
 			peeler.visible = true;
 			canAttack = false;
-			//var options:TweenOptions = { type: FlxTween.ONESHOT, ease: FlxEase.circInOut, onComplete: attackEnd };
-			//FlxTween.linearPath(peeler, UpPath, atckDuration, options);
-			//FlxTween.circularMotion(peeler, x, y, spriteResolution, peeler.angle - 90, true, atckDuration, true, options);
+			cooledDown = false;
 			attackTimer.start(atckDuration, attackEnd);
 			canAttackTimer.start(atckSpeed, resetAttack);
 		}
@@ -261,6 +259,14 @@ class Player extends FlxSprite
 	
 	override public function update(elapsed:Float):Void 
 	{
+		if (FlxG.keys.anyJustReleased([UP, DOWN, RIGHT, LEFT]))
+		{
+			keyReleased = true;
+		}
+		if (keyReleased && cooledDown)
+		{
+			canAttack = true;
+		}
 		movement();
 		aim();
 		attack();

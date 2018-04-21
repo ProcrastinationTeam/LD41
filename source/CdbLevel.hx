@@ -1,6 +1,5 @@
 package;
 
-import CdbData;
 import cdb.Data.LayerMode;
 import cdb.TileBuilder;
 import cdb.Types.ArrayRead;
@@ -15,6 +14,7 @@ import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import typedefs.Goto;
 import typedefs.Set;
+import CdbData;
 
 //var jdffdgdfg:cdb.CdbData.TilesetProps;
 
@@ -34,7 +34,7 @@ class CdbLevel {
 	public var pickupSprites 			: FlxSpriteGroup				= new FlxSpriteGroup();
 	
 	// Properties of the map (tile props and object props)
-	public var mapOfObjects			: Map<Int, Set> 					= new Map<Int, Set>();
+	public var mapOfObjects				: Map<Int, Set> 				= new Map<Int, Set>();
 	public var mapOfProps				: Map<Int, Dynamic> 			= new Map<Int, Dynamic>();
 	
 	// Tilemaps
@@ -762,6 +762,7 @@ class CdbLevel {
 					var finrod = CdbData.npcs.get(CdbData.NpcsKind.Finrod);
 					var finrodSprite = new FlxSprite(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
 					finrodSprite.immovable = true;
+					
 					finrodSprite.x -= finrod.image.size / 2;
 					finrodSprite.y -= finrod.image.size;
 					finrodSprite.loadGraphic("assets/" + finrod.image.file, true, finrod.image.size * finrod.image.width, finrod.image.size * finrod.image.height, false);
@@ -773,6 +774,28 @@ class CdbLevel {
 					finrodSprite.animation.play("idle");
 					
 					npcSprites.add(finrodSprite);
+					
+				case NpcsKind.Carrot:
+					var carrot = CdbData.npcs.get(CdbData.NpcsKind.Carrot);
+					var carrotSprite = new FlxSprite(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
+					carrotSprite.immovable = true;
+					
+					carrotSprite.x -= carrot.image.size / 2;
+					carrotSprite.y -= carrot.image.size;
+					trace(carrot);
+					carrotSprite.loadGraphic("assets/" + carrot.image.file, true, carrot.image.size, carrot.image.size, false);
+					carrotSprite.animation.frameIndex = 2;
+					
+					for(anim in carrot.animations) {
+						carrotSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y], anim.frameRate);
+					}
+					
+					carrotSprite.scale.set(0.5, 0.5);
+					carrotSprite.updateHitbox();
+					
+					carrotSprite.animation.play("attack");
+					
+					npcSprites.add(carrotSprite);
 					
 				default:
 					// Ignore for now

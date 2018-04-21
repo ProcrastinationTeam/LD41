@@ -598,7 +598,7 @@
 				},
 				{
 					"id": "Chicken",
-					"name": "",
+					"name": "Mr Chicken",
 					"hasPortrait": false,
 					"animations": [],
 					"animSpeed": 0.5,
@@ -611,7 +611,7 @@
 				},
 				{
 					"id": "Fish",
-					"name": "",
+					"name": "Mr Fish",
 					"hasPortrait": false,
 					"animations": [],
 					"animSpeed": 0.5,
@@ -624,7 +624,7 @@
 				},
 				{
 					"id": "Cow",
-					"name": "",
+					"name": "Mr Cow",
 					"hasPortrait": false,
 					"animations": [],
 					"animSpeed": 0.5,
@@ -634,14 +634,70 @@
 						"x": 34,
 						"y": 9
 					}
+				},
+				{
+					"id": "Carrot",
+					"name": "Mr Carrot",
+					"hasPortrait": false,
+					"animations": [
+						{
+							"name": "idle",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/CarrotHit.png",
+										"size": 32,
+										"x": 0,
+										"y": 0
+									}
+								}
+							],
+							"frameRate": 1
+						},
+						{
+							"name": "attack",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/CarrotHit.png",
+										"size": 32,
+										"x": 0,
+										"y": 0
+									}
+								},
+								{
+									"frame": {
+										"file": "images/CarrotHit.png",
+										"size": 32,
+										"x": 1,
+										"y": 0
+									}
+								},
+								{
+									"frame": {
+										"file": "images/CarrotHit.png",
+										"size": 32,
+										"x": 2,
+										"y": 0
+									}
+								}
+							],
+							"frameRate": 7
+						}
+					],
+					"animSpeed": 1,
+					"image": {
+						"file": "images/CarrotHit.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					}
 				}
 			],
 			"separators": [
 				2
 			],
 			"props": {
-				"separatorTitles": [
-				],
 				"displayIcon": "image"
 			}
 		},
@@ -1358,6 +1414,12 @@
 							"x": 30,
 							"y": 2,
 							"kind": "Hero",
+							"Name": ""
+						},
+						{
+							"x": 32,
+							"y": 8,
+							"kind": "Carrot",
 							"Name": ""
 						}
 					],

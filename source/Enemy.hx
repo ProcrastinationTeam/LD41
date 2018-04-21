@@ -7,6 +7,7 @@ class Enemy extends FlxSprite
 {
 
 	public var npcType			: CdbData.NpcsKind;
+	public var npc				: CdbData.Npcs;
 	public var level			: Int;
 	public var hp				: Float;
 	
@@ -31,6 +32,7 @@ class Enemy extends FlxSprite
 		allowCollisions = FlxObject.NONE;
 		
 		npcType = npcData.id;
+		npc = npcData;
 		level = FlxG.random.int(0, 2);
 		switch(level) {
 			case 0:
@@ -45,7 +47,7 @@ class Enemy extends FlxSprite
 		}
 	}
 	
-	public function drop() {
+	public function getDrops(): Array<FlxSprite> {
 		var numberOfDrops = 1;
 		
 		switch(level) {
@@ -57,10 +59,12 @@ class Enemy extends FlxSprite
 				var numberOfDrops = 2;
 		}
 		
-		for (i in 0...Std.int(numberOfDrops)+1) {
-			//var drop = new IngredientPickup(x + FlxG.random.int( -16, 16), y + FlxG.random.int(16, 16), kind);
-			
+		var array:Array<FlxSprite> = new Array<FlxSprite>();
+		for (i in 0...Std.int(numberOfDrops) + 1) {
+			var drop = new IngredientPickup(x + FlxG.random.int( -16, 16), y + FlxG.random.int( -16, 16), npc.drop.name);
+			array.push(drop);
 		}
+		
+		return array;
 	}
-	
 }

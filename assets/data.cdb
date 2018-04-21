@@ -418,8 +418,7 @@
 				},
 				{
 					"typeStr": "6:ingredients",
-					"name": "drop",
-					"opt": true
+					"name": "drop"
 				},
 				{
 					"typeStr": "3",
@@ -719,7 +718,8 @@
 						"size": 32,
 						"x": 12,
 						"y": 1
-					}
+					},
+					"drop": "Chicken"
 				}
 			],
 			"separators": [

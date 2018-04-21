@@ -9,7 +9,7 @@ class IngredientPickup extends FlxSprite
 	public var tileSize			: Int 						= 32;
 	public var stride 			: Int						= 15;
 	
-	public function new(x: Int, y: Int, ingredient:CdbData.IngredientsKind) {		
+	public function new(x: Float, y: Float, ingredient:CdbData.IngredientsKind) {		
 		super(x * tileSize, y * tileSize);
 		
 		var data = CdbData.ingredients.get(ingredient);

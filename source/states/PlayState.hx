@@ -1,7 +1,5 @@
 package states;
 
-import AssetPaths;
-import Data;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -33,12 +31,7 @@ class PlayState extends FlxState {
 			levelDataName = "FirstVillage";
 		}
 		
-		// Init cdb
-		//var content:String = File.getContent(AssetPaths.data__cdb);
-		var content:String = Assets.getText(AssetPaths.data__cdb);
-		Data.load(content);
-		
-		//levelData = Data.levelDatas.resolve(levelDataName);
+		CdbData.load(Assets.getText(AssetPaths.data__cdb));
 		
 		level = new CdbLevel(levelDataName, anchor);
 		
@@ -86,8 +79,6 @@ class PlayState extends FlxState {
 		level.sortableGroup.sort(sortByY, FlxSort.DESCENDING);
 		
 		// Collisions handling
-		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
-		
 		FlxG.collide(level.player, level.npcSprites);
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
@@ -116,6 +107,12 @@ class PlayState extends FlxState {
 			level.tilemapOver.visible = !level.tilemapOver.visible;
 		}
 		#end
+		
+		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
+			FlxG.resetGame();
+		} else if (FlxG.keys.justPressed.R) {
+			FlxG.resetState();
+		}
 	}
 	
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {
@@ -124,14 +121,6 @@ class PlayState extends FlxState {
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
 			FlxG.switchState(new PlayState(goto.l, goto.anchor));
 		});
-	}
-	
-	private function PlayerPickup(player:Player, pickup:Pickup):Void
-	{
-		if (player.alive && player.exists && pickup.alive && pickup.exists)
-		{
-			pickup.kill();
-		}
 	}
 	
 	/**

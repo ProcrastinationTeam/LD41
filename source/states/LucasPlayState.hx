@@ -19,9 +19,6 @@ class LucasPlayState extends FlxState
 		super.create();
 		trace('lucas');
 		
-		var content:String = Assets.getText(AssetPaths.data__cdb);
-		Data.load(content);
-		
 		inventory = new PlayerInventory(10);
 		add(inventory);
 		

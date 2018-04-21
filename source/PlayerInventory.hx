@@ -26,6 +26,7 @@ class PlayerInventory extends FlxSpriteGroup
 	var _ingredientArray: ArrayRead<Data.Ingredients>;
 	var _ingredientMap : Map<Data.IngredientsKind,Int>;
 	var _textGroup : Map<Data.IngredientsKind,FlxText>;
+
 	
 	
 	var nb: Int = 0;
@@ -46,6 +47,7 @@ class PlayerInventory extends FlxSpriteGroup
 		
 		
 		_textGroup = new Map<Data.IngredientsKind,FlxText>();
+
 		
 		
 		for (ingredient in _ingredientArray)

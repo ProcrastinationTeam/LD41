@@ -19,7 +19,7 @@ class LucasPlayState extends FlxState
 		super.create();
 		trace('lucas');
 		
-		inventory = new PlayerInventory(10);
+		inventory = new PlayerInventory();
 		add(inventory);
 		
 		

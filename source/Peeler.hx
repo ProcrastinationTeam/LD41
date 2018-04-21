@@ -7,6 +7,7 @@ import flixel.math.FlxPoint;
 
 class Peeler extends FlxSprite 
 {
+	public var spriteResolution: Int = 32;
 	public var maxHealth:Float = 100;
 	public var currentHealt:Float = 100;
 	public var speed:Float = 200;
@@ -18,12 +19,12 @@ class Peeler extends FlxSprite
 	public function new() 
 	{
 		super();
-		loadGraphic(AssetPaths.knife__1__0__png, true, 32, 32);
+		loadGraphic(AssetPaths.knife__1__0__png, true, spriteResolution, spriteResolution);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-		setSize(8, 14);
-		offset.set(4, 2);
-		scale.set(0.5, 0.5);
+		//setSize(8, 14);
+		//offset.set(4, 2);
+		//scale.set(0.5, 0.5);
 		updateHitbox();
 		//animation.add("lr", [3, 4, 3, 5], 6, false);
 		//animation.add("u", [6, 7, 6, 8], 6, false);

@@ -16,8 +16,8 @@ class PlayerInventory extends FlxSpriteGroup
 {
 	var _numberOfInGameItems: Int;
 	
-	var _spriteSize :Int = 32;
-	var _computedScale :Float;
+	public var _spriteSize :Int = 32;
+	public var _computedScale :Float;
 	
 	var _inventoryCanvas: FlxSprite;
 	var _text : FlxText;
@@ -31,7 +31,7 @@ class PlayerInventory extends FlxSpriteGroup
 	
 	var nb: Int = 0;
 	
-	public function new(_nbTotalOfItems : Int) 
+	public function new() 
 	{
 		super();
 
@@ -83,7 +83,7 @@ class PlayerInventory extends FlxSpriteGroup
 	
 	override public function update(elapsed: Float)
 	{
-		
+
 	}
 	
 	public function updateValueSub(kind: CdbData.IngredientsKind, value : Int)

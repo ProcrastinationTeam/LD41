@@ -1,6 +1,8 @@
 package;
 
 import CdbData;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 
 import flixel.FlxG;
@@ -11,6 +13,7 @@ import flixel.math.FlxPoint;
 class Player extends FlxSprite 
 {
 	public var spriteResolution:Int = 32;
+	
 	public var maxHealth:Float = 100;
 	public var currentHealt:Float = 100;
 	public var speed:Float = 200;
@@ -19,9 +22,10 @@ class Player extends FlxSprite
 	public var range:Float = 5;
 	public var armor:Float = 0;
 	public var dmgReduction:Float = 0;
-	
 	public var atckSpeed:Float = 0.5;
 	public var atckDuration:Float = 0.2;
+	
+	
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
 	
@@ -35,14 +39,15 @@ class Player extends FlxSprite
 	
 	public var peeler:Peeler;
 	
+	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
 		loadGraphic(AssetPaths.cook__png, true, spriteResolution, spriteResolution);
-		//setSize(8, 14);
-		//offset.set(4, 2);
+		setSize(20, 10);
+		offset.set(6, 22);
 		//scale.set(0.5, 0.5);
-		updateHitbox();
+		//updateHitbox();
 		//setFacingFlip(FlxObject.LEFT, false, false);
 		//setFacingFlip(FlxObject.RIGHT, true, false);
 		//animation.add("lr", [3, 4, 3, 5], 6, false);
@@ -51,15 +56,18 @@ class Player extends FlxSprite
 		drag.x = drag.y = 1600;
 		
 		peeler = new Peeler();
-		peeler.setSize(4, 2);
-		peeler.offset.set(0, 16);
-		peeler.updateHitbox();
+		
+		peeler.setSize(spriteResolution - 5, 10);
+		peeler.offset.set(0, spriteResolution / 3);
+		
 		peeler.visible = false;
 		
-		offsetValue = Std.int(spriteResolution/2) + Std.int((2 * spriteResolution / 3));
+		offsetValue = Std.int(spriteResolution/2) + Std.int((2 * spriteResolution / 6));
 		
 		attackTimer = new FlxTimer();
 		canAttackTimer = new FlxTimer();
+		
+		
 		
 		
 	}
@@ -139,11 +147,14 @@ class Player extends FlxSprite
 		canAttack = true;
 	}
 	
+	//private function attackEnd(_):Void
 	private function attackEnd(Timer:FlxTimer):Void
 	{
 		peeler.visible = false;
 		peeler.facing = FlxObject.RIGHT;
 		peeler.angle = 0;
+		//peeler.set_alpha(1);
+		//trace("end attack");
 	}
 	
 	private function aim():Void
@@ -177,6 +188,7 @@ class Player extends FlxSprite
 				offsetX = 0;
 				peeler.facing = FlxObject.UP;
 				peeler.angle = -90;
+				//UpPath = [FlxPoint.get(x+spriteResolution/2, y), FlxPoint.get(x+spriteResolution/4, y - spriteResolution / 4), FlxPoint.get(x, y - spriteResolution)];
 			}
 			else if (_down)
 			{
@@ -209,6 +221,9 @@ class Player extends FlxSprite
 			peeler.y = this.y + offsetY;
 			peeler.visible = true;
 			canAttack = false;
+			//var options:TweenOptions = { type: FlxTween.ONESHOT, ease: FlxEase.circInOut, onComplete: attackEnd };
+			//FlxTween.linearPath(peeler, UpPath, atckDuration, options);
+			//FlxTween.circularMotion(peeler, x, y, spriteResolution, peeler.angle - 90, true, atckDuration, true, options);
 			attackTimer.start(atckDuration, attackEnd);
 			canAttackTimer.start(atckSpeed, resetAttack);
 		}
@@ -231,7 +246,7 @@ class Player extends FlxSprite
 			if (_peel)
 			{
 				peeler.visible = true;
-				attackTimer.start(atckDuration, attackEnd);
+				//attackTimer.start(atckDuration, attackEnd);
 			}
 		}
 	}

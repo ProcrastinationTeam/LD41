@@ -19,12 +19,8 @@ class MenuState extends FlxState
 			FlxG.switchState(new PlayState("Jungle", "Start"));
 		}
 		
-		if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE) {
-			FlxG.switchState(new GuillaumePlayState("Jungle", "Start"));
-		} else if (FlxG.keys.justPressed.TWO  || FlxG.keys.justPressed.NUMPADTWO) {
+		 if (FlxG.keys.justPressed.TWO  || FlxG.keys.justPressed.NUMPADTWO) {
 			FlxG.switchState(new LucasPlayState());
-		} else if (FlxG.keys.justPressed.THREE  || FlxG.keys.justPressed.NUMPADTHREE) {
-			FlxG.switchState(new GregouPlayState("Jungle", "Start"));
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

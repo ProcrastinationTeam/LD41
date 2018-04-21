@@ -84,8 +84,6 @@ class GuillaumePlayState extends FlxState {
 		level.sortableGroup.sort(sortByY, FlxSort.DESCENDING);
 		
 		// Collisions handling
-		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
-		
 		FlxG.collide(level.player, level.npcSprites);
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
@@ -128,14 +126,6 @@ class GuillaumePlayState extends FlxState {
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
 			FlxG.switchState(new PlayState(goto.l, goto.anchor));
 		});
-	}
-	
-	private function PlayerPickup(player:Player, pickup:Pickup):Void
-	{
-		if (player.alive && player.exists && pickup.alive && pickup.exists)
-		{
-			pickup.kill();
-		}
 	}
 	
 	/**

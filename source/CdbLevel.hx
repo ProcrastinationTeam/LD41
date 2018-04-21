@@ -15,6 +15,7 @@ import flixel.util.FlxColor;
 import typedefs.Goto;
 import typedefs.Set;
 import CdbData;
+import flixel.FlxG;
 
 //var jdffdgdfg:cdb.CdbData.TilesetProps;
 
@@ -31,7 +32,6 @@ class CdbLevel {
 	// "Entities"
 	public var player 					: Player;
 	public var npcSprites 				: FlxSpriteGroup				= new FlxSpriteGroup();
-	public var pickupSprites 			: FlxSpriteGroup				= new FlxSpriteGroup();
 	
 	// Properties of the map (tile props and object props)
 	public var mapOfObjects				: Map<Int, Set> 				= new Map<Int, Set>();
@@ -102,16 +102,16 @@ class CdbLevel {
 		// trace(levelData.tileProps);
 		// trace(levelData.layers);
 		
-		trace(levelData.level);
+		//trace(levelData.level);
 		// Unique identifier (column is named "id" by default)
 		
-		trace(levelData.height);
+		//trace(levelData.height);
 		// Height (in tiles)
 		
-		trace(levelData.width);
+		//trace(levelData.width);
 		// Width (in tiles)
 		
-		trace(levelData.props);
+		//trace(levelData.props);
 		// layers : Array<{ 
 		// 		l (layer) : String, (layer's name)
 		//		p (props) : { 
@@ -122,13 +122,13 @@ class CdbLevel {
 		// }>,
 		// tileSize : Int (size of the map tiles, one tile is [tileSize] pixels wide)
 		
-		trace(levelData.tileProps);
+		//trace(levelData.tileProps);
 		// TODO: 
 		// Gibberish ? Each column is a new item in the list in the palette in the level editor (lots of "in the")
 		// Each row ?
 		
 		// trace(levelData.layers);
-		traceLayers(levelData);
+		//traceLayers(levelData);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// TODO: More generic
@@ -145,17 +145,13 @@ class CdbLevel {
 		// Process npcs (and player)
 		processNpcs(levelData.npcs);
 		
-		// Process pickups
-		processPickups(levelData.pickups);
-		
 		// Process triggers
 		processTriggerZones(levelData.triggers);
 		
+		// Process spawn points
+		processNpcSpawnZones(levelData.npcSpawnPoints);
+		
 		for (item in objectsGroup) {
-			sortableGroup.add(item);
-		}
-		// pickups (custom layer)
-		for (item in pickupSprites) {
 			sortableGroup.add(item);
 		}
 		// npcs
@@ -179,6 +175,35 @@ class CdbLevel {
 		if (anchor != null) {
 			var newPosition = mapOfAnchor.get(anchor);
 			player.reset(newPosition.x * levelData.props.tileSize, newPosition.y * levelData.props.tileSize);
+		}
+	}
+	
+	private function processNpcSpawnZones(spawnPoints:ArrayRead < CdbData.LevelDatas_npcSpawnPoints > ):Void {
+		for (spawnPoint in spawnPoints) {
+			for (mob in spawnPoint.mobs) {
+				if (FlxG.random.bool(mob.chance * 100)) {
+					var mobSprite = new FlxSprite(spawnPoint.x * levelData.props.tileSize, spawnPoint.y * levelData.props.tileSize);
+					mobSprite.immovable = true;
+					
+					mobSprite.x -= mob.npc.image.size / 2;
+					mobSprite.y -= mob.npc.image.size;
+					mobSprite.loadGraphic("assets/" + mob.npc.image.file, true, mob.npc.image.size, mob.npc.image.size, false);
+					mobSprite.animation.frameIndex = 2;
+					
+					for(anim in mob.npc.animations) {
+						mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y], anim.frameRate);
+					}
+					
+					//mobSprite.scale.set(0.5, 0.5);
+					//mobSprite.updateHitbox();
+					
+					mobSprite.animation.play("idle");
+					
+					npcSprites.add(mobSprite);
+					
+					break;
+				}
+			}
 		}
 	}
 	
@@ -758,55 +783,9 @@ class CdbLevel {
 				case NpcsKind.Hero:			
 					player = new Player(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
 					
-				case NpcsKind.Finrod:
-					var finrod = CdbData.npcs.get(CdbData.NpcsKind.Finrod);
-					var finrodSprite = new FlxSprite(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
-					finrodSprite.immovable = true;
-					
-					finrodSprite.x -= finrod.image.size / 2;
-					finrodSprite.y -= finrod.image.size;
-					finrodSprite.loadGraphic("assets/" + finrod.image.file, true, finrod.image.size * finrod.image.width, finrod.image.size * finrod.image.height, false);
-					finrodSprite.animation.frameIndex = 2;
-					
-					for(anim in finrod.animations) {
-						finrodSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * finrod.image.width], anim.frameRate);
-					}
-					finrodSprite.animation.play("idle");
-					
-					npcSprites.add(finrodSprite);
-					
-				case NpcsKind.Carrot:
-					var carrot = CdbData.npcs.get(CdbData.NpcsKind.Carrot);
-					var carrotSprite = new FlxSprite(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
-					carrotSprite.immovable = true;
-					
-					carrotSprite.x -= carrot.image.size / 2;
-					carrotSprite.y -= carrot.image.size;
-					trace(carrot);
-					carrotSprite.loadGraphic("assets/" + carrot.image.file, true, carrot.image.size, carrot.image.size, false);
-					carrotSprite.animation.frameIndex = 2;
-					
-					for(anim in carrot.animations) {
-						carrotSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y], anim.frameRate);
-					}
-					
-					carrotSprite.scale.set(0.5, 0.5);
-					carrotSprite.updateHitbox();
-					
-					carrotSprite.animation.play("attack");
-					
-					npcSprites.add(carrotSprite);
-					
 				default:
 					// Ignore for now
 			}
-		}
-	}
-	
-	private function processPickups(pickups:ArrayRead < CdbData.LevelDatas_pickups > ):Void {
-		for (pickup in pickups) {
-			var pickupSprite = new Pickup(pickup);
-			pickupSprites.add(pickupSprite);
 		}
 	}
 	
@@ -836,8 +815,8 @@ class CdbLevel {
 					changeScreenTriggers.add(sprite);
 					mapOfGoto.set(sprite, goto);
 					
-				case CdbData.Action.ScrollStop:
-					// Osef (scrollbounds ?)
+				default: 
+					//
 			}
 		}
 	}
@@ -871,9 +850,9 @@ class CdbLevel {
 	
 	private function traces(levelData:CdbData.LevelDatas):Void {
 		trace("items : ");
-		for (item in CdbData.items.all) {
-			trace(item);
-		}
+		//for (item in CdbData.items.all) {
+			//trace(item);
+		//}
 		trace("npcs : ");
 		for (npc in CdbData.npcs.all) {
 			trace(npc);
@@ -884,11 +863,11 @@ class CdbLevel {
 		}
 		
 		//trace(CdbData.ItemsKind);
-		trace(CdbData.items.get(CdbData.ItemsKind.Sword));
-		trace(CdbData.items.resolve("Sword"));
+		//trace(CdbData.items.get(CdbData.ItemsKind.Sword));
+		//trace(CdbData.items.resolve("Sword"));
 		
 		// Ok
-		trace(CdbData.items.resolve("Guinea Pig", true));
+		//trace(CdbData.items.resolve("Guinea Pig", true));
 		
 		// Would crash because there is no "Guinea Pig" object (sadly)
 		//trace(CdbData.items.resolve("Guinea Pig", false));

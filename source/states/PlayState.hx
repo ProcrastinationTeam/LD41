@@ -31,6 +31,8 @@ class PlayState extends FlxState {
 			levelDataName = "FirstVillage";
 		}
 		
+		CdbData.load(Assets.getText(AssetPaths.data__cdb));
+		
 		level = new CdbLevel(levelDataName, anchor);
 		
 		//////////////////////////////////////// Add all the layers in the right order
@@ -107,6 +109,12 @@ class PlayState extends FlxState {
 			level.tilemapOver.visible = !level.tilemapOver.visible;
 		}
 		#end
+		
+		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
+			FlxG.resetGame();
+		} else if (FlxG.keys.justPressed.R) {
+			FlxG.resetState();
+		}
 	}
 	
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {

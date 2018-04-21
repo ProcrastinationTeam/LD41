@@ -7,8 +7,11 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import flixel.util.FlxTimer;
 import openfl.Assets;
 import typedefs.Goto;
 
@@ -134,10 +137,9 @@ class PlayState extends FlxState {
 			level.tilemapOver.visible = !level.tilemapOver.visible;
 		}
 		if (FlxG.keys.justPressed.K) {
-			var t = level.npcSprites.getRandom(0, 0).getDrops();
-			trace(t);
-			for (sprite in t) {
-				add(sprite);
+			if (level.npcSprites.length > 0) {
+				var randomEnemy = level.npcSprites.getRandom(0, 0);
+				OnEnemyHurtCallback(level.player, randomEnemy);
 			}
 		}
 		#end
@@ -171,6 +173,31 @@ class PlayState extends FlxState {
 			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
 		}
+	}
+	
+	private function OnEnemyHurtCallback(player: Player, enemy: Enemy) {
+		enemy.hp -= player.sliceDmg;
+		
+		var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+		new FlxTimer().start(0.4, function(timer:FlxTimer):Void {
+			tweenEnemy.cancel();
+			if (enemy != null) {
+				enemy.alpha = 1;
+			}
+		});
+		
+		if (enemy.hp <= 0) {
+			OnEnemyDiesCallBack(enemy);
+		}
+	}
+	
+	private function OnEnemyDiesCallBack(enemy: Enemy) {
+		for (drop in enemy.getDrops()) {
+			add(drop);
+			level.pickupSprites.add(drop);
+		}
+		enemy.kill();
+		level.npcSprites.remove(enemy, true);
 	}
 	
 	/**

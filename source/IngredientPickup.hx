@@ -10,7 +10,7 @@ class IngredientPickup extends FlxSprite
 	public var stride 			: Int						= 15;
 	
 	public function new(x: Float, y: Float, ingredient:CdbData.IngredientsKind) {		
-		super(x * tileSize, y * tileSize);
+		super(x, y);
 		
 		var data = CdbData.ingredients.get(ingredient);
 		var tileset = CdbData.levelDatas.get(LevelDatasKind.Cellar_32_1).props.getTileset(CdbData.levelDatas, data.image.file);

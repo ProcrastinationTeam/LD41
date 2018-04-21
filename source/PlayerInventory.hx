@@ -23,7 +23,7 @@ class PlayerInventory extends FlxSpriteGroup
 	var _text : FlxText;
 	
 	var _ingredientSpriteArray: FlxSpriteGroup;
-	var _ingredientArray: ArrayRead<CdbData.Ingredients>;
+	public var _ingredientArray: ArrayRead<CdbData.Ingredients>;
 	var _ingredientMap : Map<CdbData.IngredientsKind,Int>;
 	var _textGroup : Map<CdbData.IngredientsKind,FlxText>;
 

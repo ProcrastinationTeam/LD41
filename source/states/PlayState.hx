@@ -69,7 +69,7 @@ class PlayState extends FlxState {
 		add(level.collisionsGroup);
 		
 		add(level.player.peeler);
-		
+		add(level.player.knife);
 		
 		
 		

@@ -43,6 +43,7 @@ class Player extends FlxSprite
 	public var knife:Knife;
 	
 	public var currentWeapon:Int = 0;
+	public var keySpaceReleased:Bool = true;
 	
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
@@ -72,27 +73,41 @@ class Player extends FlxSprite
 		
 	}
 	
+	private function changeWeapon():Void
+	{
+		if (keySpaceReleased == false)
+		{
+			return;
+		}
+		
+		
+		var _change:Bool = false;
+		
+		_change = FlxG.keys.anyPressed([SPACE]);
+
+		if (_change) 
+		{
+			keySpaceReleased = false;
+			if (currentWeapon == 0)
+				currentWeapon = 1;
+			else
+				currentWeapon = 0;
+		}
+	}
+	
 	private function movement():Void
 	{
 		var _up:Bool = false;
 		var _down:Bool = false;
 		var _left:Bool = false;
 		var _right:Bool = false;
-		var _change:Bool = false;
+		
 		
 		_up = FlxG.keys.anyPressed([Z]);
 		_down = FlxG.keys.anyPressed([S]);
 		_left = FlxG.keys.anyPressed([Q]);
 		_right = FlxG.keys.anyPressed([D]);
-		_change = FlxG.keys.anyPressed([SPACE]);
-
-		if (_change) 
-		{
-			if (currentWeapon == 0)
-				currentWeapon = 1;
-			else
-				currentWeapon = 0;
-		}
+		
 		if (_up && _down)
 			_up = _down = false;
 		if (_left && _right)
@@ -249,7 +264,7 @@ class Player extends FlxSprite
 		}
 	}
 	
-private function aimPeeler():Void
+	private function aimPeeler():Void
 	{
 		if (!canAttack)
 		{
@@ -359,17 +374,24 @@ private function aimPeeler():Void
 		{
 			keyReleased = true;
 		}
+		if (FlxG.keys.anyJustReleased([SPACE]))
+		{
+			keySpaceReleased = true;
+		}
 		if (keyReleased && cooledDown)
 		{
 			canAttack = true;
 		}
 		movement();
+		changeWeapon();
 		if (currentWeapon == 0)
 		{
+			//trace("peeler");
 			aimPeeler();
 		}
 		else
 		{
+			//trace("knife");
 			aimKnife();
 		}
 		

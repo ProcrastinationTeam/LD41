@@ -23,9 +23,9 @@ class PlayerInventory extends FlxSpriteGroup
 	var _text : FlxText;
 	
 	var _ingredientSpriteArray: FlxSpriteGroup;
-	var _ingredientArray: ArrayRead<Data.Ingredients>;
-	var _ingredientMap : Map<Data.IngredientsKind,Int>;
-	var _textGroup : Map<Data.IngredientsKind,FlxText>;
+	var _ingredientArray: ArrayRead<CdbData.Ingredients>;
+	var _ingredientMap : Map<CdbData.IngredientsKind,Int>;
+	var _textGroup : Map<CdbData.IngredientsKind,FlxText>;
 
 	
 	
@@ -35,18 +35,18 @@ class PlayerInventory extends FlxSpriteGroup
 	{
 		super();
 
-		_numberOfInGameItems = Data.ingredients.all.length;
+		_numberOfInGameItems = CdbData.ingredients.all.length;
 		_computedScale = (FlxG.width / _numberOfInGameItems) / _spriteSize ;
 		_ingredientSpriteArray = new FlxSpriteGroup();
-		_ingredientArray = Data.ingredients.all;
-		_ingredientMap = new Map<Data.IngredientsKind,Int>();
+		_ingredientArray = CdbData.ingredients.all;
+		_ingredientMap = new Map<CdbData.IngredientsKind,Int>();
 		
 		this.setPosition(0, 0);
 		_inventoryCanvas = new FlxSprite(0, 0);
 		_inventoryCanvas.loadGraphic("assets/images/inventoryBorder.png", false, 32, 32, false);
 		
 		
-		_textGroup = new Map<Data.IngredientsKind,FlxText>();
+		_textGroup = new Map<CdbData.IngredientsKind,FlxText>();
 
 		
 		
@@ -86,7 +86,7 @@ class PlayerInventory extends FlxSpriteGroup
 		
 	}
 	
-	public function updateValueSub(kind: Data.IngredientsKind, value : Int)
+	public function updateValueSub(kind: CdbData.IngredientsKind, value : Int)
 	{
 		var computedValue = _ingredientMap.get(kind);
 		trace(computedValue);
@@ -108,7 +108,7 @@ class PlayerInventory extends FlxSpriteGroup
 	
 	
 	
-	public function updateValueAdd(kind: Data.IngredientsKind, value : Int)
+	public function updateValueAdd(kind: CdbData.IngredientsKind, value : Int)
 	{
 		var computedValue = _ingredientMap.get(kind);
 		trace(computedValue);

@@ -42,12 +42,12 @@ class LucasPlayState extends FlxState
 		
 		if (FlxG.keys.justPressed.NUMPADTHREE)
 		{
-			inventory.updateValueSub(Data.IngredientsKind.Avocado, 1);
+			inventory.updateValueSub(CdbData.IngredientsKind.Avocado, 1);
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADSIX)
 		{
-			inventory.updateValueAdd(Data.IngredientsKind.Avocado, 1);
+			inventory.updateValueAdd(CdbData.IngredientsKind.Avocado, 1);
 		}
 		
 		if (FlxG.keys.justPressed.ENTER)

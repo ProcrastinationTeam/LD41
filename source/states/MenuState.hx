@@ -20,7 +20,7 @@ class MenuState extends FlxState
 		}
 		
 		if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE) {
-			FlxG.switchState(new GuillaumePlayState("Jungle"));
+			FlxG.switchState(new GuillaumePlayState("Jungle", "Start"));
 		} else if (FlxG.keys.justPressed.TWO  || FlxG.keys.justPressed.NUMPADTWO) {
 			FlxG.switchState(new LucasPlayState());
 		} else if (FlxG.keys.justPressed.THREE  || FlxG.keys.justPressed.NUMPADTHREE) {

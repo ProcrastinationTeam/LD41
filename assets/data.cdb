@@ -610,7 +610,7 @@
 					"sizeY": 28,
 					"offsetX": 20,
 					"offsetY": 4,
-					"healthPoints": 50
+					"healthPoints": 40
 				},
 				{
 					"id": "Pepper",
@@ -681,6 +681,45 @@
 					"offsetX": 10,
 					"offsetY": 4,
 					"healthPoints": 50
+				},
+				{
+					"id": "Avocado",
+					"name": "Mr Avocado",
+					"animations": [
+						{
+							"name": "idle",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 12,
+										"y": 1
+									}
+								},
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 13,
+										"y": 1
+									}
+								}
+							],
+							"frameRate": 3
+						}
+					],
+					"sizeX": 20,
+					"sizeY": 28,
+					"offsetX": 6,
+					"offsetY": 4,
+					"healthPoints": 60,
+					"image": {
+						"file": "images/sprite_shit.png",
+						"size": 32,
+						"x": 12,
+						"y": 1
+					}
 				}
 			],
 			"separators": [
@@ -4965,7 +5004,7 @@
 			],
 			"lines": [
 				{
-					"name": "Pepper_attack",
+					"name": "PepperAttack",
 					"animation": [
 						{
 							"frame": {
@@ -4985,6 +5024,68 @@
 						}
 					],
 					"frameRate": 5
+				},
+				{
+					"name": "AvocadoAttack",
+					"animation": [
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 14,
+								"y": 1
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 14,
+								"y": 1
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 14,
+								"y": 1
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 14,
+								"y": 1
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 0,
+								"y": 2
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 1,
+								"y": 2
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 2,
+								"y": 2
+							}
+						}
+					],
+					"frameRate": 10
 				}
 			],
 			"separators": [],

@@ -1,11 +1,13 @@
 package;
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 
 class Enemy extends FlxSprite  
 {
 
-	public var numberOfDrops : Int;
+	public var level			: Int;
+	public var hp				: Float;
 	
 	public function new(?X:Float=0, ?Y:Float=0, npcData: CdbData.Npcs) 
 	{
@@ -26,5 +28,36 @@ class Enemy extends FlxSprite
 		offset.set(npcData.offsetX, npcData.offsetY);
 		
 		allowCollisions = FlxObject.NONE;
+		
+		level = FlxG.random.int(0, 2);
+		switch(level) {
+			case 0:
+				hp = npcData.healthPoints;
+				scale.set(1, 1);
+			case 1:
+				hp = npcData.healthPoints * 1.5;
+				scale.set(1.25, 1.25);
+			case 2:
+				hp = npcData.healthPoints * 2;
+				scale.set(1.5, 1.5);
+		}
 	}
+	
+	public function drop() {
+		var numberOfDrops = 1;
+		
+		switch(level) {
+			case 0:
+				var numberOfDrops = 1 + (FlxG.random.bool(25) ? 1 : 0);
+			case 1:
+				var numberOfDrops = 1 + (FlxG.random.bool(50) ? 1 : 0);
+			case 2:
+				var numberOfDrops = 2;
+		}
+		
+		for (i in 0...Std.int(numberOfDrops)+1) {
+			//var drop = new IngredientPickup(
+		}
+	}
+	
 }

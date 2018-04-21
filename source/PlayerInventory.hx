@@ -1,5 +1,6 @@
 package;
 
+import cdb.Types.ArrayRead;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
@@ -12,13 +13,29 @@ class PlayerInventory extends FlxSpriteGroup
 
 	var _inventoryCanvas: FlxSprite;
 	var _numberOfInGameItems: Int;
-	//var _inventoryMap : Map;
+	
+	var _ingredientSpriteArray: FlxSpriteGroup;
+	var _ingredientArray: ArrayRead<Data.Ingredients>;
+	
+	
+	
 	
 	public function new(_nbTotalOfItems : Int) 
 	{
 		super();
 		_numberOfInGameItems = _nbTotalOfItems;
 		
+		_ingredientSpriteArray = new FlxSpriteGroup();
+		
+		_ingredientArray = Data.ingredients.all;
+		
+		
+		for (ingredient in _ingredientArray)
+		{
+			trace("INGRE: " + ingredient.name);
+			trace("INGRE IMG: " + ingredient.sprite.file);
+			
+		}
 		
 		this.setPosition(0, 0);
 		_inventoryCanvas = new FlxSprite(0, 0);

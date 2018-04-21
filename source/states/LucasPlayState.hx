@@ -4,6 +4,7 @@ import flixel.FlxState;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.mouse.FlxMouseEventManager;
+import openfl.Assets;
 
 class LucasPlayState extends FlxState
 {
@@ -18,23 +19,31 @@ class LucasPlayState extends FlxState
 		super.create();
 		trace('lucas');
 		
-		cookBook = new CookBook();
-		
-		var chicken = new Ingredient(100, 100, 10, "chicken", IngredientType.Meat);
-		var fish = new Ingredient(150, 100, 10, "fish", IngredientType.Meat);
-		var steak = new Ingredient(200, 100, 10, "steak", IngredientType.Meat);
-		
-		add(chicken);
-		add(fish);
-		add(steak);
-		
-		gameIngredientList = new FlxTypedGroup<Ingredient>();
-		gameIngredientList.add(chicken);
-		gameIngredientList.add(fish);
-		gameIngredientList.add(steak);
+		var content:String = Assets.getText(AssetPaths.data__cdb);
+		Data.load(content);
 		
 		inventory = new PlayerInventory(10);
 		add(inventory);
+		
+		//cookBook = new CookBook();
+		
+		//var chicken = new Ingredient(100, 100, 10, "", IngredientType.Meat);
+		//var fish = new Ingredient(150, 100, 10, "fish", IngredientType.Meat);
+		//var steak = new Ingredient(200, 100, 10, "steak", IngredientType.Meat);
+		
+		//add(chicken);
+		//add(fish);
+		//add(steak);
+		
+		
+		
+		
+		gameIngredientList = new FlxTypedGroup<Ingredient>();
+		//gameIngredientList.add(chicken);
+		//gameIngredientList.add(fish);
+		//gameIngredientList.add(steak);
+		
+		
 		
 	}
 

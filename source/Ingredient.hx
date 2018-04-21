@@ -9,21 +9,23 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Ingredient extends FlxSprite 
 {
-	var _name: String;
+	// var _name: String;
 	var _imagePath : String;
-	var _type : IngredientType;
+	
+	var _type : Data.Ingredients_type;
+	var _name : Data.IngredientsKind;
 	
 	var _valueGame : Int;
 	
 	
-	public function new(?X:Float = 0, ?Y:Float = 0, pointValue: Int, name: String, type: IngredientType) 
+	public function new(?X:Float = 0, ?Y:Float = 0, pointValue: Int, type: Data.Ingredients_type, imagePath: String, name: Data.IngredientsKind) 
 	{
 		super(X, Y);
 		_name = name;
 		_type = type;
 		_valueGame = pointValue;
 		
-		this.loadGraphic("assets/images/" + name + "_Ingredient.png", true, 32, 32); 
+		this.loadGraphic("assets/images/" + imagePath, true, 32, 32); 
 		
 	}
 	

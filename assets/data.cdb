@@ -432,10 +432,10 @@
 					"id": "Hero",
 					"name": "Mr Belly",
 					"image": {
-						"file": "MisterBelly.png",
-						"size": 16,
+						"file": "images/cook_idle.1.1.png",
+						"size": 32,
 						"x": 0,
-						"y": 0
+						"y": 1
 					},
 					"animations": [
 						{
@@ -443,118 +443,44 @@
 							"frames": [
 								{
 									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
+										"file": "images/cook_idle.1.1.png",
+										"size": 32,
 										"x": 0,
+										"y": 0
+									}
+								},
+								{
+									"frame": {
+										"file": "images/cook_idle.1.1.png",
+										"size": 32,
+										"x": 1,
 										"y": 0
 									}
 								}
 							],
-							"frameRate": 10
+							"frameRate": 4
 						},
 						{
 							"name": "walk",
 							"frames": [
 								{
 									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 1,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 2,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 1,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
+										"file": "images/cook_idle.1.1.png",
+										"size": 32,
 										"x": 0,
 										"y": 0
 									}
-								}
-							],
-							"frameRate": 6
-						},
-						{
-							"name": "run",
-							"frames": [
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 4,
-										"y": 0
-									}
 								},
 								{
 									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 3,
+										"file": "images/cook_idle.1.1.png",
+										"size": 32,
+										"x": 1,
 										"y": 0
 									}
 								}
 							],
-							"frameRate": 6
-						},
-						{
-							"name": "text",
-							"frames": [
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 5,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 6,
-										"y": 0
-									}
-								}
-							],
-							"frameRate": 6
-						},
-						{
-							"name": "call",
-							"frames": [
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 7,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "MisterBelly.png",
-										"size": 16,
-										"x": 8,
-										"y": 0
-									}
-								}
-							],
-							"frameRate": 6
+							"frameRate": 7
 						}
 					]
 				},
@@ -699,6 +625,34 @@
 						"y": 0
 					},
 					"drop": "Carrot"
+				},
+				{
+					"id": "Pepper",
+					"name": "Mr Pepper",
+					"animations": [
+						{
+							"name": "idle",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/mrpepper.0.1.png",
+										"size": 32,
+										"x": 0,
+										"y": 0
+									}
+								}
+							],
+							"frameRate": 5
+						}
+					],
+					"image": {
+						"file": "images/mrpepper.0.1.png",
+						"size": 32,
+						"x": 0,
+						"y": 0
+					},
+					"animSpeed": 1,
+					"drop": "Chilipper"
 				}
 			],
 			"separators": [
@@ -4217,6 +4171,66 @@
 					"typeStr": "4",
 					"name": "chance",
 					"display": 1
+				}
+			]
+		},
+		{
+			"name": "effects",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "name",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "animation",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "frameRate",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"name": "Pepper_attack",
+					"animation": [
+						{
+							"frame": {
+								"file": "images/fireball.png",
+								"size": 32,
+								"x": 0,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/fireball.png",
+								"size": 32,
+								"x": 1,
+								"y": 0
+							}
+						}
+					],
+					"frameRate": 5
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "effects@animation",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "14",
+					"name": "frame"
 				}
 			]
 		}

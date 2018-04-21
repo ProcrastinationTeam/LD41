@@ -10,6 +10,7 @@ import flixel.math.FlxPoint;
 
 class Player extends FlxSprite 
 {
+	public var spriteResolution:Int = 32;
 	public var maxHealth:Float = 100;
 	public var currentHealt:Float = 100;
 	public var speed:Float = 200;
@@ -30,16 +31,17 @@ class Player extends FlxSprite
 	
 	public var aimAt:Int = 1;  //0 : Up , 1 Down, 2 Left, 3 Right
 	
-	public var offsetValue:Int = 12;
+	public var offsetValue:Int = 0;
 	
 	public var peeler:Peeler;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		loadGraphic(AssetPaths.cook__png, true, 32, 32);
-		setSize(8, 14);
-		offset.set(4, 2);
+
+		loadGraphic(AssetPaths.cook__png, true, spriteResolution, spriteResolution);
+		//setSize(8, 14);
+		//offset.set(4, 2);
 		//scale.set(0.5, 0.5);
 		updateHitbox();
 		//setFacingFlip(FlxObject.LEFT, false, false);
@@ -54,6 +56,8 @@ class Player extends FlxSprite
 		peeler.offset.set(0, 16);
 		peeler.updateHitbox();
 		peeler.visible = false;
+		
+		offsetValue = Std.int(spriteResolution/2) + Std.int((2 * spriteResolution / 3));
 		
 		attackTimer = new FlxTimer();
 		canAttackTimer = new FlxTimer();

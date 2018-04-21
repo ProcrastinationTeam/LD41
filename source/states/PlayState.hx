@@ -161,8 +161,7 @@ class PlayState extends FlxState {
 	{
 		if (player.alive && player.exists && ingredient.alive && ingredient.exists)
 		{
-			//inventory.updateValueAdd(ingredient.ingredientType, 1);
-			trace(ingredient.ingredientType);
+			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
 		}
 	}

@@ -14,6 +14,6 @@ class Main extends Sprite
 		// Init cdb
 		CdbData.load(Assets.getText(AssetPaths.data__cdb));
 		
-		addChild(new FlxGame(400, 400, MenuState));
+		addChild(new FlxGame(300, 300, MenuState));
 	}
 }

@@ -194,7 +194,7 @@ class CdbLevel {
 	
 	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
 		for (npc in npcs) {
-			spawnNpc(FlxPoint.weak(npc.x, npc.y), CdbData.npcs.get(npc.kindId));
+			spawnNpc(npc.x, npc.y, CdbData.npcs.get(npc.kindId));
 		}
 	}
 	
@@ -202,28 +202,30 @@ class CdbLevel {
 		for (spawnPoint in spawnPoints) {
 			for (mob in spawnPoint.mobs) {
 				if (FlxG.random.bool(mob.chance * 100)) {
-					spawnNpc(FlxPoint.weak(spawnPoint.x, spawnPoint.y), mob.npc);
+					spawnNpc(spawnPoint.x, spawnPoint.y, mob.npc);
 					break;
 				}
 			}
 		}
 	}
 	
-	private function spawnNpc(position: FlxPoint, npcData: CdbData.Npcs) {
-		var mobSprite = new FlxSprite(position.x * levelData.props.tileSize, position.y * levelData.props.tileSize);
-		mobSprite.drag.set(800, 800);
+	private function spawnNpc(x: Int, y: Int, npcData: CdbData.Npcs) {
 		
-		mobSprite.loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
-		
-		for (anim in npcData.animations) {
-			trace(npcData.image);
-			mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * stride], anim.frameRate);
-		}
-		
-		mobSprite.animation.play("idle");
+		var mobSprite = new Enemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 		npcSprites.add(mobSprite);
 		
-		trace(mobSprite.getPosition(), npcData);
+		//var mobSprite = new FlxSprite(x * levelData.props.tileSize, y * levelData.props.tileSize);
+		//mobSprite.drag.set(800, 800);
+		//
+		//mobSprite.loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
+		//
+		//for (anim in npcData.animations) {
+			//trace(npcData.image);
+			//mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * stride], anim.frameRate);
+		//}
+		//
+		//mobSprite.animation.play("idle");
+		//npcSprites.add(mobSprite);
 	}
 	
 	// the first tile id is 1

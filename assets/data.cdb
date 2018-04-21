@@ -420,6 +420,25 @@
 					"typeStr": "6:ingredients",
 					"name": "drop",
 					"opt": true
+				},
+				{
+					"typeStr": "3",
+					"name": "sizeX"
+				},
+				{
+					"typeStr": "3",
+					"name": "sizeY",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "offsetX",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "offsetY",
+					"display": null
 				}
 			],
 			"lines": [
@@ -448,7 +467,11 @@
 						"x": 35,
 						"y": 2
 					},
-					"drop": "Chicken"
+					"drop": "Chicken",
+					"sizeX": 0,
+					"sizeY": 0,
+					"offsetX": 0,
+					"offsetY": 0
 				},
 				{
 					"id": "Fish",
@@ -475,7 +498,11 @@
 						"x": 36,
 						"y": 2
 					},
-					"drop": "Fish"
+					"drop": "Fish",
+					"sizeX": 0,
+					"sizeY": 0,
+					"offsetX": 0,
+					"offsetY": 0
 				},
 				{
 					"id": "Cow",
@@ -502,7 +529,11 @@
 						"x": 34,
 						"y": 9
 					},
-					"drop": "Milk"
+					"drop": "Milk",
+					"sizeX": 0,
+					"sizeY": 0,
+					"offsetX": 0,
+					"offsetY": 0
 				},
 				{
 					"id": "Carrot",
@@ -567,7 +598,11 @@
 						"x": 7,
 						"y": 0
 					},
-					"drop": "Carrot"
+					"drop": "Carrot",
+					"sizeX": 10,
+					"sizeY": 28,
+					"offsetX": 20,
+					"offsetY": 4
 				},
 				{
 					"id": "Pepper",
@@ -632,7 +667,11 @@
 						"x": 9,
 						"y": 1
 					},
-					"drop": "Chilipper"
+					"drop": "Chilipper",
+					"sizeX": 12,
+					"sizeY": 28,
+					"offsetX": 10,
+					"offsetY": 4
 				}
 			],
 			"separators": [

@@ -7,10 +7,12 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.system.FlxSplash;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import openfl.Assets;
 import typedefs.Goto;
+import assetpaths.ImageAssetsPath;
 
 class GuillaumePlayState extends FlxState {
 	

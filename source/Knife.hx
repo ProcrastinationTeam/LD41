@@ -18,9 +18,9 @@ class Knife extends FlxSprite
 	public var range:Float = 5;
 	public var armorPen:Float = 0;
 	
-	public function new() 
+	public function new(?X:Float=0, ?Y:Float=0) 
 	{
-		super();
+		super(X, Y);
 		loadGraphic(AssetPaths.sprite_shit__png, true, spriteResolution, spriteResolution);
 		animation.frameIndex = 22;
 		setFacingFlip(FlxObject.RIGHT, false, false);

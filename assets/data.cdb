@@ -609,7 +609,7 @@
 					"sizeY": 28,
 					"offsetX": 20,
 					"offsetY": 4,
-					"healthPoints": 40
+					"healthPoints": 2000
 				},
 				{
 					"id": "Pepper",
@@ -679,7 +679,7 @@
 					"sizeY": 28,
 					"offsetX": 10,
 					"offsetY": 4,
-					"healthPoints": 50
+					"healthPoints": 2000
 				},
 				{
 					"id": "Avocado",
@@ -712,7 +712,7 @@
 					"sizeY": 28,
 					"offsetX": 6,
 					"offsetY": 4,
-					"healthPoints": 60,
+					"healthPoints": 2000,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,

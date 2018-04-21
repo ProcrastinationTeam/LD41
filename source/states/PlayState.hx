@@ -109,13 +109,14 @@ class PlayState extends FlxState {
 		// Collisions handling
 		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
 		
-		FlxG.collide(level.player, level.npcSprites);
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
 		FlxG.collide(level.player, level.groundObjectsGroup);
 		FlxG.collide(level.player, level.overObjectsGroup);
 		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
+		FlxG.overlap(level.player.peeler, level.npcSprites, OnEnemyHurtCallback);
+		FlxG.overlap(level.player.knife, level.npcSprites, OnEnemyHurtCallback);
 		
 		// Debug
 		#if debug
@@ -175,16 +176,22 @@ class PlayState extends FlxState {
 		}
 	}
 	
+	private var enemiesHurtTweenMap: Map<Enemy, FlxTween> = new Map<Enemy, FlxTween>();
+	
 	private function OnEnemyHurtCallback(player: Player, enemy: Enemy) {
 		enemy.hp -= player.sliceDmg;
 		
-		var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
-		new FlxTimer().start(0.4, function(timer:FlxTimer):Void {
-			tweenEnemy.cancel();
-			if (enemy != null) {
-				enemy.alpha = 1;
-			}
-		});
+		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
+			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+			enemiesHurtTweenMap.set(enemy, tweenEnemy);
+			new FlxTimer().start(0.4, function(timer:FlxTimer):Void {
+				tweenEnemy.cancel();
+				if (enemy != null) {
+					enemy.alpha = 1;
+				}
+			});
+		}
+		
 		
 		if (enemy.hp <= 0) {
 			OnEnemyDiesCallBack(enemy);

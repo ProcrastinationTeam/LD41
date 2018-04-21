@@ -29,7 +29,7 @@ class Enemy extends FlxSprite
 		setSize(npcData.sizeX, npcData.sizeY);
 		offset.set(npcData.offsetX, npcData.offsetY);
 		
-		allowCollisions = FlxObject.NONE;
+		allowCollisions = FlxObject.ANY;
 		
 		npcType = npcData.id;
 		npc = npcData;

@@ -439,6 +439,10 @@
 					"typeStr": "3",
 					"name": "offsetY",
 					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "healthPoints"
 				}
 			],
 			"lines": [
@@ -471,7 +475,8 @@
 					"sizeX": 0,
 					"sizeY": 0,
 					"offsetX": 0,
-					"offsetY": 0
+					"offsetY": 0,
+					"healthPoints": 0
 				},
 				{
 					"id": "Fish",
@@ -502,7 +507,8 @@
 					"sizeX": 0,
 					"sizeY": 0,
 					"offsetX": 0,
-					"offsetY": 0
+					"offsetY": 0,
+					"healthPoints": 0
 				},
 				{
 					"id": "Cow",
@@ -533,7 +539,8 @@
 					"sizeX": 0,
 					"sizeY": 0,
 					"offsetX": 0,
-					"offsetY": 0
+					"offsetY": 0,
+					"healthPoints": 0
 				},
 				{
 					"id": "Carrot",
@@ -602,7 +609,8 @@
 					"sizeX": 10,
 					"sizeY": 28,
 					"offsetX": 20,
-					"offsetY": 4
+					"offsetY": 4,
+					"healthPoints": 50
 				},
 				{
 					"id": "Pepper",
@@ -671,7 +679,8 @@
 					"sizeX": 12,
 					"sizeY": 28,
 					"offsetX": 10,
-					"offsetY": 4
+					"offsetY": 4,
+					"healthPoints": 50
 				}
 			],
 			"separators": [

@@ -1557,11 +1557,6 @@
 				}
 			],
 			"separators": [
-				1,
-				1,
-				1,
-				1,
-				1
 			],
 			"props": {
 				"level": {
@@ -4340,11 +4335,6 @@
 					}
 				},
 				"separatorTitles": [
-					"Reboss",
-					"Test",
-					"Extra Content",
-					"Demonia Tactics",
-					"_Antik"
 				],
 				"hasGroup": true
 			}

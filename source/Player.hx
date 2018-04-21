@@ -1,6 +1,8 @@
 package;
 
 import CdbData;
+import Data;
+import flixel.util.FlxTimer;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -13,13 +15,25 @@ class Player extends FlxSprite
 	public var currentHealt:Float = 100;
 	public var speed:Float = 200;
 	public var sliceDmg:Float = 10;
-	public var peelDmg: Float = 10;
+	public var peelDmg:Float = 10;
 	public var range:Float = 5;
 	public var armor:Float = 0;
 	public var dmgReduction:Float = 0;
+	
+	public var atckSpeed:Float = 0.5;
+	public var atckDuration:Float = 0.2;
+	public var offsetX:Float = 0;
+	public var offsetY:Float = 0;
+	
+	public var attackTimer:FlxTimer;
+	public var canAttackTimer:FlxTimer;
+	public var canAttack:Bool = true;
+	
 	public var aimAt:Int = 1;  //0 : Up , 1 Down, 2 Left, 3 Right
 	
+	public var offsetValue:Int = 12;
 	
+	public var peeler:Peeler;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -35,6 +49,16 @@ class Player extends FlxSprite
 		//animation.add("u", [6, 7, 6, 8], 6, false);
 		//animation.add("d", [0, 1, 0, 2], 6, false);
 		drag.x = drag.y = 1600;
+		
+		peeler = new Peeler();
+		peeler.setSize(4, 2);
+		peeler.offset.set(0, 16);
+		peeler.updateHitbox();
+		peeler.visible = false;
+		
+		attackTimer = new FlxTimer();
+		canAttackTimer = new FlxTimer();
+		
 		
 	}
 	
@@ -102,11 +126,30 @@ class Player extends FlxSprite
 						//animation.play("d");
 				//} 
 			//}
+			
 		}
+		peeler.x = this.x + offsetX;
+		peeler.y = this.y + offsetY;
+	}
+	
+	private function resetAttack(Timer:FlxTimer):Void
+	{
+		canAttack = true;
+	}
+	
+	private function attackEnd(Timer:FlxTimer):Void
+	{
+		peeler.visible = false;
+		peeler.facing = FlxObject.RIGHT;
+		peeler.angle = 0;
 	}
 	
 	private function aim():Void
 	{
+		if (!canAttack)
+		{
+			return;
+		}
 		var _up:Bool = false;
 		var _down:Bool = false;
 		var _left:Bool = false;
@@ -127,23 +170,45 @@ class Player extends FlxSprite
 			if (_up)
 			{
 				aimAt = 0;
-				//facing = FlxObject.UP;
+				facing = FlxObject.UP;
+				offsetY = -offsetValue;
+				offsetX = 0;
+				peeler.facing = FlxObject.UP;
+				peeler.angle = -90;
 			}
 			else if (_down)
 			{
 				aimAt = 1;
-				//facing = FlxObject.DOWN;
+				facing = FlxObject.DOWN;
+				offsetY = offsetValue;
+				offsetX = 0;
+				peeler.facing = FlxObject.DOWN;
+				peeler.angle = 90;
 			}
 			else if (_left)
 			{
 				aimAt = 2;
-				//facing = FlxObject.LEFT;
+				facing = FlxObject.LEFT;
+				offsetX = -offsetValue;
+				offsetY = 0;
+				peeler.facing = FlxObject.LEFT;
+				peeler.angle = 0;
 			}
 			else if (_right)
 			{
 				aimAt = 3;
-				//facing = FlxObject.RIGHT;
+				facing = FlxObject.RIGHT;
+				offsetX = offsetValue;
+				offsetY = 0;
+				peeler.facing = FlxObject.RIGHT;
+				peeler.angle = 0;
 			}
+			peeler.x = this.x + offsetX;
+			peeler.y = this.y + offsetY;
+			peeler.visible = true;
+			canAttack = false;
+			attackTimer.start(atckDuration, attackEnd);
+			canAttackTimer.start(atckSpeed, resetAttack);
 		}
 	}
 	
@@ -159,15 +224,21 @@ class Player extends FlxSprite
 		if (_peel && _slice)
 			_peel = _slice = false;
 			
-		//if (_peel || _slice)
-		//{	 
-			//
-		//}
+		if (_peel || _slice)
+		{	 
+			if (_peel)
+			{
+				peeler.visible = true;
+				attackTimer.start(atckDuration, attackEnd);
+			}
+		}
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		movement();
+		aim();
+		attack();
 		super.update(elapsed);
 	}
 }

@@ -1,0 +1,25 @@
+﻿Merge remote-tracking branch 'refs/remotes/origin/playerControl'
+
+# Conflicts:
+#	source/Player.hx
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   LD41.hxproj
+#	new file:   source/Peeler.hx
+#	modified:   source/Player.hx
+#	modified:   source/states/GregouPlayState.hx
+#
+

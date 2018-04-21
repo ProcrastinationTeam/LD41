@@ -15,7 +15,7 @@ class Player extends FlxSprite
 	public var spriteResolution:Int = 32;
 	
 	public var maxHealth:Float = 100;
-	public var currentHealt:Float = 100;
+	public var currentHealth:Float = 100;
 	public var speed:Float = 200;
 	public var sliceDmg:Float = 10;
 	public var peelDmg:Float = 10;
@@ -38,6 +38,8 @@ class Player extends FlxSprite
 	public var aimAt:Int = 1;  //0 : Up , 1 Down, 2 Left, 3 Right
 	
 	public var offsetValue:Int = 0;
+	
+	public var isAlive:Bool = true;
 	
 	public var peeler:Peeler;
 	public var knife:Knife;
@@ -348,28 +350,29 @@ class Player extends FlxSprite
 	
 	private function attack():Void
 	{
-		
-		var _peel:Bool = false;
-		var _slice:Bool = false;
-		
-		_peel = FlxG.keys.anyPressed([E]);
-		_slice = FlxG.keys.anyPressed([SPACE]);
-		
-		if (_peel && _slice)
-			_peel = _slice = false;
-			
-		if (_peel || _slice)
-		{	 
-			if (_peel)
-			{
-				peeler.visible = true;
-				//attackTimer.start(atckDuration, attackEnd);
-			}
+	}
+	
+	public function takeDamage(Damage:Int):Bool
+	{
+		currentHealth -= Damage;
+		if (currentHealth <= 0)
+		{
+			currentHealth = 0;
+			isAlive = false;
 		}
+		return isAlive;
+	}
+	
+	public function HealDamage(Heal: Int):Void
+	{
+		currentHealth += Heal;
+		if (currentHealth >= maxHealth)
+			currentHealth = maxHealth;
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
+		//make sure key are released
 		if (FlxG.keys.anyJustReleased([UP, DOWN, RIGHT, LEFT]))
 		{
 			keyReleased = true;
@@ -382,20 +385,20 @@ class Player extends FlxSprite
 		{
 			canAttack = true;
 		}
+		
+		//compute player movement
 		movement();
+		
 		changeWeapon();
 		if (currentWeapon == 0)
 		{
-			//trace("peeler");
 			aimPeeler();
 		}
 		else
 		{
-			//trace("knife");
 			aimKnife();
 		}
 		
-		attack();
 		super.update(elapsed);
 	}
 }

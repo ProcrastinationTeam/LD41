@@ -5,7 +5,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 
-class Peeler extends FlxSprite 
+class Knife extends FlxSprite 
 {
 	public var spriteResolution: Int = 32;
 	
@@ -22,7 +22,7 @@ class Peeler extends FlxSprite
 	{
 		super(X, Y);
 		loadGraphic(AssetPaths.sprite_shit__png, true, spriteResolution, spriteResolution);
-		animation.frameIndex = 37;
+		animation.frameIndex = 22;
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 		//reset(x , y +spriteResolution / 3);

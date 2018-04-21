@@ -19,7 +19,6 @@ class PlayerInventory extends FlxSpriteGroup
 	public var _spriteSize :Int = 32;
 	public var _computedScale :Float;
 	
-	var _inventoryCanvas: FlxSprite;
 	var _text : FlxText;
 	
 	var _ingredientSpriteArray: FlxSpriteGroup;
@@ -42,8 +41,6 @@ class PlayerInventory extends FlxSpriteGroup
 		_ingredientMap = new Map<CdbData.IngredientsKind,Int>();
 		
 		this.setPosition(0, 0);
-		_inventoryCanvas = new FlxSprite(0, 0);
-		_inventoryCanvas.loadGraphic("assets/images/inventoryBorder.png", false, 32, 32, false);
 		
 		
 		_textGroup = new Map<CdbData.IngredientsKind,FlxText>();
@@ -52,14 +49,15 @@ class PlayerInventory extends FlxSpriteGroup
 		
 		for (ingredient in _ingredientArray)
 		{ 	
-			var toAdd = Reflect.copy(_inventoryCanvas);
+			var toAdd = new FlxSprite(0, 0);
+			toAdd.loadGraphic("assets/images/inventoryBorder.png", false, 32, 32, false);
 			toAdd.scale.set(_computedScale, _computedScale);
 			toAdd.setPosition(0 + nb * (_spriteSize * _computedScale) , 0);
 			toAdd.updateHitbox();
 			
 			
 			var spr = new FlxSprite(0 + nb * (_spriteSize * _computedScale), 0);
-			spr.loadGraphic("assets/" + ingredient.sprite.file, false, _spriteSize, _spriteSize, false);
+			spr.loadGraphic("assets/" + ingredient.image.file, false, _spriteSize, _spriteSize, false);
 			spr.scale.set(_computedScale, _computedScale);
 			spr.updateHitbox();
 			

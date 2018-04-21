@@ -31,7 +31,8 @@ import flixel.FlxG;
 class CdbLevel {
 	// "Entities"
 	public var player 					: Player;
-	public var npcSprites 				: FlxSpriteGroup				= new FlxSpriteGroup();
+	public var npcSprites 				: FlxTypedSpriteGroup<Enemy>						= new FlxTypedSpriteGroup<Enemy>();
+	public var pickupSprites 			: FlxTypedSpriteGroup<IngredientPickup>				= new FlxTypedSpriteGroup<IngredientPickup>();
 	
 	// Properties of the map (tile props and object props)
 	public var mapOfObjects				: Map<Int, Set> 				= new Map<Int, Set>();
@@ -77,14 +78,15 @@ class CdbLevel {
 	public static inline var ENABLE_MULTIPLE_GROUND_BORDER_TILEMAPS 	: Bool 	= true;
 	public static inline var MAX_NUMBER_OF_GROUND_BORDER_TILEMAPS 		: Int 	= 20;
 	
-	
-	
 	// BORDEL
 	public var levelDataName			: String;
 	public var levelDataKind			: CdbData.LevelDatasKind;
 	public var levelData 				: CdbData.LevelDatas;
 	
 	public var anchor					: String;
+	
+	public var tileSize = 32;
+	private var stride = 15;
 	
 	public function new(levelDataName:String, ?anchor:String) {
 		this.levelDataName = levelDataName;
@@ -133,7 +135,7 @@ class CdbLevel {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// TODO: More generic
 		//
-		var forestTileset = levelData.props.getTileset(CdbData.levelDatas, "forest.png");
+		var forestTileset = levelData.props.getTileset(CdbData.levelDatas, "images/sprite_shit.png");
 		
 		computeMapOfProps(forestTileset);
 		computeMapOfObjects(forestTileset);
@@ -151,10 +153,17 @@ class CdbLevel {
 		// Process spawn points
 		processNpcSpawnZones(levelData.npcSpawnPoints);
 		
+		// Process pickups
+		processPickups(levelData.ingredients);
+		
 		// Place the player
 		var newPosition = mapOfAnchor.get(anchor);
 		player = new Player(newPosition.x * levelData.props.tileSize, newPosition.y * levelData.props.tileSize);
 		
+		// pickups (custom layer)
+		for (item in pickupSprites) {
+			sortableGroup.add(item);
+		}
 		for (item in objectsGroup) {
 			sortableGroup.add(item);
 		}
@@ -175,33 +184,48 @@ class CdbLevel {
 		}
 	}
 	
+	private function processPickups(pickups:ArrayRead < CdbData.LevelDatas_ingredients > ):Void {
+		for (pickup in pickups) {
+			// TODO: temp
+			var pickupSprite = new IngredientPickup(pickup.x * tileSize, pickup.y * tileSize, pickup.kindId);
+			pickupSprites.add(pickupSprite);
+		}
+	}
+	
+	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
+		for (npc in npcs) {
+			spawnNpc(npc.x, npc.y, CdbData.npcs.get(npc.kindId));
+		}
+	}
+	
 	private function processNpcSpawnZones(spawnPoints:ArrayRead < CdbData.LevelDatas_npcSpawnPoints > ):Void {
 		for (spawnPoint in spawnPoints) {
 			for (mob in spawnPoint.mobs) {
 				if (FlxG.random.bool(mob.chance * 100)) {
-					var mobSprite = new FlxSprite(spawnPoint.x * levelData.props.tileSize, spawnPoint.y * levelData.props.tileSize);
-					mobSprite.immovable = true;
-					
-					mobSprite.x -= mob.npc.image.size / 2;
-					mobSprite.y -= mob.npc.image.size;
-					mobSprite.loadGraphic("assets/" + mob.npc.image.file, true, mob.npc.image.size, mob.npc.image.size, false);
-					mobSprite.animation.frameIndex = 2;
-					
-					for(anim in mob.npc.animations) {
-						mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y], anim.frameRate);
-					}
-					
-					//mobSprite.scale.set(0.5, 0.5);
-					//mobSprite.updateHitbox();
-					
-					mobSprite.animation.play("idle");
-					
-					npcSprites.add(mobSprite);
-					
+					spawnNpc(spawnPoint.x, spawnPoint.y, mob.npc);
 					break;
 				}
 			}
 		}
+	}
+	
+	private function spawnNpc(x: Int, y: Int, npcData: CdbData.Npcs) {
+		
+		var mobSprite = new Enemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
+		npcSprites.add(mobSprite);
+		
+		//var mobSprite = new FlxSprite(x * levelData.props.tileSize, y * levelData.props.tileSize);
+		//mobSprite.drag.set(800, 800);
+		//
+		//mobSprite.loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
+		//
+		//for (anim in npcData.animations) {
+			//trace(npcData.image);
+			//mobSprite.animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * stride], anim.frameRate);
+		//}
+		//
+		//mobSprite.animation.play("idle");
+		//npcSprites.add(mobSprite);
 	}
 	
 	// the first tile id is 1
@@ -351,6 +375,7 @@ class CdbLevel {
 					groundCollisionObject.moves = false;
 					//groundCollisionObject.exists = false; // trop violent
 					
+					//trace('($x, $y) : $tileId => $prop');
 					arrayCollisions[y][x] = groundCollisionObject;
 				}
 			}
@@ -770,15 +795,6 @@ class CdbLevel {
 					// No object with collision at this position
 					//trace('($x, $y)');
 				}
-			}
-		}
-	}
-	
-	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
-		for (npc in npcs) {
-			switch(npc.kindId) {
-				default:
-					// Ignore for now
 			}
 		}
 	}

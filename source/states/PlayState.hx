@@ -7,8 +7,11 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import flixel.util.FlxTimer;
 import openfl.Assets;
 import typedefs.Goto;
 
@@ -76,6 +79,9 @@ class PlayState extends FlxState {
 		add(level.collisionsGroup);
 		
 		add(level.player.peeler);
+
+		add(level.player.knife);
+		
 		
 		////Inventory
 		inventory = new PlayerInventory();
@@ -114,6 +120,7 @@ class PlayState extends FlxState {
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, true);
 		
+		FlxG.sound.playMusic(AssetPaths.Darkjungle__ogg, 0.5);
 	}
 	
 	override public function update(elapsed:Float):Void {
@@ -124,13 +131,16 @@ class PlayState extends FlxState {
 		level.sortableGroup.sort(sortByY, FlxSort.DESCENDING);
 		
 		// Collisions handling
-		FlxG.collide(level.player, level.npcSprites);
+		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
+		
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
 		FlxG.collide(level.player, level.groundObjectsGroup);
 		FlxG.collide(level.player, level.overObjectsGroup);
 		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
+		FlxG.overlap(level.player.peeler, level.npcSprites, OnEnemyHurtCallback);
+		FlxG.overlap(level.player.knife, level.npcSprites, OnEnemyHurtCallback);
 		
 		//RECIPE BOOK
 		if (FlxG.keys.justPressed.P)
@@ -200,6 +210,12 @@ class PlayState extends FlxState {
 		if (FlxG.keys.justPressed.THREE) {
 			level.tilemapOver.visible = !level.tilemapOver.visible;
 		}
+		if (FlxG.keys.justPressed.K) {
+			if (level.npcSprites.length > 0) {
+				var randomEnemy = level.npcSprites.getRandom(0, 0);
+				OnEnemyHurtCallback(level.player, randomEnemy);
+			}
+		}
 		#end
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
@@ -213,8 +229,55 @@ class PlayState extends FlxState {
 		var goto:Goto = level.mapOfGoto.get(triggerSprite);
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
-			FlxG.switchState(new PlayState(goto.l, goto.anchor));
+			if (goto.l == "Kitchen_32") {
+				FlxG.switchState(new PlayState(goto.l, goto.anchor));
+			} else {
+				var levelName = goto.l + "_1";
+				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
+				trace(levelName);
+				FlxG.switchState(new PlayState(levelName, goto.anchor));
+			}
 		});
+	}
+	
+	private function PlayerPickup(player:Player, ingredient:IngredientPickup):Void
+	{
+		if (player.alive && player.exists && ingredient.alive && ingredient.exists)
+		{
+			inventory.updateValueAdd(ingredient.ingredientType, 1);
+			ingredient.kill();
+		}
+	}
+	
+	private var enemiesHurtTweenMap: Map<Enemy, FlxTween> = new Map<Enemy, FlxTween>();
+	
+	private function OnEnemyHurtCallback(player: Player, enemy: Enemy) {
+		// TODO ISSUE: on CPP, it crashes because player is null wtf
+		enemy.hp -= level.player.sliceDmg;
+		
+		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
+			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+			enemiesHurtTweenMap.set(enemy, tweenEnemy);
+			new FlxTimer().start(0.4, function(timer:FlxTimer):Void {
+				tweenEnemy.cancel();
+				if (enemy != null) {
+					enemy.alpha = 1;
+				}
+			});
+		}
+		
+		if (enemy.hp <= 0) {
+			OnEnemyDiesCallBack(enemy);
+		}
+	}
+	
+	private function OnEnemyDiesCallBack(enemy: Enemy) {
+		for (drop in enemy.getDrops()) {
+			add(drop);
+			level.pickupSprites.add(drop);
+		}
+		enemy.kill();
+		level.npcSprites.remove(enemy, true);
 	}
 	
 	/**

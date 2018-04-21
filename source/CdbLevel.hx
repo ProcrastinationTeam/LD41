@@ -31,7 +31,7 @@ import flixel.FlxG;
 class CdbLevel {
 	// "Entities"
 	public var player 					: Player;
-	public var npcSprites 				: FlxSpriteGroup				= new FlxSpriteGroup();
+	public var npcSprites 				: FlxTypedSpriteGroup<Enemy>	= new FlxTypedSpriteGroup<Enemy>();
 	public var pickupSprites 			: FlxSpriteGroup				= new FlxSpriteGroup();
 	
 	// Properties of the map (tile props and object props)

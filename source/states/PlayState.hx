@@ -133,6 +133,13 @@ class PlayState extends FlxState {
 		if (FlxG.keys.justPressed.THREE) {
 			level.tilemapOver.visible = !level.tilemapOver.visible;
 		}
+		if (FlxG.keys.justPressed.K) {
+			var t = level.npcSprites.getRandom(0, 0).getDrops();
+			trace(t);
+			for (sprite in t) {
+				add(sprite);
+			}
+		}
 		#end
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

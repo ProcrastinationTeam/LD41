@@ -756,7 +756,7 @@ class CdbLevel {
 		for (npc in npcs) {
 			switch(npc.kindId) {
 				case NpcsKind.Hero:			
-					player = new Player(npc);
+					player = new Player();
 					
 				case NpcsKind.Finrod:
 					var finrod = Data.npcs.get(Data.NpcsKind.Finrod);

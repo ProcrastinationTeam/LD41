@@ -138,8 +138,6 @@ class GregouPlayState extends FlxState {
 		if (player.alive && player.exists && pickup.alive && pickup.exists)
 		{
 			pickup.kill();
-			player.money += pickup.money;
-			trace(player.money);
 		}
 	}
 	

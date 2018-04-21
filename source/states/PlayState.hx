@@ -1,5 +1,7 @@
 package states;
 
+
+import flixel.FlxCamera;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -16,6 +18,10 @@ class PlayState extends FlxState {
 	private var anchor					: String;
 	
 	private var level					: CdbLevel;
+	private var inventory				: PlayerInventory;
+	
+	private var cameraUI				: FlxCamera;
+	
 	
 	public function new(levelDataName:String, ?anchor:String) {
 		super();
@@ -64,6 +70,22 @@ class PlayState extends FlxState {
 		
 		add(level.player.peeler);
 		
+		
+		
+		
+	
+		
+		////Inventory
+		inventory = new PlayerInventory();
+		add(inventory);
+		
+		cameraUI = new FlxCamera(0, 0, 300, Std.int(inventory._spriteSize * inventory._computedScale), 1);
+		cameraUI.bgColor = FlxColor.BLUE;
+		FlxG.cameras.add(cameraUI);
+		inventory.cameras = [cameraUI];
+		
+		
+		
 		// Camera setup
 		FlxG.camera.follow(level.player, FlxCameraFollowStyle.LOCKON, 0.5);
 		FlxG.camera.snapToTarget();
@@ -71,6 +93,7 @@ class PlayState extends FlxState {
 		level.tilemapGround.follow(FlxG.camera, 0, true);
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, true);
+		
 	}
 	
 	override public function update(elapsed:Float):Void {

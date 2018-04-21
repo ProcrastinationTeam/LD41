@@ -40,7 +40,7 @@ class Player extends FlxSprite
 		loadGraphic(AssetPaths.cook__png, true, 32, 32);
 		setSize(8, 14);
 		offset.set(4, 2);
-		scale.set(0.5, 0.5);
+		//scale.set(0.5, 0.5);
 		updateHitbox();
 		//setFacingFlip(FlxObject.LEFT, false, false);
 		//setFacingFlip(FlxObject.RIGHT, true, false);

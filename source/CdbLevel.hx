@@ -32,6 +32,7 @@ class CdbLevel {
 	// "Entities"
 	public var player 					: Player;
 	public var npcSprites 				: FlxSpriteGroup				= new FlxSpriteGroup();
+	public var pickupSprites 			: FlxSpriteGroup				= new FlxSpriteGroup();
 	
 	// Properties of the map (tile props and object props)
 	public var mapOfObjects				: Map<Int, Set> 				= new Map<Int, Set>();
@@ -77,14 +78,14 @@ class CdbLevel {
 	public static inline var ENABLE_MULTIPLE_GROUND_BORDER_TILEMAPS 	: Bool 	= true;
 	public static inline var MAX_NUMBER_OF_GROUND_BORDER_TILEMAPS 		: Int 	= 20;
 	
-	
-	
 	// BORDEL
 	public var levelDataName			: String;
 	public var levelDataKind			: CdbData.LevelDatasKind;
 	public var levelData 				: CdbData.LevelDatas;
 	
 	public var anchor					: String;
+	
+	public var tileSize = 16;
 	
 	public function new(levelDataName:String, ?anchor:String) {
 		this.levelDataName = levelDataName;
@@ -133,7 +134,7 @@ class CdbLevel {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// TODO: More generic
 		//
-		var forestTileset = levelData.props.getTileset(CdbData.levelDatas, "forest.png");
+		var forestTileset = levelData.props.getTileset(CdbData.levelDatas, "images/sprite_shit.png");
 		
 		computeMapOfProps(forestTileset);
 		computeMapOfObjects(forestTileset);
@@ -151,10 +152,17 @@ class CdbLevel {
 		// Process spawn points
 		processNpcSpawnZones(levelData.npcSpawnPoints);
 		
+		// Process pickups
+		processPickups(levelData.ingredients);
+		
 		// Place the player
 		var newPosition = mapOfAnchor.get(anchor);
 		player = new Player(newPosition.x * levelData.props.tileSize, newPosition.y * levelData.props.tileSize);
 		
+		// pickups (custom layer)
+		for (item in pickupSprites) {
+			sortableGroup.add(item);
+		}
 		for (item in objectsGroup) {
 			sortableGroup.add(item);
 		}
@@ -172,6 +180,15 @@ class CdbLevel {
 					collisionsGroup.add(arrayCollisions[y][x]);
 				}
 			}
+		}
+	}
+	
+	private function processPickups(pickups:ArrayRead < CdbData.LevelDatas_ingredients > ):Void {
+		for (pickup in pickups) {
+			// TODO: temp
+			var pickupSprite = new IngredientPickup(Std.int(pickup.x/2), Std.int(pickup.y/2), pickup.kindId);
+			pickupSprites.add(pickupSprite);
+			//trace(pickupSprite);
 		}
 	}
 	
@@ -351,6 +368,7 @@ class CdbLevel {
 					groundCollisionObject.moves = false;
 					//groundCollisionObject.exists = false; // trop violent
 					
+					//trace('($x, $y) : $tileId => $prop');
 					arrayCollisions[y][x] = groundCollisionObject;
 				}
 			}

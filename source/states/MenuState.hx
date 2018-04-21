@@ -16,15 +16,15 @@ class MenuState extends FlxState
 		super.update(elapsed);
 		
 		if (FlxG.mouse.justPressed) {
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new PlayState("FirstVillage"));
 		}
 		
 		if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE) {
-			FlxG.switchState(new GuillaumePlayState());
+			FlxG.switchState(new GuillaumePlayState("FirstVillage"));
 		} else if (FlxG.keys.justPressed.TWO  || FlxG.keys.justPressed.NUMPADTWO) {
 			FlxG.switchState(new LucasPlayState());
 		} else if (FlxG.keys.justPressed.THREE  || FlxG.keys.justPressed.NUMPADTHREE) {
-			FlxG.switchState(new GregouPlayState());
+			FlxG.switchState(new GregouPlayState("FirstVillage"));
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

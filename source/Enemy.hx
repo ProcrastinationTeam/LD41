@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 class Enemy extends FlxSprite  
 {
 
+	public var npcType			: CdbData.NpcsKind;
 	public var level			: Int;
 	public var hp				: Float;
 	
@@ -29,6 +30,7 @@ class Enemy extends FlxSprite
 		
 		allowCollisions = FlxObject.NONE;
 		
+		npcType = npcData.id;
 		level = FlxG.random.int(0, 2);
 		switch(level) {
 			case 0:
@@ -56,7 +58,8 @@ class Enemy extends FlxSprite
 		}
 		
 		for (i in 0...Std.int(numberOfDrops)+1) {
-			//var drop = new IngredientPickup(
+			//var drop = new IngredientPickup(x + FlxG.random.int( -16, 16), y + FlxG.random.int(16, 16), kind);
+			
 		}
 	}
 	

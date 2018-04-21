@@ -22,7 +22,7 @@ class Peeler extends FlxSprite
 	{
 		super();
 		loadGraphic(AssetPaths.sprite_shit__png, true, spriteResolution, spriteResolution);
-		animation.frameIndex = CdbData.
+		//animation.frameIndex = CdbData.
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 		//reset(x , y +spriteResolution / 3);

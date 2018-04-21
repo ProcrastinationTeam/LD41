@@ -413,11 +413,6 @@
 					"display": null
 				},
 				{
-					"typeStr": "4",
-					"name": "animSpeed",
-					"opt": true
-				},
-				{
 					"typeStr": "8",
 					"name": "animations"
 				},
@@ -428,62 +423,6 @@
 				}
 			],
 			"lines": [
-				{
-					"id": "Hero",
-					"name": "Mr Belly",
-					"image": {
-						"file": "images/cook_idle.1.1.png",
-						"size": 32,
-						"x": 0,
-						"y": 1
-					},
-					"animations": [
-						{
-							"name": "idle",
-							"frames": [
-								{
-									"frame": {
-										"file": "images/cook_idle.1.1.png",
-										"size": 32,
-										"x": 0,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "images/cook_idle.1.1.png",
-										"size": 32,
-										"x": 1,
-										"y": 0
-									}
-								}
-							],
-							"frameRate": 4
-						},
-						{
-							"name": "walk",
-							"frames": [
-								{
-									"frame": {
-										"file": "images/cook_idle.1.1.png",
-										"size": 32,
-										"x": 0,
-										"y": 0
-									}
-								},
-								{
-									"frame": {
-										"file": "images/cook_idle.1.1.png",
-										"size": 32,
-										"x": 1,
-										"y": 0
-									}
-								}
-							],
-							"frameRate": 7
-						}
-					]
-				},
 				{
 					"id": "Chicken",
 					"name": "Mr Chicken",
@@ -503,7 +442,6 @@
 							"frameRate": 0
 						}
 					],
-					"animSpeed": 0.5,
 					"image": {
 						"file": "tO.png",
 						"size": 16,
@@ -531,7 +469,6 @@
 							"frameRate": 0
 						}
 					],
-					"animSpeed": 0.5,
 					"image": {
 						"file": "tO.png",
 						"size": 16,
@@ -559,7 +496,6 @@
 							"frameRate": 0
 						}
 					],
-					"animSpeed": 0.5,
 					"image": {
 						"file": "tO.png",
 						"size": 16,
@@ -617,7 +553,6 @@
 							"frameRate": 7
 						}
 					],
-					"animSpeed": 1,
 					"image": {
 						"file": "images/CarrotHit.png",
 						"size": 32,
@@ -651,12 +586,11 @@
 						"x": 0,
 						"y": 0
 					},
-					"animSpeed": 1,
 					"drop": "Chilipper"
 				}
 			],
 			"separators": [
-				1
+				0
 			],
 			"props": {
 				"displayIcon": "image"

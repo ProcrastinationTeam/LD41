@@ -151,6 +151,10 @@ class CdbLevel {
 		// Process spawn points
 		processNpcSpawnZones(levelData.npcSpawnPoints);
 		
+		// Place the player
+		var newPosition = mapOfAnchor.get(anchor);
+		player = new Player(newPosition.x * levelData.props.tileSize, newPosition.y * levelData.props.tileSize);
+		
 		for (item in objectsGroup) {
 			sortableGroup.add(item);
 		}
@@ -168,13 +172,6 @@ class CdbLevel {
 					collisionsGroup.add(arrayCollisions[y][x]);
 				}
 			}
-		}
-		
-		// TODO: Move ?
-		// Place the player
-		if (anchor != null) {
-			var newPosition = mapOfAnchor.get(anchor);
-			player.reset(newPosition.x * levelData.props.tileSize, newPosition.y * levelData.props.tileSize);
 		}
 	}
 	
@@ -780,9 +777,6 @@ class CdbLevel {
 	private function processNpcs(npcs:ArrayRead < CdbData.LevelDatas_npcs > ):Void {
 		for (npc in npcs) {
 			switch(npc.kindId) {
-				case NpcsKind.Hero:			
-					player = new Player(npc.x * levelData.props.tileSize, npc.y * levelData.props.tileSize);
-					
 				default:
 					// Ignore for now
 			}

@@ -149,7 +149,8 @@ class PlayState extends FlxState {
 			if (goto.l == "Kitchen_32") {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor));
 			} else {
-				var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
+				var levelName = goto.l + "_1";
+				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
 				trace(levelName);
 				FlxG.switchState(new PlayState(levelName, goto.anchor));
 			}

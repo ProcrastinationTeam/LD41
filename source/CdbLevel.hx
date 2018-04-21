@@ -186,9 +186,9 @@ class CdbLevel {
 	private function processPickups(pickups:ArrayRead < CdbData.LevelDatas_ingredients > ):Void {
 		for (pickup in pickups) {
 			// TODO: temp
-			var pickupSprite = new IngredientPickup(Std.int(pickup.x/2), Std.int(pickup.y/2), pickup.kindId);
+			var pickupSprite = new IngredientPickup(pickup.x, pickup.y, pickup.kindId);
 			pickupSprites.add(pickupSprite);
-			//trace(pickupSprite);
+			trace(pickupSprite);
 		}
 	}
 	

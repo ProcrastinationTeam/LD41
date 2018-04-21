@@ -1237,6 +1237,12 @@
 					"npcSpawnPoints": [],
 					"ingredients": [
 						{
+							"x": 30,
+							"y": 3,
+							"kind": "Carrot",
+							"additionalDrops": 0
+						},
+						{
 							"x": 25,
 							"y": 4,
 							"kind": "Eggplant",
@@ -1246,6 +1252,12 @@
 							"x": 28,
 							"y": 4,
 							"kind": "Chilipper",
+							"additionalDrops": 0
+						},
+						{
+							"x": 30,
+							"y": 4,
+							"kind": "Carrot",
 							"additionalDrops": 0
 						}
 					],

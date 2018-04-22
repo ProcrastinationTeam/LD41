@@ -88,6 +88,8 @@ class IngredientEnemy extends FlxSprite
 				case FlxObject.DOWN:
 					animation.play("walk");
 			}
+			
+			animation.play("walk");
 		}
 		super.draw();
 	}

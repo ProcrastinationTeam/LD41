@@ -1,6 +1,8 @@
 package;
 
 import CdbData;
+import assetpaths.SoundAssetsPaths.SoundAssetsPath;
+import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -42,6 +44,12 @@ class Player extends FlxSprite
 	public var keySpaceReleased:Bool = true;
 	public var moveKeyReleased:Bool = true;
 	
+	public var soundStep1 : FlxSound;
+	public var soundStep2 : FlxSound;
+	public var soundStep : FlxSound;
+	
+	public var soundSwing : FlxSound;
+	
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?playerID:Int=0) 
 	{
@@ -67,6 +75,10 @@ class Player extends FlxSprite
 		attackTimer = new FlxTimer();
 		canAttackTimer = new FlxTimer();
 		
+		soundStep1 = FlxG.sound.load(SoundAssetsPath.player_step_1__ogg);
+		soundStep2 = FlxG.sound.load(SoundAssetsPath.player_step_2__ogg);
+		
+		soundSwing = FlxG.sound.load(SoundAssetsPath.player_swing__ogg, 0.3);
 	}
 	
 	public function setPlayerStat(id:Int):Void
@@ -129,6 +141,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
 				
 				animation.play("attack_up");
+				soundSwing.play();
 			}
 			else if (_down)
 			{
@@ -143,6 +156,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.offset.set(spriteResolution / 4, 0);
 				
 				animation.play("attack_down");
+				soundSwing.play();
 			}
 			else if (_left)
 			{
@@ -157,6 +171,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.offset.set(0, spriteResolution / 2);
 				
 				animation.play("attack_left");
+				soundSwing.play();
 			}
 			else if (_right)
 			{
@@ -173,6 +188,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.offset.set(0, spriteResolution / 2);
 				
 				animation.play("attack_right");
+				soundSwing.play();
 			}
 			updateWeaponSprite(currentWeapon, facing);
 			currentWeaponSprite.x = this.x + offsetX;
@@ -288,6 +304,10 @@ class Player extends FlxSprite
 						//animation.play("d");
 				//} 
 			//}
+			if (!soundStep1.playing && !soundStep2.playing) {
+				FlxG.random.bool(50) ? soundStep1.play() : soundStep2.play();
+			}
+			
 			
 		}
 		weapons.update(x, y, offsetX, offsetY);

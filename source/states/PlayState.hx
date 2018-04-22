@@ -1,6 +1,7 @@
 package states;
 
 
+import assetpaths.SoundAssetsPaths.SoundAssetsPath;
 import flixel.FlxCamera;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
@@ -217,6 +218,7 @@ class PlayState extends FlxState {
 			{
 				cookbookOpen = true;
 				cameraCookBook.setPosition(cameraCookBook.x - cookbook._backgroundSprite.width, cameraCookBook.y);
+				FlxG.sound.play(SoundAssetsPath.cookbook_open_close__ogg);
 			}
 		}
 		
@@ -227,6 +229,7 @@ class PlayState extends FlxState {
 			{
 				cookbookOpen = false;
 				cameraCookBook.setPosition(cameraCookBook.x + cookbook._backgroundSprite.width, cameraCookBook.y);
+				FlxG.sound.play(SoundAssetsPath.cookbook_open_close__ogg);
 			}
 		}
 		
@@ -234,7 +237,7 @@ class PlayState extends FlxState {
 		{
 			if (FlxG.keys.justPressed.O)
 			{
-				
+				FlxG.sound.play(SoundAssetsPath.cookbook_open_close__ogg);
 				activeRecipePicker();		
 			}
 		}

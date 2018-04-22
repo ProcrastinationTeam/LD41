@@ -1,9 +1,11 @@
 package states;
 
+import assetpaths.MusicAssetsPath;
 import assetpaths.SoundAssetsPaths.SoundAssetsPath;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxG;
+import flixel.math.FlxMath;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -30,30 +32,39 @@ class MenuState extends FlxState {
 	
 	public var soundTransition : FlxSound;
 	
+	public var lightSprite : FlxSprite;
+	public var darkSprite : FlxSprite;
+	public var overlaySprite : FlxSprite;
+	
+	public var music : FlxSound;
+	
 	override public function create():Void
 	{
 		super.create();
 		
-		trace('menu');
+		music = FlxG.sound.load(MusicAssetsPath.credits__ogg);
 		
-		var titleSprite = new FlxSprite();
-		titleSprite.loadGraphic(AssetPaths.home__png);
-		titleSprite.screenCenter(FlxAxes.XY);
+		lightSprite = new FlxSprite();
+		lightSprite.loadGraphic(AssetPaths.home_light__png);
+		lightSprite.screenCenter(FlxAxes.XY);
+		add(lightSprite);
 		
-		add(titleSprite);
+		darkSprite = new FlxSprite();
+		darkSprite.loadGraphic(AssetPaths.home_shadow__png);
+		darkSprite.screenCenter(FlxAxes.XY);
+		darkSprite.alpha = 0;
+		add(darkSprite);
 		
-		var pressToPlay = new FlxText();
-		pressToPlay.text = "Press space to play!";
-		pressToPlay.screenCenter(FlxAxes.XY);
-		pressToPlay.y += 50;
-		add(pressToPlay);
+		overlaySprite = new FlxSprite();
+		overlaySprite.loadGraphic(AssetPaths.home_overlay__png);
+		overlaySprite.screenCenter(FlxAxes.XY);
+		add(overlaySprite);
 		
-		FlxTween.tween(pressToPlay, {alpha: 0}, 0.7, {type: FlxTween.PINGPONG, ease: FlxEase.smoothStepInOut});
+		FlxTween.tween(darkSprite, {alpha: 1}, 1.5, {type: FlxTween.PINGPONG, ease: FlxEase.smoothStepInOut});
 		
 		var creditText = new FlxText(5, 10);
 		creditText.text = "Made in 72h during the 41th Ludum Dare";
 		add(creditText);
-		//FlxG.camera.zoom = 2;
 		
 		for (i in 0...names.length) {
 			var nameText = new FlxText();
@@ -76,7 +87,7 @@ class MenuState extends FlxState {
 		
 		Storage.recipe1name = null;
 		Storage.recipe2name = null;
-		Storage.recipe3name  = null;
+		Storage.recipe3name = null;
 	}
 
 	override public function update(elapsed:Float):Void
@@ -92,6 +103,12 @@ class MenuState extends FlxState {
 			FlxG.resetGame();
 		} else if (FlxG.keys.justPressed.R) {
 			FlxG.resetState();
+		}
+		
+		if (FlxG.mouse.getPosition().inCoords(160, 170, 40, 55)) {
+			overlaySprite.alpha = 1;
+		} else {
+			overlaySprite.alpha = 0;
 		}
 	}
 }

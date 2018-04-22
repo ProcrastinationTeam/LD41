@@ -7553,14 +7553,6 @@
 							"frame": {
 								"file": "images/sprite_shit.png",
 								"size": 32,
-								"x": 9,
-								"y": 6
-							}
-						},
-						{
-							"frame": {
-								"file": "images/sprite_shit.png",
-								"size": 32,
 								"x": 10,
 								"y": 6
 							}

@@ -41,6 +41,8 @@ class Player extends FlxSprite
 	
 	public var isAlive:Bool = true;
 	
+	public var weapons:Array<FlxSprite>;
+	
 	public var peeler:Peeler;
 	public var knife:Knife;
 	
@@ -64,18 +66,115 @@ class Player extends FlxSprite
 		peeler = new Peeler();
 		knife = new Knife();
 		
+		//weapons.insert(new Peeler());
+		//weapons.insert(new Knife());
 		
 		peeler.visible = false;
 		peeler.allowCollisions = FlxObject.NONE;
 		knife.visible = false;
 		knife.allowCollisions = FlxObject.NONE;
 		
-		offsetValue = Std.int(spriteResolution/2) + Std.int((2 * spriteResolution / 6));
+		//addWeapon(peeler);
+		//addWeapon(knife);
+		
+		offsetValue = Std.int(spriteResolution/2) + Std.int((spriteResolution / 3));
 		
 		attackTimer = new FlxTimer();
 		canAttackTimer = new FlxTimer();
 		
 	}
+	
+	//public function addWeapon(item:FlxSprite):Void
+	//{
+		//item.visible = false;
+		//item.allowCollisions = FlxObject.NONE;
+		//weapons.insert(item);
+	//}
+	//
+	//private function aim():Void
+	//{
+		//if (!canAttack)
+		//{
+			//return;
+		//}
+		//var _up:Bool = false;
+		//var _down:Bool = false;
+		//var _left:Bool = false;
+		//var _right:Bool = false;
+		//
+		//_up = FlxG.keys.anyPressed([UP]);
+		//_down = FlxG.keys.anyPressed([DOWN]);
+		//_left = FlxG.keys.anyPressed([LEFT]);
+		//_right = FlxG.keys.anyPressed([RIGHT]);
+		//
+		//if (_up && _down)
+			//_up = _down = false;
+		//if (_left && _right)
+			//_left = _right = false;
+			//
+		//if (_up || _down || _left || _right)
+		//{
+			//keyReleased = false;
+			//if (_up)
+			//{
+				//aimAt = 0;
+				//facing = FlxObject.UP;
+				//offsetY = -offsetValue - spriteResolution/2;
+				//offsetX = 5;
+				//weapons[currentWeapon].facing = FlxObject.UP;
+				//weapons[currentWeapon].angle = -90;
+				//
+				//weapons[currentWeapon].setSize(10, spriteResolution - 5);
+				//weapons[currentWeapon].offset.set(spriteResolution / 3, 0);
+			//}
+			//else if (_down)
+			//{
+				//aimAt = 1;
+				//facing = FlxObject.DOWN;
+				//offsetY = offsetValue - spriteResolution/2;
+				//offsetX = 5;
+				//weapons[currentWeapon].facing = FlxObject.DOWN;
+				//weapons[currentWeapon].angle = 90;
+				//
+				//weapons[currentWeapon].setSize(10, spriteResolution - 5);
+				//weapons[currentWeapon].offset.set(spriteResolution / 3, 0);
+			//}
+			//else if (_left)
+			//{
+				//aimAt = 2;
+				//facing = FlxObject.LEFT;
+				//offsetX = -offsetValue -5;
+				//offsetY = -spriteResolution/3;
+				//weapons[currentWeapon].facing = FlxObject.LEFT;
+				//weapons[currentWeapon].angle = 0;
+				//
+				//weapons[currentWeapon].setSize(spriteResolution - 5, 10);
+				//weapons[currentWeapon].offset.set(0, spriteResolution / 3);
+			//}
+			//else if (_right)
+			//{
+				//aimAt = 3;
+				//facing = FlxObject.RIGHT;
+				//offsetX = offsetValue -5;
+				//offsetY = -spriteResolution/3;
+				//weapons[currentWeapon].facing = FlxObject.RIGHT;
+				//weapons[currentWeapon].angle = 0;
+				//
+				//weapons[currentWeapon].setSize(spriteResolution - 5, 10);
+				//weapons[currentWeapon].offset.set(0, spriteResolution / 3);
+			//}
+			//weapons[currentWeapon].x = this.x + offsetX;
+			//weapons[currentWeapon].y = this.y + offsetY;
+			//
+			//weapons[currentWeapon].visible = true;
+			//weapons[currentWeapon].allowCollisions = FlxObject.ANY;
+			//
+			//canAttack = false;
+			//cooledDown = false;
+			//attackTimer.start(atckDuration, attackEnd);
+			//canAttackTimer.start(atckSpeed, resetAttack);
+		//}
+	//}
 	
 	private function changeWeapon():Void
 	{
@@ -400,6 +499,7 @@ class Player extends FlxSprite
 		movement();
 		
 		changeWeapon();
+		//aim();
 		if (currentWeapon == 0)
 		{
 			aimPeeler();

@@ -28,9 +28,6 @@ class CookBook extends FlxSpriteGroup
 	{
 		super();
 		
-		
-		//_recipePicker.forEach(addSpritez);
-		
 		_backgroundSprite = new FlxSprite(0, 0);
 		_backgroundSprite.loadGraphic("assets/images/bookCanvas.png", true, 96, 128, false);
 		add(_backgroundSprite);
@@ -43,12 +40,6 @@ class CookBook extends FlxSpriteGroup
 		//_recipePicker = new RecipePicker(playerInventory);
 		//add(_recipePicker);
 		
-		
-		//Test Recipe
-		
-		//var rec = new Recipe();
-		//addRecipeInBook(rec);
-		
 	}
 	
 	public function addRecipeInBook(recipe: Recipe)
@@ -56,42 +47,16 @@ class CookBook extends FlxSpriteGroup
 		
 		if (_limitRecipe < 3)
 		{
-			//_recipeList.add(recipe);
+			recipe.setPosition(0, 30 * _limitRecipe);
 			add(recipe);
 			add(recipe._name);
 		}
 		
 		_limitRecipe++;
 		
-	}
-	
-	//public function addSpritez(sprite:FlxSprite):Void
-	//{
-		//add(sprite);
-	//}
-	//
-	public function createRecipe(ingredientList : Array<CdbData.IngredientsKind>)
-	{
+		//SAVE LE COOKBOOK
 		
 	}
 	
-	public function validIngredient(ingredient : CdbData.IngredientsKind)
-	{
-		
-	}
-	
-	public function startRecipePicker()
-	{
-	
-		_recipeList.forEach(hide);
-		
-		
-		
-	}
-	
-	public function hide(sprite: FlxSprite)
-	{
-		sprite.visible = false;
-	}
 	
 }

@@ -39,6 +39,7 @@ class RecipePicker extends FlxSpriteGroup
 	
 	public var _currentRecipe: Recipe;
 	public var _ingredientRecipeArray : Array<CdbData.IngredientsKind>;
+	public var _sprRecipeList: Array<FlxSprite>;
 	public var _cookbook:CookBook;
 	
 
@@ -46,6 +47,7 @@ class RecipePicker extends FlxSpriteGroup
 	{
 		super();
 		
+		_sprRecipeList = new Array<FlxSprite>();
 		_cookbook = cookbook;
 		_ingredientRecipeArray = new Array<CdbData.IngredientsKind>();
 		_playerInventory = playerInventory;
@@ -134,16 +136,14 @@ class RecipePicker extends FlxSpriteGroup
 		{
 			var kindToAdd = _ingredientMapZ.get(_actualID);
 			var sprout = _ingredientMap.get(kindToAdd);
-			trace("COUNT: ", _count);
-			
 			var sp = new FlxSprite(0, 0);
-			sp.loadGraphicFromSprite(sprout);
 			
-			_ingredientRecipeArray.push(kindToAdd);
-			
+			sp.loadGraphicFromSprite(sprout);			
 			sp.setPosition(16 + _count * 32 ,  64);
 			add(sp);
-			trace("SPROUT: ", sp);
+			
+			_ingredientRecipeArray.push(kindToAdd);
+			_sprRecipeList.push(sp);
 			_count++;
 		}
 		else
@@ -154,18 +154,33 @@ class RecipePicker extends FlxSpriteGroup
 	
 	public function validRecipe()
 	{
-		_currentRecipe = new Recipe("Bouillabaisse");
-		
-		//_ingredientRecipeArray
-		while (_ingredientRecipeArray.length != 0) 
+		if (_ingredientRecipeArray.length > 1)
 		{
-			_currentRecipe.addIngredientToRecipe(_ingredientRecipeArray.pop());
+			_currentRecipe = new Recipe("Bouillabaisse");
+		
+			//_ingredientRecipeArray
+			while (_ingredientRecipeArray.length != 0) 
+			{
+				_currentRecipe.addIngredientToRecipe(_ingredientRecipeArray.pop());
+			}
+			
+			_cookbook.addRecipeInBook(_currentRecipe);
+			
 		}
 		
-		_cookbook.addRecipeInBook(_currentRecipe);
-		
+		for (sprite in _sprRecipeList)
+		{
+			remove(sprite, true);
+			
+		}
+		//Reset count
+		_count = 0;
 	}
 	
+	public function cleanArray(sprite: FlxSprite)
+	{
+		remove(sprite);
+	}
 	
 	
 	

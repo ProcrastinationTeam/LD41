@@ -189,6 +189,11 @@ class PlayState extends FlxState {
 			recipePicker.selectIngredient();
 		}
 		
+		if ( recipePickerOpen && FlxG.keys.justPressed.ENTER)
+		{
+			recipePicker.validRecipe();
+		}
+		
 		
 		
 		// Debug

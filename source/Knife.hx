@@ -25,14 +25,6 @@ class Knife extends FlxSprite
 		animation.frameIndex = 22;
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-		//reset(x , y +spriteResolution / 3);
-		//setSize(spriteResolution - 5, 10);
-		//offset.set(0, spriteResolution/3);
-		//scale.set(0.5, 0.5);
-		//updateHitbox();
-		//animation.add("lr", [3, 4, 3, 5], 6, false);
-		//animation.add("u", [6, 7, 6, 8], 6, false);
-		//animation.add("d", [0, 1, 0, 2], 6, false);
 		drag.x = drag.y = 1600;
 		
 	}

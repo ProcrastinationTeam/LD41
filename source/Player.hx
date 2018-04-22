@@ -14,16 +14,18 @@ class Player extends FlxSprite
 {
 	public var spriteResolution:Int = 32;
 	
-	public var maxHealth:Float = 100;
-	public var currentHealth:Float = 100;
-	public var speed:Float = 200;
-	public var sliceDmg:Float = 10;
-	public var peelDmg:Float = 10;
-	public var range:Float = 5;
-	public var armor:Float = 0;
-	public var dmgReduction:Float = 0;
-	public var atckSpeed:Float = 0.5;
-	public var atckDuration:Float = 0.2;
+	public var playerStats:PlayerStatWrapper;
+	
+	//public var maxHealth:Float = 100;
+	//public var currentHealth:Float = 100;
+	//public var speed:Float = 200;
+	//public var sliceDmg:Float = 10;
+	//public var peelDmg:Float = 10;
+	//public var range:Float = 5;
+	//public var armor:Float = 0;
+	//public var dmgReduction:Float = 0;
+	//public var atckSpeed:Float = 0.5;
+	//public var atckDuration:Float = 0.2;
 	
 	
 	public var offsetX:Float = 0;
@@ -39,7 +41,7 @@ class Player extends FlxSprite
 	
 	public var offsetValue:Int = 0;
 	
-	public var isAlive:Bool = true;
+	//public var isAlive:Bool = true;
 	
 	public var weapons:WeaponWrapper;
 	
@@ -48,7 +50,7 @@ class Player extends FlxSprite
 	public var moveKeyReleased:Bool = true;
 	
 	
-	public function new(?X:Float=0, ?Y:Float=0) 
+	public function new(?X:Float=0, ?Y:Float=0, ?playerID:Int=0) 
 	{
 		super(X, Y);
 		loadGraphic(AssetPaths.sprite_shit__png, true, spriteResolution, spriteResolution);
@@ -56,17 +58,14 @@ class Player extends FlxSprite
 		setSize(20, 10);
 		offset.set(6, 22);
 		
-		
 		for (anim in CdbData.playerAnimations.all) {
 			animation.add(anim.name.toString(), [for(frame in anim.frames) frame.frame.x + frame.frame.y * Tweaking.stride], anim.frameRate);
 		}
 		animation.play("idle");
-		//setFacingFlip(FlxObject.LEFT, false, false);
-		//setFacingFlip(FlxObject.RIGHT, true, false);
-		//animation.add("lr", [3, 4, 3, 5], 6, false);
-		//animation.add("u", [6, 7, 6, 8], 6, false);
-		//animation.add("d", [0, 1, 0, 2], 6, false);
+		
 		drag.x = drag.y = 1600;
+		
+		setPlayerStat(playerID);
 		
 		weapons = new WeaponWrapper();
 		
@@ -77,13 +76,17 @@ class Player extends FlxSprite
 		
 	}
 	
+	public function setPlayerStat(id:Int):Void
+	{
+		if(id == 0)
+			playerStats = Storage.player1Stats;
+		else
+			playerStats = Storage.player1Stats;
+	}
+	
 	
 	private function aim():Void
 	{
-		if (!canAttack)
-		{
-			return;
-		}
 		var _up:Bool = false;
 		var _down:Bool = false;
 		var _left:Bool = false;
@@ -94,6 +97,22 @@ class Player extends FlxSprite
 		_left = FlxG.keys.anyPressed([LEFT]);
 		_right = FlxG.keys.anyPressed([RIGHT]);
 		
+		if (!canAttack)
+		{
+			if (cooledDown) {
+				if (_up && cooledDown) {
+					animation.play("walk_up");
+				} else if (_down) {
+					animation.play("walk_down");
+				} else if (_left) {
+					animation.play("walk_left");
+				} else if (_right) {
+					animation.play("walk_right");
+				}
+			}
+			return;
+		}
+		
 		if (_up && _down)
 			_up = _down = false;
 		if (_left && _right)
@@ -103,6 +122,7 @@ class Player extends FlxSprite
 		{
 			var currentWeaponSprite = weapons.getCurrent(currentWeapon);
 			keyReleased = false;
+			
 			if (_up)
 			{
 				aimAt = 0;
@@ -114,7 +134,8 @@ class Player extends FlxSprite
 				
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
-				animation.play("walk_up");
+				
+				animation.play("attack_up");
 			}
 			else if (_down)
 			{
@@ -128,7 +149,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
 				
-				animation.play("walk_down");
+				animation.play("attack_down");
 			}
 			else if (_left)
 			{
@@ -142,13 +163,14 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
 				
-				
-				animation.play("walk_left");
+				animation.play("attack_left");
 			}
 			else if (_right)
 			{
 				aimAt = 3;
 				facing = FlxObject.RIGHT;
+				
+				
 				offsetX = offsetValue -5;
 				offsetY = -spriteResolution/3;
 				currentWeaponSprite.facing = FlxObject.RIGHT;
@@ -157,19 +179,19 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
 				
-				
-				animation.play("walk_right");
+				animation.play("attack_right");
 			}
 			currentWeaponSprite.x = this.x + offsetX;
 			currentWeaponSprite.y = this.y + offsetY;
 			
-			currentWeaponSprite.visible = true;
+			new FlxTimer().start(0.1, function(timer:FlxTimer) {
+				currentWeaponSprite.visible = true;
+			});
 			currentWeaponSprite.allowCollisions = FlxObject.ANY;
-			
 			canAttack = false;
 			cooledDown = false;
-			attackTimer.start(atckDuration, attackEnd);
-			canAttackTimer.start(atckSpeed, resetAttack);
+			attackTimer.start(playerStats.atckDuration, attackEnd);
+			canAttackTimer.start(playerStats.atckSpeed, resetAttack);
 		}
 	}
 	
@@ -257,7 +279,7 @@ class Player extends FlxSprite
 				 
 			if(canAttack)
 				animation.play("walk_" + anim);
-			velocity.set(speed, 0);
+			velocity.set(playerStats.speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
 			
 			//if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)
@@ -282,7 +304,6 @@ class Player extends FlxSprite
 		cooledDown = true;
 	}
 	
-	//private function attackEnd(_):Void
 	private function attackEnd(Timer:FlxTimer):Void
 	{
 		weapons.resetAttack();
@@ -295,20 +316,28 @@ class Player extends FlxSprite
 	
 	public function takeDamage(Damage:Int):Bool
 	{
-		currentHealth -= Damage;
-		if (currentHealth <= 0)
+		playerStats.currentHealth -= Damage;
+		if (playerStats.currentHealth <= 0)
 		{
-			currentHealth = 0;
-			isAlive = false;
+			playerStats.currentHealth = 0;
+			playerStats.isAlive = false;
 		}
-		return isAlive;
+		return playerStats.isAlive;
 	}
 	
 	public function HealDamage(Heal: Int):Void
 	{
-		currentHealth += Heal;
-		if (currentHealth >= maxHealth)
-			currentHealth = maxHealth;
+		playerStats.currentHealth += Heal;
+		if (playerStats.currentHealth >= playerStats.maxHealth)
+			playerStats.currentHealth = playerStats.maxHealth;
+	}
+	
+	public function getCurrentWeaponDmg():Float
+	{
+		if(currentWeapon == 0)
+			return playerStats.peelDmg;
+		else
+			return playerStats.sliceDmg;
 	}
 	
 	override public function update(elapsed:Float):Void 

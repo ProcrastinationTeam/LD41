@@ -88,7 +88,7 @@ class CdbLevel {
 	public var tileSize = 32;
 	private var stride = 15;
 	
-	public function new(levelDataName:String, ?anchor:String) {
+	public function new(levelDataName:String, ?anchor:String = "Start") {
 		this.levelDataName = levelDataName;
 		this.anchor = anchor;
 		

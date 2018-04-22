@@ -400,13 +400,12 @@ class PlayState extends FlxState {
 				OnEnemyHurtCallback(level.player, randomEnemy);
 			}
 		}
-		#end
-		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
 			FlxG.resetGame();
 		} else if (FlxG.keys.justPressed.R) {
-			FlxG.resetState();
+			FlxG.switchState(new PlayState(levelDataName));
 		}
+		#end
 	}
 	
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {
@@ -436,7 +435,7 @@ class PlayState extends FlxState {
 	private var enemiesHurtTweenMap: Map<IngredientEnemy, FlxTween> = new Map<IngredientEnemy, FlxTween>();
 	
 	private function OnEnemyHurtCallback(sprite: FlxSprite, enemy: IngredientEnemy) {
-		enemy.hp -= level.player.sliceDmg;
+		enemy.hp -= level.player.getCurrentWeaponDmg();
 		
 		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
 			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});

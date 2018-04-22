@@ -14,6 +14,8 @@ class Storage
 	public static var recipe2name : String;
 	public static var recipe3name : String;
 	
+	public static var player1Stats: PlayerStatWrapper = new PlayerStatWrapper();
+	
 	
 	public static var ingredientsCount : Map<CdbData.IngredientsKind,Int> = new Map<CdbData.IngredientsKind,Int>();
 	

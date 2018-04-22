@@ -2836,7 +2836,7 @@
 					"npcs": [],
 					"npcSpawnPoints": [],
 					"ingredients": [],
-					"level": "map1",
+					"level": "Cellar_32_5",
 					"props": {
 						"tileSize": 32,
 						"layers": [

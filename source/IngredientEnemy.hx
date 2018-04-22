@@ -14,6 +14,8 @@ class IngredientEnemy extends FlxSprite
 	public var nbDrop			: Int;
 	public var hp				: Float;
 	public var damage			: Int = 15;
+	
+	public var minScale			: Float = 0.5;
 	public var maxScale			: Float = 2.5;
 	
 	public var speed:Float = 100;
@@ -48,7 +50,7 @@ class IngredientEnemy extends FlxSprite
 		npcType = npcData.id;
 		npc = npcData;
 		
-		level = FlxG.random.float(0.5, maxScale);
+		level = FlxG.random.float(minScale, maxScale);
 		hp = npcData.healthPoints * level;
 		
 		setSize(npcData.sizeX, npcData.sizeY);

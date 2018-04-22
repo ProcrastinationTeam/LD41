@@ -514,8 +514,12 @@ class PlayState extends FlxState {
 	{
 		if (player.takeDamage(enemy.damage, enemy.x, enemy.y))
 		{
-			trace("HP : " + player.playerStats.currentHealth);
-			//update Hp HUD
+			//var tweenEnemy = FlxTween.tween(player, {alpha: 0}, 0.1 , {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+			//new FlxTimer().start(0.4, function(timer:FlxTimer):Void 
+			//{
+				//tweenEnemy.cancel();
+				//player.alpha = 1;
+			//});
 		}
 		else
 		{
@@ -530,6 +534,8 @@ class PlayState extends FlxState {
 		enemy.hp -= level.player.getCurrentWeaponDmg();
 		
 		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
+			var duration = 0.3;
+			FlxTween.linearMotion(enemy, enemy.x, enemy.y, enemy.x + (enemy.x - level.player.x) * Storage.player1Stats.knockBackFactor, enemy.y + (enemy.y - level.player.y) * Storage.player1Stats.knockBackFactor, duration, true, { type: FlxTween.ONESHOT, ease: FlxEase.expoOut});
 			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
 			enemiesHurtTweenMap.set(enemy, tweenEnemy);
 			new FlxTimer().start(0.4, function(timer:FlxTimer):Void {

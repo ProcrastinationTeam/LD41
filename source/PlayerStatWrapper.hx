@@ -9,8 +9,8 @@ class PlayerStatWrapper
 	public var maxHealth:Int = 100;
 	public var currentHealth:Int = 100;
 	public var speed:Float = 200;
-	public var sliceDmg:Int = 10;
-	public var peelDmg:Int = 10;
+	public var sliceDmg:Int = 40;
+	public var peelDmg:Int = 40;
 	public var range:Float = 5;
 	public var armor:Float = 0;
 	public var dmgReduction:Float = 0;

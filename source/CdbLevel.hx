@@ -211,8 +211,15 @@ class CdbLevel {
 	
 	private function spawnNpc(x: Int, y: Int, npcData: CdbData.Npcs) {
 		
-		var mobSprite = new IngredientEnemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
-		npcSprites.add(mobSprite);
+		switch(npcData.id)
+		{
+			case CdbData.NpcsKind.Carrot:
+				var mobSprite = new Carrot(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
+				npcSprites.add(mobSprite);
+			default:
+				var mobSprite = new IngredientEnemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
+				npcSprites.add(mobSprite);
+		}
 		
 		//var mobSprite = new FlxSprite(x * levelData.props.tileSize, y * levelData.props.tileSize);
 		//mobSprite.drag.set(800, 800);

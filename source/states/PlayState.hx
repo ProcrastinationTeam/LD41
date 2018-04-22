@@ -22,8 +22,15 @@ class PlayState extends FlxState {
 	
 	private var level					: CdbLevel;
 	private var inventory				: PlayerInventory;
+	private var cookbook				: CookBook;
+	private var recipePicker			: RecipePicker;
 	
 	private var cameraUI				: FlxCamera;
+	private var cameraCookBook			: FlxCamera;
+	private var cameraRecipePicker		: FlxCamera;
+	
+	private var cookbookOpen 			: Bool = false;
+	private var recipePickerOpen 		: Bool = false;
 	
 	
 	public function new(levelDataName:String, ?anchor:String) {
@@ -72,20 +79,36 @@ class PlayState extends FlxState {
 		add(level.collisionsGroup);
 		
 		add(level.player.peeler);
+
 		add(level.player.knife);
 		
-		
-		
-	
 		
 		////Inventory
 		inventory = new PlayerInventory();
 		add(inventory);
 		
 		cameraUI = new FlxCamera(0, 0, 300, Std.int(inventory._spriteSize * inventory._computedScale), 1);
-		cameraUI.bgColor = FlxColor.BLUE;
 		FlxG.cameras.add(cameraUI);
 		inventory.cameras = [cameraUI];
+		
+		//RecipeBook camera
+		cookbook = new CookBook(inventory);
+		add(cookbook);
+		
+		cameraCookBook = new FlxCamera(FlxG.width - 10, Std.int(FlxG.height/2), 96, 128, 1);
+		FlxG.cameras.add(cameraCookBook);
+		cookbook.cameras = [cameraCookBook];
+		
+		
+		//Picker
+		
+		recipePicker = new RecipePicker(inventory);
+		add(recipePicker);
+		
+		cameraRecipePicker = new FlxCamera(10, 40, 192, 256, 1);
+		cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+		FlxG.cameras.add(cameraRecipePicker);
+		recipePicker.cameras = [cameraRecipePicker];
 		
 		
 		
@@ -118,6 +141,55 @@ class PlayState extends FlxState {
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.knife, level.npcSprites, OnEnemyHurtCallback);
+		
+		//RECIPE BOOK
+		if (FlxG.keys.justPressed.P)
+		{
+			cookbookOpen = !cookbookOpen;
+			if (cookbookOpen)
+			{
+				cameraCookBook.setPosition(cameraCookBook.x - cookbook._backgroundSprite.width, cameraCookBook.y);
+			}
+			else
+			{
+				cameraCookBook.setPosition(cameraCookBook.x + cookbook._backgroundSprite.width, cameraCookBook.y);
+			}
+			
+			
+		}
+		
+		
+		if (FlxG.keys.justPressed.O)
+		{
+			recipePickerOpen = !recipePickerOpen;
+			if (recipePickerOpen)
+			{
+				cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+			}
+			else
+			{
+				cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+			}
+			
+			//cookbook.startRecipePicker();
+		}
+		
+		if (recipePickerOpen && FlxG.keys.justPressed.UP)
+		{
+			recipePicker.changeCursorPos(-1);
+		}
+		
+		if (recipePickerOpen && FlxG.keys.justPressed.DOWN)
+		{
+			recipePicker.changeCursorPos(1);
+		}
+		
+		if ( recipePickerOpen && FlxG.keys.justPressed.SPACE)
+		{
+			recipePicker.selectIngredient();
+		}
+		
+		
 		
 		// Debug
 		#if debug

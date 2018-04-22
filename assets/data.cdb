@@ -529,7 +529,7 @@
 					"drop": "Carrot",
 					"sizeX": 10,
 					"sizeY": 28,
-					"offsetX": 20,
+					"offsetX": 11,
 					"offsetY": 4,
 					"healthPoints": 150,
 					"scale": 1

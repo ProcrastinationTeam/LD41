@@ -10,7 +10,14 @@ import flixel.util.FlxAxes;
 
 class MenuState extends FlxState
 {
-	private var credits : Array<String> = ["Made in 72h during the 41th Ludum Dare", "Art - Thomas Fantino @fantifanta", "Musics and sounds - "];
+	private var credits : Array<String> = [
+		"Made in 72h during the 41th Ludum Dare", 
+		"Tixier Lucas @LeRyokan - Game Design & Programming", 
+		"Ambrois Guillaume (@Eponopono) - Tools & Programming", 
+		"Gicquel Grégoire (@eorgrgix) - Programming", 
+		"Comptier Maxime (@mcomptier) - Music & SFX", 
+		"Fantino Thomas (@fantifanta) - Art"
+	];
 	
 	override public function create():Void
 	{
@@ -26,13 +33,19 @@ class MenuState extends FlxState
 		var pressToPlay = new FlxText();
 		pressToPlay.text = "Press space to play!";
 		pressToPlay.screenCenter(FlxAxes.XY);
+		pressToPlay.y += 50;
 		add(pressToPlay);
 		
 		FlxTween.tween(pressToPlay, {alpha: 0}, 0.7, {type: FlxTween.PINGPONG, ease: FlxEase.smoothStepInOut});
 		
-		var credits = new FlxText();
-		credits.text = "Made in 72h for the 41th Ludum Dare";
-		credits.screenCenter(FlxAxes.XY);
+		for (i in 0...credits.length) {
+			var creditText = new FlxText(0, 0, 0, "", 7);
+			creditText.text = credits[i];
+			creditText.x = 20;
+			creditText.y = 200 + 20 * i;
+			//creditText.size = 8-i;
+			add(creditText);
+		}
 		
 		
 		

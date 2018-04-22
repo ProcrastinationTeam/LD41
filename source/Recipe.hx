@@ -54,6 +54,15 @@ class Recipe extends FlxSpriteGroup
 		
 	}
 	
+	public function setFullRecipe(recipeList : Array<CdbData.IngredientsKind>)
+	{
+		for (ingredient in recipeList)
+		{
+			addIngredientToRecipe(ingredient);
+		}
+		
+	}
+	
 	
 	
 	

@@ -31,7 +31,9 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	
 	<classpath name="source" />
-	<assets path="assets" embed="true" />
+	
+	<assets path="assets" embed="true" unless="neko" />
+	<assets path="assets" if="neko" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 

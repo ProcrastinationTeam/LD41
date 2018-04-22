@@ -8,7 +8,8 @@ class GameOverState extends FlxState
 	override public function create():Void
 	{
 		super.create();
-		var text = new flixel.text.FlxText(0, 0, 0, "Game Over", 64);
+		
+		var text = new flixel.text.FlxText(0, 0, 0, "Game Over", 32);
 		text.screenCenter();
 		add(text);
 	}

@@ -14,22 +14,13 @@ class Player extends FlxSprite
 {
 	public var spriteResolution:Int = 32;
 	
-	public var playerStats:PlayerStatWrapper;
-	
-	//public var maxHealth:Float = 100;
-	//public var currentHealth:Float = 100;
-	//public var speed:Float = 200;
-	//public var sliceDmg:Float = 10;
-	//public var peelDmg:Float = 10;
-	//public var range:Float = 5;
-	//public var armor:Float = 0;
-	//public var dmgReduction:Float = 0;
-	//public var atckSpeed:Float = 0.5;
-	//public var atckDuration:Float = 0.2;
-	
+	public var playerStats:PlayerStatWrapper;	
 	
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
+	
+	public var aimDisabled:Bool = false;
+	public var moveDisabled:Bool = false;
 	
 	public var attackTimer:FlxTimer;
 	public var canAttackTimer:FlxTimer;
@@ -40,6 +31,8 @@ class Player extends FlxSprite
 	public var aimAt:Int = 1;  //0 : Up , 1 Down, 2 Left, 3 Right
 	
 	public var offsetValue:Int = 0;
+	
+	public var invincible:Int = 0;
 	
 	//public var isAlive:Bool = true;
 	
@@ -314,15 +307,29 @@ class Player extends FlxSprite
 	{
 	}
 	
-	public function takeDamage(Damage:Int):Bool
+	public function takeDamage(Damage:Int, X:Float, Y:Float):Bool
 	{
-		playerStats.currentHealth -= Damage;
-		if (playerStats.currentHealth <= 0)
+		if (invincible == 0)
 		{
-			playerStats.currentHealth = 0;
-			playerStats.isAlive = false;
+			invincible = playerStats.nbInvincibilityFrame;
+			playerStats.currentHealth -= Damage;
+			if (playerStats.currentHealth <= 0)
+			{
+				playerStats.currentHealth = 0;
+				playerStats.isAlive = false;
+			}
+			knockBack(X, Y);
+			return playerStats.isAlive;
 		}
-		return playerStats.isAlive;
+		else
+			return true;
+	}
+	
+	public function knockBack(X:Float, Y:Float):Void
+	{
+		var duration = 0.3;
+		FlxTween.linearMotion(this, x, y, x + (x - X) * playerStats.knockBackFactor, y + (y - Y) * playerStats.knockBackFactor, duration, true, { type: FlxTween.ONESHOT, ease: FlxEase.expoOut});
+		//velocity.set((x - X) * playerStats.knockBackFactor, (y - Y) * playerStats.knockBackFactor);
 	}
 	
 	public function HealDamage(Heal: Int):Void
@@ -340,9 +347,30 @@ class Player extends FlxSprite
 			return playerStats.sliceDmg;
 	}
 	
+	public function disableMovement():Void
+	{
+		moveDisabled = true;
+	}
+	
+	public function enableMovement():Void
+	{
+		moveDisabled = false;
+	}
+	
+	public function disableAim():Void
+	{
+		aimDisabled = true;
+	}
+	
+	public function enableAim():Void
+	{
+		aimDisabled = true;
+	}
+	
 	override public function update(elapsed:Float):Void 
 	{
-		//make sure key are released
+		//make sure key are released//
+		//////////////////////////////
 		if (FlxG.keys.anyJustReleased([UP, DOWN, RIGHT, LEFT]))
 		{
 			keyReleased = true;
@@ -355,19 +383,28 @@ class Player extends FlxSprite
 		{
 			canAttack = true;
 		}
-		
 		if (FlxG.keys.anyJustReleased([Z, Q, S, D]))
 		{
 			moveKeyReleased = true;
 		}
-		
 		if(moveKeyReleased && canAttack)
 			animation.play("idle");
-		//compute player movement
-		movement();
+		/////////////////////////////
 		
-		changeWeapon();
-		aim();
+		
+		//decrease invincibility
+		if (invincible > 0)
+			invincible--;
+		
+		//compute player movement
+		if(!moveDisabled)
+			movement();
+		
+		if (!aimDisabled)
+		{
+			changeWeapon();
+			aim();			
+		}
 		
 		super.update(elapsed);
 	}

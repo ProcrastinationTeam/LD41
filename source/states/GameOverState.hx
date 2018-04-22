@@ -3,12 +3,14 @@ package states;
 import flixel.FlxState;
 import flixel.FlxG;
 
-class MenuState extends FlxState
+class GameOverState extends FlxState
 {
 	override public function create():Void
 	{
 		super.create();
-		trace('menu');
+		var text = new flixel.text.FlxText(0, 0, 0, "Game Over", 64);
+		text.screenCenter();
+		add(text);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -16,7 +18,7 @@ class MenuState extends FlxState
 		super.update(elapsed);
 		
 		if (FlxG.mouse.justPressed || FlxG.keys.justPressed.SPACE) {
-			FlxG.switchState(new PlayState("Kitchen_32", "Start", true, true));
+			FlxG.switchState(new PlayState("Kitchen_32", "Start",true));
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

@@ -247,13 +247,12 @@ class PlayState extends FlxState {
 				OnEnemyHurtCallback(level.player, randomEnemy);
 			}
 		}
-		#end
-		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
 			FlxG.resetGame();
 		} else if (FlxG.keys.justPressed.R) {
-			FlxG.resetState();
+			FlxG.switchState(new PlayState(levelDataName));
 		}
+		#end
 	}
 	
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {

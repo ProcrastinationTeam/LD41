@@ -16,21 +16,20 @@ class IngredientEnemy extends FlxSprite
 	public var damage			: Int = 15;
 	public var maxScale			: Float = 2.5;
 	
-	public var speed:Float = 140;
+	public var speed:Float = 100;
 	private var _brain:FSM;
 	private var _idleTmr:Float;
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
-	public var detectionRadius:Float = 32;
+	public var detectionRadius:Float = 100;
 	
 	
 	public function new(?X:Float=0, ?Y:Float=0, npcData: CdbData.Npcs) 
 	{
 		super(X, Y);
 		
-		//drag.set(800, 800);
-		//immovable = true;
+		//CdbData.NpcsKind
 		
 		loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
 		setFacingFlip(FlxObject.LEFT, false, false);
@@ -51,10 +50,11 @@ class IngredientEnemy extends FlxSprite
 		
 		level = FlxG.random.float(0.5, maxScale);
 		hp = npcData.healthPoints * level;
-		scale.set(level * npcData.scale, level * npcData.scale);
 		
 		setSize(npcData.sizeX, npcData.sizeY);
 		offset.set(npcData.offsetX, npcData.offsetY);
+		scale.set(level * npcData.scale, level * npcData.scale);
+		
 		
 		_brain = new FSM(idle);
 		_idleTmr = 0;

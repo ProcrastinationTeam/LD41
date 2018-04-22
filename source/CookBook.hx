@@ -14,7 +14,7 @@ class CookBook extends FlxSpriteGroup
 	public static inline var cHeight : Int = 128;
 	
 	public var _backgroundSprite : FlxSprite;
-	public var _recipeList : FlxTypedGroup<Recipe>;
+	public var _recipeList : Map<String,Recipe>;
 	public var _text: FlxText;
 	public var _limitRecipe : Int = 0;
 	
@@ -32,7 +32,7 @@ class CookBook extends FlxSpriteGroup
 		_backgroundSprite.loadGraphic("assets/images/bookCanvas.png", true, 96, 128, false);
 		add(_backgroundSprite);
 		
-		_recipeList = new FlxTypedGroup<Recipe>();
+		_recipeList = new Map<String,Recipe>();
 		
 	}
 	
@@ -53,12 +53,15 @@ class CookBook extends FlxSpriteGroup
 			case  0:
 				Storage.recipe1 =  recipe._recipeIngredientArray;
 				Storage.recipe1name = recipe._name.text;
+				_recipeList.set(Storage.recipe1name, recipe);
 			case 1:
 				Storage.recipe2 =  recipe._recipeIngredientArray;
 				Storage.recipe2name = recipe._name.text;
+				_recipeList.set(Storage.recipe2name, recipe);
 			case 2:
 				Storage.recipe3 =  recipe._recipeIngredientArray;
 				Storage.recipe3name = recipe._name.text;
+				_recipeList.set(Storage.recipe3name, recipe);
 			default:
 				
 		}

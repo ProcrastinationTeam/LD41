@@ -35,6 +35,9 @@ class IngredientEnemy extends FlxSprite
 		loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
 		setFacingFlip(FlxObject.LEFT, false, false);
         setFacingFlip(FlxObject.RIGHT, true, false);
+		
+		updateHitbox();
+		
 		for (anim in npcData.animations) {
 			animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * Tweaking.stride], anim.frameRate);
 		}

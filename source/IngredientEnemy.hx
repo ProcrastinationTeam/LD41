@@ -3,7 +3,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 
-class Enemy extends FlxSprite  
+class IngredientEnemy extends FlxSprite  
 {
 
 	public var npcType			: CdbData.NpcsKind;

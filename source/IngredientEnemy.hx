@@ -76,7 +76,7 @@ class IngredientEnemy extends FlxSprite
 				else
 					facing = FlxObject.DOWN;
 			}
-			animation.play("walk_right");
+			animation.play("walk");
 			//switch (facing)
 			//{
 				//case FlxObject.LEFT, FlxObject.RIGHT:

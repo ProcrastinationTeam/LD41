@@ -1123,7 +1123,7 @@
 							"frameRate": 2
 						},
 						{
-							"name": "",
+							"name": "walk",
 							"frames": [
 								{
 									"frame": {
@@ -1928,7 +1928,7 @@
 					"triggers": [
 						{
 							"x": 28,
-							"y": 1,
+							"y": 0,
 							"width": 3,
 							"height": 1,
 							"action": [
@@ -6186,11 +6186,26 @@
 								null,
 								null,
 								null,
-								null,
-								null,
-								null,
-								null,
-								null,
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
 								null,
 								null,
 								null,
@@ -6329,7 +6344,10 @@
 									"hideHero": 0,
 									"collide": "SmallBL"
 								},
-								null,
+								{
+									"hideHero": 0,
+									"collide": "Full"
+								},
 								{
 									"hideHero": 0,
 									"collide": "No"
@@ -6385,6 +6403,10 @@
 								{
 									"hideHero": 0,
 									"collide": "SmallBL"
+								},
+								{
+									"hideHero": 0,
+									"collide": "Full"
 								}
 							]
 						},

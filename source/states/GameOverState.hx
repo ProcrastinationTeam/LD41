@@ -18,7 +18,8 @@ class GameOverState extends FlxState
 		super.update(elapsed);
 		
 		if (FlxG.mouse.justPressed || FlxG.keys.justPressed.SPACE) {
-			FlxG.switchState(new PlayState("Kitchen_32", "Start",true));
+			//FlxG.switchState(new PlayState("Kitchen_32", "Start",true,true));
+			FlxG.switchState(new MenuState());
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

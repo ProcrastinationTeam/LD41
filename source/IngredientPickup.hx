@@ -29,13 +29,11 @@ class IngredientPickup extends FlxSprite
 	
 	override public function kill():Void
 	{
-		alive = false;
 		FlxTween.tween(this, { alpha: 0, y: y - 16 }, 0.5, { ease: FlxEase.circOut, onComplete: finishKill });
-		//FlxTween.circularMotion(this,x, y, 16, 0, true, 0.5, { ease: FlxEase.circOut, onComplete: finishKill });
 	}
 
 	private function finishKill(_):Void
 	{
-		exists = false;
+		super.kill();
 	}
 }

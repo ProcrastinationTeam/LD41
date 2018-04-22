@@ -183,9 +183,16 @@ class PlayState extends FlxState {
 		FlxG.collide(level.player, level.groundObjectsGroup);
 		FlxG.collide(level.player, level.overObjectsGroup);
 		
+		FlxG.collide(level.npcSprites, level.collisionsGroup);
+		FlxG.collide(level.npcSprites, level.objectsGroup);
+		FlxG.collide(level.npcSprites, level.groundObjectsGroup);
+		FlxG.collide(level.npcSprites, level.overObjectsGroup);
+		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
+		
+		level.npcSprites.forEachAlive(checkEnemyVision);
 		
 		//RECIPE BOOK
 		if (FlxG.keys.pressed.P)
@@ -508,10 +515,18 @@ class PlayState extends FlxState {
 	
 	private function checkEnemyVision(e:IngredientEnemy):Void
 	{
-		if (level.tilemapObjects.ray(e.getMidpoint(), level.player.getMidpoint()))
+		var playerPos = level.player.getMidpoint();
+		if (level.tilemapObjects.ray(e.getMidpoint(), playerPos))
 		{
-			e.seesPlayer = true;
-			e.playerPos.copyFrom(level.player.getMidpoint());
+			if (playerPos.distanceTo(e.getPosition()) > e.detectionRadius)
+			{
+				e.seesPlayer = false;
+			}
+			else
+			{
+				e.seesPlayer = true;
+				e.playerPos.copyFrom(playerPos);
+			}
 		}
 		else
 			e.seesPlayer = false;

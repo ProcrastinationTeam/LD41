@@ -22,7 +22,7 @@ class IngredientEnemy extends FlxSprite
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
-	
+	public var detectionRadius:Float = 32;
 	
 	
 	public function new(?X:Float=0, ?Y:Float=0, npcData: CdbData.Npcs) 
@@ -60,7 +60,7 @@ class IngredientEnemy extends FlxSprite
 	
 	override public function draw():Void
 	{
-		if ((velocity.x != 0 || velocity.y != 0 ) && touching == FlxObject.NONE)
+		if ((velocity.x != 0 || velocity.y != 0 ))
 		{
 			if (Math.abs(velocity.x) > Math.abs(velocity.y))
 			{
@@ -76,18 +76,18 @@ class IngredientEnemy extends FlxSprite
 				else
 					facing = FlxObject.DOWN;
 			}
-			animation.play("walk_right");
-			//switch (facing)
-			//{
-				//case FlxObject.LEFT, FlxObject.RIGHT:
-					//animation.play("lr");
-//
-				//case FlxObject.UP:
-					//animation.play("u");
-//
-				//case FlxObject.DOWN:
-					//animation.play("d");
-			//}
+			
+			switch (facing)
+			{
+				case FlxObject.LEFT, FlxObject.RIGHT:
+					animation.play("walk");
+
+				case FlxObject.UP:
+					animation.play("walk");
+
+				case FlxObject.DOWN:
+					animation.play("walk");
+			}
 		}
 		super.draw();
 	}

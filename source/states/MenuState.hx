@@ -9,6 +9,16 @@ class MenuState extends FlxState
 	{
 		super.create();
 		trace('menu');
+		
+		Storage.ingredientsCount =  new Map<CdbData.IngredientsKind,Int>();
+		Storage.recipe1 = new Array<CdbData.IngredientsKind>();
+		Storage.recipe2 = new Array<CdbData.IngredientsKind>();
+		Storage.recipe3 = new Array<CdbData.IngredientsKind>();
+		//
+		Storage.recipe1name = null;
+		Storage.recipe2name = null;
+		Storage.recipe3name  = null;
+		
 	}
 
 	override public function update(elapsed:Float):Void
@@ -24,5 +34,8 @@ class MenuState extends FlxState
 		} else if (FlxG.keys.justPressed.R) {
 			FlxG.resetState();
 		}
+		
+		
+		
 	}
 }

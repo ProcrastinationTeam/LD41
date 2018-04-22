@@ -6,6 +6,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 /**
  * ...
@@ -45,7 +46,11 @@ class RecipePicker extends FlxSpriteGroup
 	
 	public var _excludeArray: Array<Int>;
 	
-	public static var recipeNameArray : Array<String> = ["Pot au feu", "Bouillabaisse", "Ail'oli", "Steak Frite", "Riz au lait"];
+	public static var recipeNameArray : Array<String> = ["Pot au feu", "Bouillabaisse", "Ailoli", "Steak Frite", "Riz au lait"];
+	
+	public var _recipesAreFull : Bool = false;
+	
+	public var _escapeText : FlxText;
 	
 
 	public function new(playerInventory: PlayerInventory, cookbook : CookBook) 
@@ -63,10 +68,16 @@ class RecipePicker extends FlxSpriteGroup
 		_spriteArray = new FlxSpriteGroup();
 		
 		_backgroundSprite = new FlxSprite(0, 0);
-		_backgroundSprite.loadGraphic(AssetPaths.recipeCanvas__png, false, 96, 128, false);
+		_backgroundSprite.loadGraphic(AssetPaths.bookCanvas__png, false, 96, 128, false);
 		_backgroundSprite.scale.set(2, 2);
 		_backgroundSprite.updateHitbox();
 		add(_backgroundSprite);
+		
+		_escapeText = new FlxText(0 + 10, 40, 0, "Create your recipe !", 12);
+		_escapeText.setFormat("assets/images/font.ttf",16,FlxColor.BLACK);
+		_escapeText.visible = true;
+		//_escapeText.color = FlxColor.BLACK;
+		add(_escapeText);
 		
 		for (ingredient in _playerInventory._ingredientArray)
 		{
@@ -175,7 +186,13 @@ class RecipePicker extends FlxSpriteGroup
 			}
 			
 			_cookbook.addRecipeInBook(_currentRecipe);
-			
+			if (_cookbook._limitRecipe == 3)
+			{
+				_recipesAreFull = true;
+				_escapeText.text = "Press space to quit !";  
+				_escapeText.setPosition(_escapeText.x - 5, _escapeText.y);
+				_escapeText.visible = true;
+			}
 		}
 		
 		for (sprite in _sprRecipeList)
@@ -183,7 +200,6 @@ class RecipePicker extends FlxSpriteGroup
 			remove(sprite, true);
 			
 		}
-		
 		//Reset count
 	
 		_ingredientRecipeArray = new Array<CdbData.IngredientsKind>();

@@ -211,18 +211,8 @@ class PlayState extends FlxState {
 		{
 			if (FlxG.keys.justPressed.O)
 			{
-				cameraRecipePicker.visible = !cameraRecipePicker.visible;
-				recipePickerOpen = !recipePickerOpen;
 				
-				cookbookOpen = !cookbookOpen;
-				if (cookbookOpen)
-				{
-					cameraCookBook.setPosition(cameraCookBook.x - cookbook._backgroundSprite.width, cameraCookBook.y);
-				}
-				else
-				{
-					cameraCookBook.setPosition(cameraCookBook.x + cookbook._backgroundSprite.width, cameraCookBook.y);
-				}
+				activeRecipePicker();		
 			}
 		}
 		
@@ -236,9 +226,14 @@ class PlayState extends FlxState {
 			recipePicker.changeCursorPos(1);
 		}
 		
-		if ( recipePickerOpen && FlxG.keys.justPressed.SPACE)
+		if ( recipePickerOpen && FlxG.keys.justPressed.SPACE && !recipePicker._recipesAreFull)
 		{
 			recipePicker.selectIngredient();
+		}
+		
+		if ( recipePickerOpen && FlxG.keys.justPressed.SPACE && recipePicker._recipesAreFull)
+		{
+			activeRecipePicker();	
 		}
 		
 		if ( recipePickerOpen && FlxG.keys.justPressed.ENTER)
@@ -436,6 +431,31 @@ class PlayState extends FlxState {
 		//} else if (FlxG.keys.justPressed.NUMPADSIX) {
 			//FlxG.switchState(new PlayState("Cellar_32_6"));
 		#end
+	}
+	
+	private function activeRecipePicker()
+	{
+			cameraRecipePicker.visible = !cameraRecipePicker.visible;
+			recipePickerOpen = !recipePickerOpen;
+			
+			if (cameraRecipePicker.visible) 
+			{
+				level.player.disableMovement();
+			}
+			else
+			{
+				level.player.enableMovement();
+			}
+			
+			cookbookOpen = !cookbookOpen;
+			if (cookbookOpen)
+			{
+				cameraCookBook.setPosition(cameraCookBook.x - cookbook._backgroundSprite.width, cameraCookBook.y);
+			}
+			else
+			{
+				cameraCookBook.setPosition(cameraCookBook.x + cookbook._backgroundSprite.width, cameraCookBook.y);
+			}
 	}
 	
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {

@@ -256,9 +256,9 @@ class PlayState extends FlxState {
 		}
 	}
 	
-	private var enemiesHurtTweenMap: Map<Enemy, FlxTween> = new Map<Enemy, FlxTween>();
+	private var enemiesHurtTweenMap: Map<IngredientEnemy, FlxTween> = new Map<IngredientEnemy, FlxTween>();
 	
-	private function OnEnemyHurtCallback(sprite: FlxSprite, enemy: Enemy) {
+	private function OnEnemyHurtCallback(sprite: FlxSprite, enemy: IngredientEnemy) {
 		enemy.hp -= level.player.sliceDmg;
 		
 		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
@@ -277,7 +277,7 @@ class PlayState extends FlxState {
 		}
 	}
 	
-	private function OnEnemyDiesCallBack(enemy: Enemy) {
+	private function OnEnemyDiesCallBack(enemy: IngredientEnemy) {
 		for (drop in enemy.getDrops()) {
 			add(drop);
 			level.pickupSprites.add(drop);

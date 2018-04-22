@@ -24,7 +24,7 @@ class IngredientEnemy extends FlxSprite
 			animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * Tweaking.stride], anim.frameRate);
 		}
 		
-		animation.play("idle");
+		animation.play("idle", false, false, -1);
 		
 		allowCollisions = FlxObject.ANY;
 		

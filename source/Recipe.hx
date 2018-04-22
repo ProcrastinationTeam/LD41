@@ -14,7 +14,6 @@ class Recipe extends FlxSpriteGroup
 {
 	
 	public var spriteSheetSize: Int = 15;
-	public var _ingredientList: FlxTypedGroup<Ingredient>; // va disparaitre
 	
 	public var _ingredientMap: Map<CdbData.IngredientsKind,FlxSprite>;
 	public var _isFull : Bool = false;
@@ -31,7 +30,6 @@ class Recipe extends FlxSpriteGroup
 		_name.setPosition(computedOffset, 16);
 		add(_name);
 
-		_ingredientList = new FlxTypedGroup<Ingredient>();
 
 		//addIngredientToRecipe(CdbData.IngredientsKind.Carrot);
 		//addIngredientToRecipe(CdbData.IngredientsKind.Avocado);

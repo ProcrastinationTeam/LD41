@@ -9,7 +9,6 @@ import openfl.Assets;
 class LucasPlayState extends FlxState
 {
 
-	var gameIngredientList: FlxTypedGroup<Ingredient>;
 	var cookBook: CookBook;
 	var currentRecipe : Recipe;
 	var inventory: PlayerInventory;
@@ -23,7 +22,6 @@ class LucasPlayState extends FlxState
 		add(inventory);
 		
 		
-		gameIngredientList = new FlxTypedGroup<Ingredient>();
 
 		
 		
@@ -63,8 +61,5 @@ class LucasPlayState extends FlxState
 		
 	}
 	
-	public function addToRecipe(ingredient:Ingredient): Void
-	{
-		trace("YOLO");
-	}
+	
 }

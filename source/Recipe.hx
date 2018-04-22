@@ -3,6 +3,7 @@ package;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxMath;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.text.FlxText;
 
@@ -27,7 +28,8 @@ class Recipe extends FlxSpriteGroup
 		super();
 		_name = new FlxText(0, 0, 0, name, 8, true );
 		
-		var computedOffset = (CookBook.cWidth - (_name.text.length * _name.size)) ;
+		var computedOffset = FlxMath.absInt(CookBook.cWidth - (_name.text.length * _name.size)) ;
+		trace("OFFSET: " + computedOffset);
 		_name.setPosition(computedOffset, 16);
 		add(_name);
 

@@ -37,6 +37,7 @@ class PlayState extends FlxState {
 		super();
 		this.levelDataName = levelDataName;
 		this.anchor = anchor;
+		
 	}
 	
 	override public function create():Void
@@ -92,13 +93,14 @@ class PlayState extends FlxState {
 		inventory.cameras = [cameraUI];
 		
 		//RecipeBook camera
-		cookbook = new CookBook(inventory);
-		add(cookbook);
-		
-		cameraCookBook = new FlxCamera(FlxG.width - 10, Std.int(FlxG.height/2), 96, 128, 1);
-		FlxG.cameras.add(cameraCookBook);
-		cookbook.cameras = [cameraCookBook];
-		
+	
+			cookbook = new CookBook(inventory);
+			add(cookbook);
+			
+			cameraCookBook = new FlxCamera(FlxG.width - 10, Std.int(FlxG.height/2), 96, 128, 1);
+			FlxG.cameras.add(cameraCookBook);
+			cookbook.cameras = [cameraCookBook];
+
 		
 		//Picker
 		
@@ -235,12 +237,12 @@ class PlayState extends FlxState {
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
 			if (goto.l == "Kitchen_32") {
-				FlxG.switchState(new PlayState(goto.l, goto.anchor));
+				FlxG.switchState(new PlayState(goto.l, goto.anchor,cookbook));
 			} else {
 				var levelName = goto.l + "_1";
 				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
 				trace(levelName);
-				FlxG.switchState(new PlayState(levelName, goto.anchor));
+				FlxG.switchState(new PlayState(levelName, goto.anchor,cookbook));
 			}
 		});
 	}

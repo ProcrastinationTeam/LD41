@@ -79,9 +79,9 @@ class PlayState extends FlxState {
 		// Adding the collisions group
 		add(level.collisionsGroup);
 		
-		add(level.player.peeler);
+		add(level.player.weapons.peeler);
 
-		add(level.player.knife);
+		add(level.player.weapons.knife);
 		
 		
 		////Inventory
@@ -141,8 +141,8 @@ class PlayState extends FlxState {
 		FlxG.collide(level.player, level.overObjectsGroup);
 		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
-		FlxG.overlap(level.player.peeler, level.npcSprites, OnEnemyHurtCallback);
-		FlxG.overlap(level.player.knife, level.npcSprites, OnEnemyHurtCallback);
+		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
+		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
 		
 		//RECIPE BOOK
 		if (FlxG.keys.justPressed.P)

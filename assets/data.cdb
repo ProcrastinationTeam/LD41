@@ -16,7 +16,7 @@
 				{
 					"id": "No",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 7,
 						"y": 7
@@ -25,7 +25,7 @@
 				{
 					"id": "Full",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 0,
 						"y": 0
@@ -34,7 +34,7 @@
 				{
 					"id": "Over",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 1,
 						"y": 0
@@ -43,7 +43,7 @@
 				{
 					"id": "Under",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 2,
 						"y": 0
@@ -52,7 +52,7 @@
 				{
 					"id": "Small",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 3,
 						"y": 0
@@ -61,7 +61,7 @@
 				{
 					"id": "Top",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 4,
 						"y": 0
@@ -70,7 +70,7 @@
 				{
 					"id": "Left",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 5,
 						"y": 0
@@ -79,7 +79,7 @@
 				{
 					"id": "Right",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 7,
 						"y": 0
@@ -88,7 +88,7 @@
 				{
 					"id": "Bottom",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 6,
 						"y": 0
@@ -97,7 +97,7 @@
 				{
 					"id": "TopRight",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 0,
 						"y": 1
@@ -106,7 +106,7 @@
 				{
 					"id": "TopLeft",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 1,
 						"y": 1
@@ -115,7 +115,7 @@
 				{
 					"id": "BottomLeft",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 2,
 						"y": 1
@@ -124,7 +124,7 @@
 				{
 					"id": "BottomRight",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 3,
 						"y": 1
@@ -133,7 +133,7 @@
 				{
 					"id": "HalfTop",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 4,
 						"y": 1
@@ -142,7 +142,7 @@
 				{
 					"id": "HalfBottom",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 5,
 						"y": 1
@@ -151,7 +151,7 @@
 				{
 					"id": "HalfRight",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 6,
 						"y": 1
@@ -160,7 +160,7 @@
 				{
 					"id": "HalfLeft",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 7,
 						"y": 1
@@ -169,7 +169,7 @@
 				{
 					"id": "Shade",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 0,
 						"y": 2
@@ -178,7 +178,7 @@
 				{
 					"id": "Ladder",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 1,
 						"y": 2
@@ -187,7 +187,7 @@
 				{
 					"id": "Lift",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 2,
 						"y": 2
@@ -196,7 +196,7 @@
 				{
 					"id": "Pike",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 3,
 						"y": 2
@@ -205,7 +205,7 @@
 				{
 					"id": "MobOnly",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 4,
 						"y": 2
@@ -214,7 +214,7 @@
 				{
 					"id": "CanDown",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 5,
 						"y": 2
@@ -223,7 +223,7 @@
 				{
 					"id": "Horizontal",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 6,
 						"y": 2
@@ -232,7 +232,7 @@
 				{
 					"id": "Vertical",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 7,
 						"y": 2
@@ -241,7 +241,7 @@
 				{
 					"id": "Disable",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 0,
 						"y": 3
@@ -250,16 +250,16 @@
 				{
 					"id": "Kill",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
-						"x": 1,
-						"y": 3
+						"x": 10,
+						"y": 0
 					}
 				},
 				{
 					"id": "CornerTR",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 2,
 						"y": 3
@@ -268,7 +268,7 @@
 				{
 					"id": "CornerBL",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 3,
 						"y": 3
@@ -277,7 +277,7 @@
 				{
 					"id": "CornerBR",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 4,
 						"y": 3
@@ -286,7 +286,7 @@
 				{
 					"id": "CornerTL",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 5,
 						"y": 3
@@ -295,7 +295,7 @@
 				{
 					"id": "HeroOnly",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 6,
 						"y": 3
@@ -304,7 +304,7 @@
 				{
 					"id": "SmallTR",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 7,
 						"y": 3
@@ -313,7 +313,7 @@
 				{
 					"id": "SmallBL",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 0,
 						"y": 4
@@ -322,7 +322,7 @@
 				{
 					"id": "SmallBR",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 1,
 						"y": 4
@@ -331,7 +331,7 @@
 				{
 					"id": "SmallTL",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 2,
 						"y": 4
@@ -340,7 +340,7 @@
 				{
 					"id": "Bridge",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 3,
 						"y": 4
@@ -349,7 +349,7 @@
 				{
 					"id": "UnderWater",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 4,
 						"y": 4
@@ -358,7 +358,7 @@
 				{
 					"id": "Custom",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 5,
 						"y": 4
@@ -367,7 +367,7 @@
 				{
 					"id": "VLadder",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 6,
 						"y": 4
@@ -376,7 +376,7 @@
 				{
 					"id": "Grid",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 7,
 						"y": 4
@@ -385,7 +385,7 @@
 				{
 					"id": "NonActiveOnly",
 					"icon": {
-						"file": "collide.png",
+						"file": "images/collide.png",
 						"size": 16,
 						"x": 0,
 						"y": 5
@@ -578,7 +578,7 @@
 						"x": 9,
 						"y": 1
 					},
-					"drop": "Chilipper",
+					"drop": "Chilipepper",
 					"sizeX": 12,
 					"sizeY": 28,
 					"offsetX": 10,
@@ -675,6 +675,14 @@
 										"file": "images/sprite_shit.png",
 										"size": 32,
 										"x": 13,
+										"y": 2
+									}
+								},
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 12,
 										"y": 2
 									}
 								}
@@ -942,6 +950,46 @@
 						"file": "images/sprite_shit.png",
 						"size": 32,
 						"x": 0,
+						"y": 4
+					}
+				},
+				{
+					"id": "Eggplant",
+					"name": "Lucas",
+					"animations": [
+						{
+							"name": "idle",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 8,
+										"y": 4
+									}
+								},
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 9,
+										"y": 4
+									}
+								}
+							],
+							"frameRate": 2
+						}
+					],
+					"drop": "Chicken",
+					"sizeX": 16,
+					"sizeY": 32,
+					"offsetX": 8,
+					"offsetY": 0,
+					"healthPoints": 500,
+					"image": {
+						"file": "images/sprite_shit.png",
+						"size": 32,
+						"x": 8,
 						"y": 4
 					}
 				}
@@ -1553,6 +1601,12 @@
 							"Name": ""
 						},
 						{
+							"x": 26,
+							"y": 4,
+							"kind": "Eggplant",
+							"Name": ""
+						},
+						{
 							"x": 31,
 							"y": 4,
 							"kind": "Avocado",
@@ -1841,7 +1895,7 @@
 						{
 							"x": 28,
 							"y": 4,
-							"kind": "Chilipper",
+							"kind": "Chilipepper",
 							"additionalDrops": 0
 						},
 						{
@@ -4743,7 +4797,7 @@
 							],
 							"props": []
 						},
-						"collide.png": {
+						"images/collides.png": {
 							"stride": 8,
 							"sets": [],
 							"props": []
@@ -4977,6 +5031,236 @@
 								{
 									"hideHero": 0,
 									"collide": "No"
+								},
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								{
+									"hideHero": 0,
+									"collide": "HalfLeft"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfLeft"
+								},
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
+								null,
+								{
+									"hideHero": 0,
+									"collide": "HalfLeft"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfBottom"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfLeft"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfTop"
+								},
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								null,
+								{
+									"hideHero": 0,
+									"collide": "No"
+								},
+								null,
+								{
+									"hideHero": 0,
+									"collide": "HalfLeft"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfBottom"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfRight"
+								},
+								{
+									"hideHero": 0,
+									"collide": "HalfTop"
 								}
 							]
 						},
@@ -5270,7 +5554,7 @@
 					}
 				},
 				{
-					"name": "Chilipper",
+					"name": "Chilipepper",
 					"value": 5,
 					"type": 1,
 					"image": {
@@ -5375,17 +5659,17 @@
 					"animation": [
 						{
 							"frame": {
-								"file": "images/fireball.png",
+								"file": "images/sprite_shit.png",
 								"size": 32,
-								"x": 0,
+								"x": 5,
 								"y": 0
 							}
 						},
 						{
 							"frame": {
-								"file": "images/fireball.png",
+								"file": "images/sprite_shit.png",
 								"size": 32,
-								"x": 1,
+								"x": 6,
 								"y": 0
 							}
 						}

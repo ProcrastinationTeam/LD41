@@ -26,9 +26,6 @@ class IngredientEnemy extends FlxSprite
 		
 		animation.play("idle");
 		
-		setSize(npcData.sizeX, npcData.sizeY);
-		offset.set(npcData.offsetX, npcData.offsetY);
-		
 		allowCollisions = FlxObject.ANY;
 		
 		npcType = npcData.id;
@@ -45,6 +42,9 @@ class IngredientEnemy extends FlxSprite
 				hp = npcData.healthPoints * 2;
 				scale.set(1.5, 1.5);
 		}
+		
+		setSize(npcData.sizeX, npcData.sizeY);
+		offset.set(npcData.offsetX, npcData.offsetY);
 	}
 	
 	public function getDrops(): Array<IngredientPickup> {

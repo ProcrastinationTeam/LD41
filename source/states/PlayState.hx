@@ -23,6 +23,7 @@ class PlayState extends FlxState {
 	private var level					: CdbLevel;
 	private var inventory				: PlayerInventory;
 	private var cookbook				: CookBook;
+	private var customerCardList		: CustomerCardList;
 	private var loadedCookbook			: CookBook;
 	private var cookbookToLoad			: Bool = false;
 	private var recipePicker			: RecipePicker;
@@ -30,6 +31,7 @@ class PlayState extends FlxState {
 	
 	
 	private var cameraUI				: FlxCamera;
+	private var cameraHUD				: FlxCamera;
 	private var cameraCookBook			: FlxCamera;
 	private var cameraRecipePicker		: FlxCamera;
 	
@@ -91,9 +93,13 @@ class PlayState extends FlxState {
 		add(level.player.weapons.knife);
 		
 		
+		//Player health
+		var playerH = new PlayerHUD(level.player);
+		//playerH.setPosition(100, 100);
+		playerH.scrollFactor.set(0, 0);
+		add(playerH);
+		
 		////Inventory
-		
-		
 		if (!initialInventoryLoad)
 		{
 			inventory = new PlayerInventory();
@@ -113,6 +119,15 @@ class PlayState extends FlxState {
 		cameraUI = new FlxCamera(0, 0, 300, Std.int(inventory._spriteSize * inventory._computedScale), 1);
 		FlxG.cameras.add(cameraUI);
 		inventory.cameras = [cameraUI];
+		
+		//customerCardList = new CustomerCardList();
+		//add(customerCardList);
+		//
+		//cameraHUD = new FlxCamera(0, Std.int(inventory._spriteSize * inventory._computedScale), 32, 32 * 5);
+		//FlxG.cameras.add(cameraHUD);
+		//customerCardList.cameras = [cameraHUD];
+		
+		
 		
 		cookbook = new CookBook(inventory);
 		add(cookbook);
@@ -187,6 +202,7 @@ class PlayState extends FlxState {
 		FlxG.collide(level.npcSprites, level.objectsGroup);
 		FlxG.collide(level.npcSprites, level.groundObjectsGroup);
 		FlxG.collide(level.npcSprites, level.overObjectsGroup);
+		FlxG.collide(level.npcSprites, level.npcSprites);
 		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
@@ -481,6 +497,7 @@ class PlayState extends FlxState {
 	{
 		if (player.alive && player.exists && ingredient.alive && ingredient.exists)
 		{
+			ingredient.allowCollisions = FlxObject.NONE;
 			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
 		}

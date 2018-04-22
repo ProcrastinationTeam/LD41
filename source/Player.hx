@@ -121,7 +121,7 @@ class Player extends FlxSprite
 				aimAt = 0;
 				facing = FlxObject.UP;
 				offsetY = -offsetValue - spriteResolution/2;
-				offsetX = 5;
+				offsetX = -10;
 				currentWeaponSprite.facing = FlxObject.UP;
 				currentWeaponSprite.angle = -90;
 				
@@ -134,13 +134,13 @@ class Player extends FlxSprite
 			{
 				aimAt = 1;
 				facing = FlxObject.DOWN;
-				offsetY = offsetValue - spriteResolution/2;
-				offsetX = 5;
+				offsetY = offsetValue - spriteResolution + 5;
+				offsetX = -5;
 				currentWeaponSprite.facing = FlxObject.DOWN;
 				currentWeaponSprite.angle = 90;
 				
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
-				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
+				currentWeaponSprite.offset.set(spriteResolution / 4, 0);
 				
 				animation.play("attack_down");
 			}
@@ -149,12 +149,12 @@ class Player extends FlxSprite
 				aimAt = 2;
 				facing = FlxObject.LEFT;
 				offsetX = -offsetValue -5;
-				offsetY = -spriteResolution/3;
+				offsetY = -spriteResolution/4 + 2;
 				currentWeaponSprite.facing = FlxObject.LEFT;
 				currentWeaponSprite.angle = 0;
 				
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
-				currentWeaponSprite.offset.set(0, spriteResolution / 3);
+				currentWeaponSprite.offset.set(0, spriteResolution / 2);
 				
 				animation.play("attack_left");
 			}
@@ -164,16 +164,17 @@ class Player extends FlxSprite
 				facing = FlxObject.RIGHT;
 				
 				
-				offsetX = offsetValue -5;
-				offsetY = -spriteResolution/3;
+				offsetX = offsetValue -10;
+				offsetY = -spriteResolution/4 + 2;
 				currentWeaponSprite.facing = FlxObject.RIGHT;
 				currentWeaponSprite.angle = 0;
 				
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
-				currentWeaponSprite.offset.set(0, spriteResolution / 3);
+				currentWeaponSprite.offset.set(0, spriteResolution / 2);
 				
 				animation.play("attack_right");
 			}
+			updateWeaponSprite(currentWeapon, facing);
 			currentWeaponSprite.x = this.x + offsetX;
 			currentWeaponSprite.y = this.y + offsetY;
 			
@@ -337,6 +338,28 @@ class Player extends FlxSprite
 		playerStats.currentHealth += Heal;
 		if (playerStats.currentHealth >= playerStats.maxHealth)
 			playerStats.currentHealth = playerStats.maxHealth;
+	}
+	
+	public function updateWeaponSprite(weapon:Int, facing:Int):Void
+	{
+		var currentWeaponSprite = weapons.getCurrent(currentWeapon);
+		if (weapon == 0 && facing == FlxObject.UP)
+		{
+			currentWeaponSprite.animation.frameIndex = 103;// 37;
+		}
+		else if (weapon == 0)
+		{
+			currentWeaponSprite.animation.frameIndex = 103;
+		}
+		else if (weapon == 1 && facing == FlxObject.UP)
+		{
+			currentWeaponSprite.animation.frameIndex = 102;//22;
+		}
+		else if (weapon == 1)
+		{
+			currentWeaponSprite.animation.frameIndex = 102;
+		}
+		
 	}
 	
 	public function getCurrentWeaponDmg():Float

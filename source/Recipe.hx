@@ -21,6 +21,8 @@ class Recipe extends FlxSpriteGroup
 	public var _recipeImage: String;
 	public var _name: FlxText;
 	public var _nbIngredient : Int = 0;
+	
+	public var _recipeIngredientArray: Array<CdbData.IngredientsKind>;
 
 	public function new(name:String) 
 	{
@@ -32,25 +34,22 @@ class Recipe extends FlxSpriteGroup
 		_name.setPosition(computedOffset, 16);
 		add(_name);
 
-
-		//addIngredientToRecipe(CdbData.IngredientsKind.Carrot);
-		//addIngredientToRecipe(CdbData.IngredientsKind.Avocado);
-		//addIngredientToRecipe(CdbData.IngredientsKind.Bread);
-		//addIngredientToRecipe(CdbData.IngredientsKind.Chicken);
-		
+		_recipeIngredientArray =  new Array<CdbData.IngredientsKind>();
 		
 	}
 	
 	public function addIngredientToRecipe(ingredient: CdbData.IngredientsKind) {
 		
-		var spr = new FlxSprite(0,0);
 		var currentIngredient = CdbData.ingredients.get(ingredient);
+		_recipeIngredientArray.push(currentIngredient.name);
+		
+		var spr = new FlxSprite(0,0);
 		spr.loadGraphic("assets/" + currentIngredient.image.file, true, currentIngredient.image.size, currentIngredient.image.size);
 		spr.scale.set(0.5, 0.5);
 		spr.setPosition(_nbIngredient * (spr.width * 0.5),  _name.y + 2 );
 		spr.animation.frameIndex = currentIngredient.image.x + 15 * currentIngredient.image.y;
+		
 		_nbIngredient++;
-		trace("POS : ", spr.toString());
 		add(spr);
 		
 	}

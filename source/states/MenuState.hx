@@ -11,6 +11,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxAxes;
+import flixel.util.FlxColor;
 
 class MenuState extends FlxState {
 	
@@ -42,7 +43,8 @@ class MenuState extends FlxState {
 	{
 		super.create();
 		
-		music = FlxG.sound.load(MusicAssetsPath.credits__ogg);
+		music = FlxG.sound.load(MusicAssetsPath.credits__ogg, 0.7, true);
+		music.play();
 		
 		lightSprite = new FlxSprite();
 		lightSprite.loadGraphic(AssetPaths.home_light__png);
@@ -90,13 +92,17 @@ class MenuState extends FlxState {
 		Storage.recipe3name = null;
 	}
 
+	// TODO: zoom pour les credits
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 		
 		if (FlxG.mouse.justPressed || FlxG.keys.justPressed.SPACE) {
+			music.fadeOut(0.3);
 			
-			FlxG.switchState(new PlayState("Kitchen_32", "Start", true, true));
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function() {
+				FlxG.switchState(new PlayState("Kitchen_32", "Start", true, true));
+			});
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

@@ -23,8 +23,8 @@ class Customer extends FlxSprite
 		_id = id;
 		var rand = FlxG.random.int(0, 2);
 		//_recipeChoose = new Recipe("");
-		_recipeChoose = player._recipeList.members[rand];
-		trace("WOL :"  + player._recipeList.members[rand]);
+		//_recipeChoose = player._recipeList.members[rand];
+		//trace("WOL :"  + player._recipeList.members[rand]);
 		trace("RECIP:" + _recipeChoose);
 	//	trace("CUSTOMER " + id +": " +_recipeChoose._name);
 		

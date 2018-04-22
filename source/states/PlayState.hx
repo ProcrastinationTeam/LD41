@@ -406,7 +406,8 @@ class PlayState extends FlxState {
 			} else if (FlxG.keys.justPressed.R) {
 				FlxG.switchState(new PlayState(levelDataName));
 			}
-			
+		}
+		if (FlxG.keys.pressed.CONTROL) {
 			if (FlxG.keys.justPressed.NUMPADPERIOD) {
 				FlxG.switchState(new PlayState("Cellar_32_0"));
 			} else if (FlxG.keys.justPressed.NUMPADZERO) {

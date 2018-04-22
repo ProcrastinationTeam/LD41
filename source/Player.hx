@@ -174,6 +174,7 @@ class Player extends FlxSprite
 				
 				animation.play("attack_right");
 			}
+			updateWeaponSprite(currentWeapon, facing);
 			currentWeaponSprite.x = this.x + offsetX;
 			currentWeaponSprite.y = this.y + offsetY;
 			
@@ -337,6 +338,28 @@ class Player extends FlxSprite
 		playerStats.currentHealth += Heal;
 		if (playerStats.currentHealth >= playerStats.maxHealth)
 			playerStats.currentHealth = playerStats.maxHealth;
+	}
+	
+	public function updateWeaponSprite(weapon:Int, facing:Int):Void
+	{
+		var currentWeaponSprite = weapons.getCurrent(currentWeapon);
+		if (weapon == 0 && facing == FlxObject.UP)
+		{
+			currentWeaponSprite.animation.frameIndex = 37;
+		}
+		else if (weapon == 0)
+		{
+			currentWeaponSprite.animation.frameIndex = 103;
+		}
+		else if (weapon == 1 && facing == FlxObject.UP)
+		{
+			currentWeaponSprite.animation.frameIndex = 22;
+		}
+		else if (weapon == 1)
+		{
+			currentWeaponSprite.animation.frameIndex = 102;
+		}
+		
 	}
 	
 	public function getCurrentWeaponDmg():Float

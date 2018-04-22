@@ -187,6 +187,7 @@ class PlayState extends FlxState {
 		FlxG.collide(level.npcSprites, level.objectsGroup);
 		FlxG.collide(level.npcSprites, level.groundObjectsGroup);
 		FlxG.collide(level.npcSprites, level.overObjectsGroup);
+		FlxG.collide(level.npcSprites, level.npcSprites);
 		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
@@ -481,6 +482,7 @@ class PlayState extends FlxState {
 	{
 		if (player.alive && player.exists && ingredient.alive && ingredient.exists)
 		{
+			ingredient.allowCollisions = FlxObject.NONE;
 			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
 		}

@@ -45,10 +45,10 @@ class Recipe extends FlxSpriteGroup
 		
 		var spr = new FlxSprite(0,0);
 		var currentIngredient = CdbData.ingredients.get(ingredient);
-		spr.loadGraphic("assets/" + currentIngredient.sprite.file, true, currentIngredient.sprite.size, currentIngredient.sprite.size);
+		spr.loadGraphic("assets/" + currentIngredient.image.file, true, currentIngredient.image.size, currentIngredient.image.size);
 		spr.scale.set(0.5, 0.5);
 		spr.setPosition(_nbIngredient * (spr.width * 0.5),  _name.y + 2 );
-		spr.animation.frameIndex = currentIngredient.sprite.x + 15 * currentIngredient.sprite.y;
+		spr.animation.frameIndex = currentIngredient.image.x + 15 * currentIngredient.image.y;
 		_nbIngredient++;
 		trace("POS : ", spr.toString());
 		add(spr);

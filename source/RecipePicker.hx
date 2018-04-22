@@ -37,11 +37,15 @@ class RecipePicker extends FlxSpriteGroup
 	
 	public var _cursor:FlxSprite;
 	
+	public var _currentRecipe: Recipe;
+	public var _ingredientRecipeArray : Array<CdbData.IngredientsKind>;
+	
 
 	public function new(playerInventory: PlayerInventory) 
 	{
 		super();
 		
+		_ingredientRecipeArray = new Array<CdbData.IngredientsKind>();
 		_playerInventory = playerInventory;
 		_ingredientMap = new Map<CdbData.IngredientsKind, FlxSprite>();
 		_ingredientMapZ = new Map<Int,CdbData.IngredientsKind>();
@@ -57,14 +61,14 @@ class RecipePicker extends FlxSpriteGroup
 		{
 			
 			var spr = new FlxSprite(0, 0);
-			spr.loadGraphic("assets/" + ingredient.sprite.file, true, ingredient.sprite.size, ingredient.sprite.size, false);
+			spr.loadGraphic("assets/" + ingredient.image.file, true, ingredient.image.size, ingredient.image.size, false);
 			spr.scale.set(0.6, 0.6);
 			//spr.updateHitbox();
 			
-			_computedOffset = Std.int(ingredient.sprite.size * 0.6);
+			_computedOffset = Std.int(ingredient.image.size * 0.6);
 			spr.setPosition(40,  _yPos );
 			
-			spr.animation.frameIndex = ingredient.sprite.x + 15 * ingredient.sprite.y;
+			spr.animation.frameIndex = ingredient.image.x + 15 * ingredient.image.y;
 			
 			_name = new FlxText(70, _yPos + 9 , 0, ingredient.name.toString(), 8);
 			_yPos += 12;
@@ -130,9 +134,10 @@ class RecipePicker extends FlxSpriteGroup
 			var sprout = _ingredientMap.get(kindToAdd);
 			trace("COUNT: ", _count);
 			
-			
 			var sp = new FlxSprite(0, 0);
 			sp.loadGraphicFromSprite(sprout);
+			
+			_ingredientRecipeArray.push(kindToAdd);
 			
 			sp.setPosition(16 + _count * 32 ,  64);
 			add(sp);
@@ -143,8 +148,14 @@ class RecipePicker extends FlxSpriteGroup
 		{
 			
 		}
+	}
+	
+	public function validRecipe()
+	{
+		_currentRecipe = new Recipe();
 		
-		
+		//_ingredientRecipeArray
+		_currentRecipe.addIngredientToRecipe();
 	}
 	
 	

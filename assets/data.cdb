@@ -5853,6 +5853,215 @@
 					"name": "additionalDrops"
 				}
 			]
+		},
+		{
+			"name": "playerAnimations",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "name"
+				},
+				{
+					"typeStr": "8",
+					"name": "frames"
+				},
+				{
+					"typeStr": "3",
+					"name": "frameRate"
+				}
+			],
+			"lines": [
+				{
+					"name": "idle",
+					"frames": [
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 5,
+								"y": 1
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 6,
+								"y": 1
+							}
+						}
+					],
+					"frameRate": 6
+				},
+				{
+					"name": "walk_down",
+					"frames": [
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 3,
+								"y": 2
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 4,
+								"y": 2
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 5,
+								"y": 2
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 6,
+								"y": 2
+							}
+						}
+					],
+					"frameRate": 4
+				},
+				{
+					"name": "walk_up",
+					"frames": [
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 10,
+								"y": 4
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 11,
+								"y": 4
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 12,
+								"y": 4
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 13,
+								"y": 4
+							}
+						}
+					],
+					"frameRate": 4
+				},
+				{
+					"name": "walk_left",
+					"frames": [
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 5,
+								"y": 5
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 6,
+								"y": 5
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 7,
+								"y": 5
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 8,
+								"y": 5
+							}
+						}
+					],
+					"frameRate": 4
+				},
+				{
+					"name": "walk_right",
+					"frames": [
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 0,
+								"y": 5
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 1,
+								"y": 5
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 2,
+								"y": 5
+							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 3,
+								"y": 5
+							}
+						}
+					],
+					"frameRate": 4
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "playerAnimations@frames",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "14",
+					"name": "frame"
+				}
+			]
 		}
 	],
 	"customTypes": [

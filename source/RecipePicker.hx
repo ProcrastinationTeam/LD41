@@ -156,6 +156,7 @@ class RecipePicker extends FlxSpriteGroup
 	{
 		if (_ingredientRecipeArray.length > 1)
 		{
+			
 			_currentRecipe = new Recipe("Bouillabaisse");
 		
 			//_ingredientRecipeArray
@@ -173,6 +174,7 @@ class RecipePicker extends FlxSpriteGroup
 			remove(sprite, true);
 			
 		}
+		
 		//Reset count
 		_count = 0;
 	}

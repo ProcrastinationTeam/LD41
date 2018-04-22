@@ -23,6 +23,8 @@ class PlayState extends FlxState {
 	private var level					: CdbLevel;
 	private var inventory				: PlayerInventory;
 	private var cookbook				: CookBook;
+	private var loadedCookbook			: CookBook;
+	private var cookbookToLoad			: Bool = false;
 	private var recipePicker			: RecipePicker;
 	
 	private var cameraUI				: FlxCamera;
@@ -31,12 +33,14 @@ class PlayState extends FlxState {
 	
 	private var cookbookOpen 			: Bool = false;
 	private var recipePickerOpen 		: Bool = false;
+	private var recipePickerHere 		: Bool = false;
 	
 	
-	public function new(levelDataName:String, ?anchor:String) {
+	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false) {
 		super();
 		this.levelDataName = levelDataName;
 		this.anchor = anchor;
+		recipePickerHere = recipePick;
 		
 	}
 	
@@ -92,26 +96,44 @@ class PlayState extends FlxState {
 		FlxG.cameras.add(cameraUI);
 		inventory.cameras = [cameraUI];
 		
-		//RecipeBook camera
-	
-			cookbook = new CookBook(inventory);
-			add(cookbook);
-			
-			cameraCookBook = new FlxCamera(FlxG.width - 10, Std.int(FlxG.height/2), 96, 128, 1);
-			FlxG.cameras.add(cameraCookBook);
-			cookbook.cameras = [cameraCookBook];
+		cookbook = new CookBook(inventory);
+		add(cookbook);
+		
+		cameraCookBook = new FlxCamera(FlxG.width - 10, Std.int(FlxG.height/2), 96, 128, 1);
+		FlxG.cameras.add(cameraCookBook);
+		cookbook.cameras = [cameraCookBook];
 
+		//RecipeBook camera
+		if (Storage.recipe1name != null)
+		{
+			trace("LOAD RECIPE 1");
+			trace("NAME :" + Storage.recipe1name);
+			cookbook.loadRecipe1(Storage.recipe1);
+			
+			if (Storage.recipe2name != null)
+			{
+				trace("LOAD RECIPE 2");
+				cookbook.loadRecipe2(Storage.recipe2);
+				
+				if (Storage.recipe3name != null)
+				{
+					trace("LOAD RECIPE 3");
+					cookbook.loadRecipe3(Storage.recipe3);
+				}	
+			}
+		}
 		
 		//Picker
-		
-		recipePicker = new RecipePicker(inventory,cookbook);
-		add(recipePicker);
-		
-		cameraRecipePicker = new FlxCamera(10, 40, 192, 256, 1);
-		cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
-		FlxG.cameras.add(cameraRecipePicker);
-		recipePicker.cameras = [cameraRecipePicker];
-		
+		if (recipePickerHere)
+		{
+			recipePicker = new RecipePicker(inventory,cookbook);
+			add(recipePicker);
+			
+			cameraRecipePicker = new FlxCamera(10, 40, 192, 256, 1);
+			cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+			FlxG.cameras.add(cameraRecipePicker);
+			recipePicker.cameras = [cameraRecipePicker];
+		}
 		
 		
 		// Camera setup
@@ -160,20 +182,22 @@ class PlayState extends FlxState {
 			
 		}
 		
-		
-		if (FlxG.keys.justPressed.O)
+		if (recipePickerHere)
 		{
-			recipePickerOpen = !recipePickerOpen;
-			if (recipePickerOpen)
+			if (FlxG.keys.justPressed.O)
 			{
-				cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+				recipePickerOpen = !recipePickerOpen;
+				if (recipePickerOpen)
+				{
+					cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+				}
+				else
+				{
+					cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+				}
+				
+				//cookbook.startRecipePicker();
 			}
-			else
-			{
-				cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
-			}
-			
-			//cookbook.startRecipePicker();
 		}
 		
 		if (recipePickerOpen && FlxG.keys.justPressed.UP)
@@ -237,12 +261,12 @@ class PlayState extends FlxState {
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
 			if (goto.l == "Kitchen_32") {
-				FlxG.switchState(new PlayState(goto.l, goto.anchor));
+				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));
 			} else {
 				var levelName = goto.l + "_1";
 				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
 				trace(levelName);
-				FlxG.switchState(new PlayState(levelName, goto.anchor));
+				FlxG.switchState(new PlayState(levelName, goto.anchor,false));
 			}
 		});
 	}

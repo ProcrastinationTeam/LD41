@@ -6,11 +6,11 @@ package;
  */
 class PlayerStatWrapper 
 {
-	public var maxHealth:Float = 100;
-	public var currentHealth:Float = 100;
+	public var maxHealth:Int = 100;
+	public var currentHealth:Int = 100;
 	public var speed:Float = 200;
-	public var sliceDmg:Float = 10;
-	public var peelDmg:Float = 10;
+	public var sliceDmg:Int = 10;
+	public var peelDmg:Int = 10;
 	public var range:Float = 5;
 	public var armor:Float = 0;
 	public var dmgReduction:Float = 0;
@@ -18,8 +18,32 @@ class PlayerStatWrapper
 	public var atckDuration:Float = 0.2;
 	public var isAlive:Bool = true;
 	
-	public function new() 
+	public var knockBackFactor:Float = 1;
+	
+	public var nbInvincibilityFrame:Int = 30;
+	
+	public var money:Int = 0;
+	
+	public function new():Void
 	{
+		
+	}
+	
+	public function reset() 
+	{
+		maxHealth = 100;
+		currentHealth = 100;
+		speed = 200;
+		sliceDmg = 10;
+		peelDmg = 10;
+		range = 5;
+		armor = 0;
+		dmgReduction = 0;
+		atckSpeed = 0.5;
+		atckDuration = 0.2;
+		isAlive = true;
+		
+		nbInvincibilityFrame = 30;
 	}
 	
 }

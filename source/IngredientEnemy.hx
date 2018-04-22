@@ -2,6 +2,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.math.FlxPoint;
+import flixel.math.FlxVelocity;
 
 class IngredientEnemy extends FlxSprite  
 {
@@ -14,14 +16,27 @@ class IngredientEnemy extends FlxSprite
 	public var damage			: Int = 15;
 	public var maxScale			: Float = 2.5;
 	
+	public var speed:Float = 140;
+	private var _brain:FSM;
+	private var _idleTmr:Float;
+	private var _moveDir:Float;
+	public var seesPlayer:Bool = false;
+	public var playerPos(default, null):FlxPoint;
+	public var detectionRadius:Float = 32;
+	
+	
 	public function new(?X:Float=0, ?Y:Float=0, npcData: CdbData.Npcs) 
 	{
 		super(X, Y);
 		
 		//drag.set(800, 800);
-		immovable = true;
+		//immovable = true;
 		
 		loadGraphic("assets/" + npcData.image.file, true, npcData.image.size, npcData.image.size, false);
+		setFacingFlip(FlxObject.LEFT, false, false);
+        setFacingFlip(FlxObject.RIGHT, true, false);
+		
+		updateHitbox();
 		
 		for (anim in npcData.animations) {
 			animation.add(anim.name, [for(frame in anim.frames) frame.frame.x + frame.frame.y * Tweaking.stride], anim.frameRate);
@@ -37,23 +52,89 @@ class IngredientEnemy extends FlxSprite
 		level = FlxG.random.float(0.5, maxScale);
 		hp = npcData.healthPoints * level;
 		scale.set(level * npcData.scale, level * npcData.scale);
-				
-				
-		//level = FlxG.random.int(1, maxScale);
-		//switch(level) {
-			//case 0:
-				//hp = npcData.healthPoints;
-				//scale.set(1 * npcData.scale, 1 * npcData.scale);
-			//case 1:
-				//hp = npcData.healthPoints * 1.5;
-				//scale.set(1.25 * npcData.scale, 1.25 * npcData.scale);
-			//case 2:
-				//hp = npcData.healthPoints * 2;
-				//scale.set(1.5 * npcData.scale, 1.5 * npcData.scale);
-		//}
 		
 		setSize(npcData.sizeX, npcData.sizeY);
 		offset.set(npcData.offsetX, npcData.offsetY);
+		
+		_brain = new FSM(idle);
+		_idleTmr = 0;
+		playerPos = FlxPoint.get();
+	}
+	
+	override public function draw():Void
+	{
+		if ((velocity.x != 0 || velocity.y != 0 ))
+		{
+			if (Math.abs(velocity.x) > Math.abs(velocity.y))
+			{
+				if (velocity.x < 0)
+					facing = FlxObject.LEFT;
+				else
+					facing = FlxObject.RIGHT;
+			}
+			else
+			{
+				if (velocity.y < 0)
+					facing = FlxObject.UP;
+				else
+					facing = FlxObject.DOWN;
+			}
+			
+			switch (facing)
+			{
+				case FlxObject.LEFT, FlxObject.RIGHT:
+					animation.play("walk");
+
+				case FlxObject.UP:
+					animation.play("walk");
+
+				case FlxObject.DOWN:
+					animation.play("walk");
+			}
+			
+			animation.play("walk");
+		}
+		super.draw();
+	}
+	
+	public function idle():Void
+	{
+		if (seesPlayer)
+		{
+			_brain.activeState = chase;
+		}
+		else if (_idleTmr <= 0)
+		{
+			if (FlxG.random.bool(1))
+			{
+				_moveDir = -1;
+				velocity.x = velocity.y = 0;
+			}
+			else
+			{
+				_moveDir = FlxG.random.int(0, 8) * 45;
+	
+				velocity.set(speed * 0.5, 0);
+				velocity.rotate(FlxPoint.weak(), _moveDir);
+	
+			}
+			_idleTmr = FlxG.random.int(1, 4);            
+		}
+		else
+			_idleTmr -= FlxG.elapsed;
+	
+	}
+	
+	public function chase():Void
+	{
+		if (!seesPlayer)
+		{
+			_brain.activeState = idle;
+		}
+		else
+		{
+			FlxVelocity.moveTowardsPoint(this, playerPos, Std.int(speed));
+		}
 	}
 	
 	public function getDrops(): Array<IngredientPickup> {
@@ -75,5 +156,11 @@ class IngredientEnemy extends FlxSprite
 		}
 		
 		return array;
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		_brain.update();
+		super.update(elapsed);
 	}
 }

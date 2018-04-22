@@ -183,9 +183,16 @@ class PlayState extends FlxState {
 		FlxG.collide(level.player, level.groundObjectsGroup);
 		FlxG.collide(level.player, level.overObjectsGroup);
 		
+		FlxG.collide(level.npcSprites, level.collisionsGroup);
+		FlxG.collide(level.npcSprites, level.objectsGroup);
+		FlxG.collide(level.npcSprites, level.groundObjectsGroup);
+		FlxG.collide(level.npcSprites, level.overObjectsGroup);
+		
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
+		
+		level.npcSprites.forEachAlive(checkEnemyVision);
 		
 		//RECIPE BOOK
 		if (FlxG.keys.pressed.P)
@@ -409,6 +416,7 @@ class PlayState extends FlxState {
 				FlxG.switchState(new PlayState(levelDataName));
 			}
 		}
+		
 		if (FlxG.keys.pressed.CONTROL) {
 			if (FlxG.keys.justPressed.NUMPADPERIOD) {
 				FlxG.switchState(new PlayState("Cellar_32_0"));
@@ -422,14 +430,10 @@ class PlayState extends FlxState {
 				FlxG.switchState(new PlayState("Cellar_32_3"));
 			} else if (FlxG.keys.justPressed.NUMPADFOUR) {
 				FlxG.switchState(new PlayState("Cellar_32_4"));
+			} else if (FlxG.keys.justPressed.NUMPADFIVE) {
+				FlxG.switchState(new PlayState("Cellar_32_5"));
 			}
 		}
-		
-
-		//} else if (FlxG.keys.justPressed.NUMPADFIVE) {
-			//FlxG.switchState(new PlayState("Cellar_32_5"));
-		//} else if (FlxG.keys.justPressed.NUMPADSIX) {
-			//FlxG.switchState(new PlayState("Cellar_32_6"));
 		#end
 	}
 	
@@ -465,7 +469,7 @@ class PlayState extends FlxState {
 			if (goto.l == "Kitchen_32") {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));
 			} else {
-				var levelName = goto.l + "_4";
+				var levelName = goto.l + "_0";
 				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
 				trace(levelName);
 				FlxG.switchState(new PlayState(levelName, goto.anchor,false));
@@ -524,6 +528,25 @@ class PlayState extends FlxState {
 		}
 		enemy.kill();
 		level.npcSprites.remove(enemy, true);
+	}
+	
+	private function checkEnemyVision(e:IngredientEnemy):Void
+	{
+		var playerPos = level.player.getMidpoint();
+		if (level.tilemapObjects.ray(e.getMidpoint(), playerPos))
+		{
+			if (playerPos.distanceTo(e.getPosition()) > e.detectionRadius)
+			{
+				e.seesPlayer = false;
+			}
+			else
+			{
+				e.seesPlayer = true;
+				e.playerPos.copyFrom(playerPos);
+			}
+		}
+		else
+			e.seesPlayer = false;
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package;
 
 import CdbData;
 import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
@@ -10,6 +11,7 @@ class IngredientPickup extends FlxSprite
 	public var ingredientType 	: CdbData.IngredientsKind;
 	public var tileSize			: Int 						= 32;
 	public var stride 			: Int						= 15;
+	
 	
 	public function new(x: Float, y: Float, ingredient:CdbData.IngredientsKind) {		
 		super(x, y);

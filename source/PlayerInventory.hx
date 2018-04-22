@@ -30,7 +30,7 @@ class PlayerInventory extends FlxSpriteGroup
 	
 	var nb: Int = 0;
 	
-	public function new() 
+	public function new(init : Bool = false) 
 	{
 		super();
 
@@ -68,7 +68,19 @@ class PlayerInventory extends FlxSpriteGroup
 			_text.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.GREEN, 1, 1);
 			
 			
-			_ingredientMap.set(ingredient.name, 0);
+			
+			
+			if (init)
+			{
+				_ingredientMap.set(ingredient.name, 0);
+				Storage.ingredientsCount.set(ingredient.name, 0);
+			}
+			else
+			{
+				_ingredientMap = Storage.ingredientsCount;
+			}
+			
+			
 			_textGroup.set(ingredient.name, _text);
 		
 			add(toAdd);
@@ -103,6 +115,9 @@ class PlayerInventory extends FlxSpriteGroup
 		var txt = _textGroup.get(kind);
 		txt.text = Std.string(computedValue);
 		_textGroup.set(kind, txt);
+		
+		
+		Storage.ingredientsCount.set(kind, computedValue);
 	}
 	
 	
@@ -126,6 +141,22 @@ class PlayerInventory extends FlxSpriteGroup
 		var txt = _textGroup.get(kind);
 		txt.text = Std.string(computedValue);
 		_textGroup.set(kind, txt);
+		
+		Storage.ingredientsCount.set(kind, computedValue);
+		trace("VALUE TO ADD :" + computedValue);
+		trace("ACTUAL :" + Storage.ingredientsCount.get(kind));
 	}
 	
+	public function loadInventory()
+	{
+		for (ingredient in _ingredientArray)
+		{ 	
+			trace("VALUE [" + ingredient.name + "] : " + Storage.ingredientsCount.get(ingredient.name));
+			
+			
+			var txt = _textGroup.get(ingredient.name);
+			txt.text = Std.string(Storage.ingredientsCount.get(ingredient.name));
+			_textGroup.set(ingredient.name, txt);
+		}
+	}
 }

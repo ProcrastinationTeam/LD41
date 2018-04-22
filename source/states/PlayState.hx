@@ -34,14 +34,15 @@ class PlayState extends FlxState {
 	private var cookbookOpen 			: Bool = false;
 	private var recipePickerOpen 		: Bool = false;
 	private var recipePickerHere 		: Bool = false;
+	public  var initialInventoryLoad	: Bool = false;
 	
 	
-	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false) {
+	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
 		super();
 		this.levelDataName = levelDataName;
 		this.anchor = anchor;
 		recipePickerHere = recipePick;
-		
+		initialInventoryLoad = initInvent;
 	}
 	
 	override public function create():Void
@@ -89,8 +90,23 @@ class PlayState extends FlxState {
 		
 		
 		////Inventory
-		inventory = new PlayerInventory();
-		add(inventory);
+		
+		
+		if (!initialInventoryLoad)
+		{
+			inventory = new PlayerInventory();
+			add(inventory);
+			
+			trace("LOAD INVENTORY");
+			inventory.loadInventory();
+		}
+		else
+		{
+			inventory = new PlayerInventory(true);
+			add(inventory);
+		}
+		
+		initialInventoryLoad = false;
 		
 		cameraUI = new FlxCamera(0, 0, 300, Std.int(inventory._spriteSize * inventory._computedScale), 1);
 		FlxG.cameras.add(cameraUI);

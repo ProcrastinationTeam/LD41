@@ -380,46 +380,49 @@ class PlayState extends FlxState {
 		#if debug
 		if(FlxG.keys.pressed.SHIFT) {
 			FlxG.camera.zoom += FlxG.mouse.wheel / 20.;
-		}
-		
-		if (FlxG.keys.justPressed.ONE) {
-			if (FlxG.keys.pressed.SHIFT) {
-				level.tilemapsGroundBorders.visible = !level.tilemapsGroundBorders.visible;
-			} else {
-				level.tilemapGround.visible = !level.tilemapGround.visible;
+			
+			if (FlxG.keys.justPressed.ONE) {
+				if (FlxG.keys.pressed.SHIFT) {
+					level.tilemapsGroundBorders.visible = !level.tilemapsGroundBorders.visible;
+				} else {
+					level.tilemapGround.visible = !level.tilemapGround.visible;
+				}
+			}
+			
+			if (FlxG.keys.justPressed.TWO) {
+				level.tilemapObjects.visible = !level.tilemapObjects.visible;
+			}
+			if (FlxG.keys.justPressed.THREE) {
+				level.tilemapOver.visible = !level.tilemapOver.visible;
+			}
+			if (FlxG.keys.justPressed.K) {
+				if (level.npcSprites.length > 0) {
+					var randomEnemy = level.npcSprites.getRandom(0, 0);
+					OnEnemyHurtCallback(level.player, randomEnemy);
+				}
+			}
+			if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
+				FlxG.resetGame();
+			} else if (FlxG.keys.justPressed.R) {
+				FlxG.switchState(new PlayState(levelDataName));
+			}
+			
+			if (FlxG.keys.justPressed.NUMPADPERIOD) {
+				FlxG.switchState(new PlayState("Cellar_32_0"));
+			} else if (FlxG.keys.justPressed.NUMPADZERO) {
+				FlxG.switchState(new PlayState("Kitchen_32"));
+			} else if (FlxG.keys.justPressed.NUMPADONE) {
+				FlxG.switchState(new PlayState("Cellar_32_1"));
+			} else if (FlxG.keys.justPressed.NUMPADTWO) {
+				FlxG.switchState(new PlayState("Cellar_32_2"));
+			} else if (FlxG.keys.justPressed.NUMPADTHREE) {
+				FlxG.switchState(new PlayState("Cellar_32_3"));
+			} else if (FlxG.keys.justPressed.NUMPADFOUR) {
+				FlxG.switchState(new PlayState("Cellar_32_4"));
 			}
 		}
-		if (FlxG.keys.justPressed.TWO) {
-			level.tilemapObjects.visible = !level.tilemapObjects.visible;
-		}
-		if (FlxG.keys.justPressed.THREE) {
-			level.tilemapOver.visible = !level.tilemapOver.visible;
-		}
-		if (FlxG.keys.justPressed.K) {
-			if (level.npcSprites.length > 0) {
-				var randomEnemy = level.npcSprites.getRandom(0, 0);
-				OnEnemyHurtCallback(level.player, randomEnemy);
-			}
-		}
-		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
-			FlxG.resetGame();
-		} else if (FlxG.keys.justPressed.R) {
-			FlxG.switchState(new PlayState(levelDataName));
-		}
 		
-		if (FlxG.keys.justPressed.NUMPADPERIOD) {
-			FlxG.switchState(new PlayState("Cellar_32_0"));
-		} else if (FlxG.keys.justPressed.NUMPADZERO) {
-			FlxG.switchState(new PlayState("Kitchen_32"));
-		} else if (FlxG.keys.justPressed.NUMPADONE) {
-			FlxG.switchState(new PlayState("Cellar_32_1"));
-		} else if (FlxG.keys.justPressed.NUMPADTWO) {
-			FlxG.switchState(new PlayState("Cellar_32_2"));
-		} else if (FlxG.keys.justPressed.NUMPADTHREE) {
-			FlxG.switchState(new PlayState("Cellar_32_3"));
-		} else if (FlxG.keys.justPressed.NUMPADFOUR) {
-			FlxG.switchState(new PlayState("Cellar_32_4"));
-		}
+
 		//} else if (FlxG.keys.justPressed.NUMPADFIVE) {
 			//FlxG.switchState(new PlayState("Cellar_32_5"));
 		//} else if (FlxG.keys.justPressed.NUMPADSIX) {

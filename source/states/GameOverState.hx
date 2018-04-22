@@ -21,10 +21,6 @@ class GameOverState extends FlxState
 			FlxG.switchState(new PlayState("Kitchen_32", "Start",true));
 		}
 		
-		if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO) {
-			FlxG.switchState(new LucasPlayState());
-		}
-		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
 			FlxG.resetGame();
 		} else if (FlxG.keys.justPressed.R) {

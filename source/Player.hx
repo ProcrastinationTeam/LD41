@@ -14,16 +14,18 @@ class Player extends FlxSprite
 {
 	public var spriteResolution:Int = 32;
 	
-	public var maxHealth:Float = 100;
-	public var currentHealth:Float = 100;
-	public var speed:Float = 200;
-	public var sliceDmg:Float = 10;
-	public var peelDmg:Float = 10;
-	public var range:Float = 5;
-	public var armor:Float = 0;
-	public var dmgReduction:Float = 0;
-	public var atckSpeed:Float = 0.5;
-	public var atckDuration:Float = 0.2;
+	public var playerStats:PlayerStatWrapper;
+	
+	//public var maxHealth:Float = 100;
+	//public var currentHealth:Float = 100;
+	//public var speed:Float = 200;
+	//public var sliceDmg:Float = 10;
+	//public var peelDmg:Float = 10;
+	//public var range:Float = 5;
+	//public var armor:Float = 0;
+	//public var dmgReduction:Float = 0;
+	//public var atckSpeed:Float = 0.5;
+	//public var atckDuration:Float = 0.2;
 	
 	
 	public var offsetX:Float = 0;
@@ -39,7 +41,7 @@ class Player extends FlxSprite
 	
 	public var offsetValue:Int = 0;
 	
-	public var isAlive:Bool = true;
+	//public var isAlive:Bool = true;
 	
 	public var weapons:WeaponWrapper;
 	
@@ -48,7 +50,7 @@ class Player extends FlxSprite
 	public var moveKeyReleased:Bool = true;
 	
 	
-	public function new(?X:Float=0, ?Y:Float=0) 
+	public function new(?X:Float=0, ?Y:Float=0, ?playerID:Int=0) 
 	{
 		super(X, Y);
 		loadGraphic(AssetPaths.sprite_shit__png, true, spriteResolution, spriteResolution);
@@ -56,17 +58,14 @@ class Player extends FlxSprite
 		setSize(20, 10);
 		offset.set(6, 22);
 		
-		
 		for (anim in CdbData.playerAnimations.all) {
 			animation.add(anim.name.toString(), [for(frame in anim.frames) frame.frame.x + frame.frame.y * Tweaking.stride], anim.frameRate);
 		}
 		animation.play("idle");
-		//setFacingFlip(FlxObject.LEFT, false, false);
-		//setFacingFlip(FlxObject.RIGHT, true, false);
-		//animation.add("lr", [3, 4, 3, 5], 6, false);
-		//animation.add("u", [6, 7, 6, 8], 6, false);
-		//animation.add("d", [0, 1, 0, 2], 6, false);
+		
 		drag.x = drag.y = 1600;
+		
+		setPlayerStat(playerID);
 		
 		weapons = new WeaponWrapper();
 		
@@ -75,6 +74,14 @@ class Player extends FlxSprite
 		attackTimer = new FlxTimer();
 		canAttackTimer = new FlxTimer();
 		
+	}
+	
+	public function setPlayerStat(id:Int):Void
+	{
+		if(id == 0)
+			playerStats = Storage.player1Stats;
+		else
+			playerStats = Storage.player1Stats;
 	}
 	
 	
@@ -187,8 +194,8 @@ class Player extends FlxSprite
 			
 			canAttack = false;
 			cooledDown = false;
-			attackTimer.start(atckDuration, attackEnd);
-			canAttackTimer.start(atckSpeed, resetAttack);
+			attackTimer.start(playerStats.atckDuration, attackEnd);
+			canAttackTimer.start(playerStats.atckSpeed, resetAttack);
 		}
 	}
 	
@@ -276,7 +283,7 @@ class Player extends FlxSprite
 				 
 			if(canAttack)
 				animation.play("walk_" + anim);
-			velocity.set(speed, 0);
+			velocity.set(playerStats.speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
 			
 			//if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)
@@ -301,7 +308,6 @@ class Player extends FlxSprite
 		cooledDown = true;
 	}
 	
-	//private function attackEnd(_):Void
 	private function attackEnd(Timer:FlxTimer):Void
 	{
 		weapons.resetAttack();
@@ -314,20 +320,28 @@ class Player extends FlxSprite
 	
 	public function takeDamage(Damage:Int):Bool
 	{
-		currentHealth -= Damage;
-		if (currentHealth <= 0)
+		playerStats.currentHealth -= Damage;
+		if (playerStats.currentHealth <= 0)
 		{
-			currentHealth = 0;
-			isAlive = false;
+			playerStats.currentHealth = 0;
+			playerStats.isAlive = false;
 		}
-		return isAlive;
+		return playerStats.isAlive;
 	}
 	
 	public function HealDamage(Heal: Int):Void
 	{
-		currentHealth += Heal;
-		if (currentHealth >= maxHealth)
-			currentHealth = maxHealth;
+		playerStats.currentHealth += Heal;
+		if (playerStats.currentHealth >= playerStats.maxHealth)
+			playerStats.currentHealth = playerStats.maxHealth;
+	}
+	
+	public function getCurrentWeaponDmg():Float
+	{
+		if(currentWeapon == 0)
+			return playerStats.peelDmg;
+		else
+			return playerStats.sliceDmg;
 	}
 	
 	override public function update(elapsed:Float):Void 

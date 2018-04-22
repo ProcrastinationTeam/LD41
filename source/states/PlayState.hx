@@ -283,7 +283,7 @@ class PlayState extends FlxState {
 	private var enemiesHurtTweenMap: Map<IngredientEnemy, FlxTween> = new Map<IngredientEnemy, FlxTween>();
 	
 	private function OnEnemyHurtCallback(sprite: FlxSprite, enemy: IngredientEnemy) {
-		enemy.hp -= level.player.sliceDmg;
+		enemy.hp -= level.player.getCurrentWeaponDmg();
 		
 		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
 			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});

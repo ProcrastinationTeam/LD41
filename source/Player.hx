@@ -80,10 +80,6 @@ class Player extends FlxSprite
 	
 	private function aim():Void
 	{
-		if (!canAttack)
-		{
-			return;
-		}
 		var _up:Bool = false;
 		var _down:Bool = false;
 		var _left:Bool = false;
@@ -94,6 +90,22 @@ class Player extends FlxSprite
 		_left = FlxG.keys.anyPressed([LEFT]);
 		_right = FlxG.keys.anyPressed([RIGHT]);
 		
+		if (!canAttack)
+		{
+			if (cooledDown) {
+				if (_up && cooledDown) {
+					animation.play("walk_up");
+				} else if (_down) {
+					animation.play("walk_down");
+				} else if (_left) {
+					animation.play("walk_left");
+				} else if (_right) {
+					animation.play("walk_right");
+				}
+			}
+			return;
+		}
+		
 		if (_up && _down)
 			_up = _down = false;
 		if (_left && _right)
@@ -103,6 +115,7 @@ class Player extends FlxSprite
 		{
 			var currentWeaponSprite = weapons.getCurrent(currentWeapon);
 			keyReleased = false;
+			
 			if (_up)
 			{
 				aimAt = 0;
@@ -115,11 +128,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
 				
-				if (canAttack && keyReleased) {
-					animation.play("attack_up");
-				} else {
-					animation.play("walk_up");
-				}
+				animation.play("attack_up");
 			}
 			else if (_down)
 			{
@@ -133,11 +142,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
 				
-				if (canAttack && keyReleased) {
-					animation.play("attack_down");
-				} else {
-					animation.play("walk_down");
-				}
+				animation.play("attack_down");
 			}
 			else if (_left)
 			{
@@ -151,11 +156,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
 				
-				if (canAttack && keyReleased) {
-					animation.play("attack_left");
-				} else {
-					animation.play("walk_left");
-				}
+				animation.play("attack_left");
 			}
 			else if (_right)
 			{
@@ -171,11 +172,7 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
 				
-				if (canAttack && keyReleased) {
-					animation.play("attack_right");
-				} else {
-					animation.play("walk_right");
-				}
+				animation.play("attack_right");
 			}
 			currentWeaponSprite.x = this.x + offsetX;
 			currentWeaponSprite.y = this.y + offsetY;
@@ -184,7 +181,6 @@ class Player extends FlxSprite
 				currentWeaponSprite.visible = true;
 			});
 			currentWeaponSprite.allowCollisions = FlxObject.ANY;
-			
 			canAttack = false;
 			cooledDown = false;
 			attackTimer.start(atckDuration, attackEnd);

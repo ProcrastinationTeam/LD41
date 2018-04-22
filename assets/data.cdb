@@ -6370,19 +6370,19 @@
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallTR"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallBR"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallTL"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallBL"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
@@ -6430,19 +6430,19 @@
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallTR"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallBR"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallTL"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
-									"collide": "SmallBL"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,

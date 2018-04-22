@@ -506,6 +506,17 @@ class PlayState extends FlxState {
 		level.npcSprites.remove(enemy, true);
 	}
 	
+	private function checkEnemyVision(e:IngredientEnemy):Void
+	{
+		if (level.tilemapObjects.ray(e.getMidpoint(), level.player.getMidpoint()))
+		{
+			e.seesPlayer = true;
+			e.playerPos.copyFrom(level.player.getMidpoint());
+		}
+		else
+			e.seesPlayer = false;
+	}
+	
 	/**
 	* Comparateur perso pour trier les sprites par Y croissant (en tenant compte de leur hauteur)
 	* @param	Order

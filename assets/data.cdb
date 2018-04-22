@@ -6334,7 +6334,7 @@
 								},
 								{
 									"hideHero": 0,
-									"collide": "No"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,
@@ -6394,7 +6394,7 @@
 								},
 								{
 									"hideHero": 0,
-									"collide": "No"
+									"collide": "Full"
 								},
 								{
 									"hideHero": 0,

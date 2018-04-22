@@ -174,6 +174,7 @@ class PlayState extends FlxState {
 		
 		// Collisions handling
 		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
+		FlxG.overlap(level.player, level.npcSprites, PlayerTakeDammages);
 		
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
@@ -429,6 +430,20 @@ class PlayState extends FlxState {
 		{
 			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
+		}
+	}
+	
+	private function PlayerTakeDammages(player:Player, enemy:IngredientEnemy):Void
+	{
+		if (player.takeDamage(enemy.damage, enemy.x, enemy.y))
+		{
+			trace("HP : " + player.playerStats.currentHealth);
+			//update Hp HUD
+		}
+		else
+		{
+			Storage.player1Stats.reset();
+			FlxG.switchState(new GameOverState());
 		}
 	}
 	

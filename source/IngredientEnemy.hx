@@ -8,8 +8,11 @@ class IngredientEnemy extends FlxSprite
 
 	public var npcType			: CdbData.NpcsKind;
 	public var npc				: CdbData.Npcs;
-	public var level			: Int;
+	public var level			: Float;
+	public var nbDrop			: Int;
 	public var hp				: Float;
+	public var damage			: Int = 15;
+	public var maxScale			: Float = 2.5;
 	
 	public function new(?X:Float=0, ?Y:Float=0, npcData: CdbData.Npcs) 
 	{
@@ -30,18 +33,24 @@ class IngredientEnemy extends FlxSprite
 		
 		npcType = npcData.id;
 		npc = npcData;
-		level = FlxG.random.int(0, 2);
-		switch(level) {
-			case 0:
-				hp = npcData.healthPoints;
-				scale.set(1 * npcData.scale, 1 * npcData.scale);
-			case 1:
-				hp = npcData.healthPoints * 1.5;
-				scale.set(1.25 * npcData.scale, 1.25 * npcData.scale);
-			case 2:
-				hp = npcData.healthPoints * 2;
-				scale.set(1.5 * npcData.scale, 1.5 * npcData.scale);
-		}
+		
+		level = FlxG.random.float(0.5, maxScale);
+		hp = npcData.healthPoints * level;
+		scale.set(level * npcData.scale, level * npcData.scale);
+				
+				
+		//level = FlxG.random.int(1, maxScale);
+		//switch(level) {
+			//case 0:
+				//hp = npcData.healthPoints;
+				//scale.set(1 * npcData.scale, 1 * npcData.scale);
+			//case 1:
+				//hp = npcData.healthPoints * 1.5;
+				//scale.set(1.25 * npcData.scale, 1.25 * npcData.scale);
+			//case 2:
+				//hp = npcData.healthPoints * 2;
+				//scale.set(1.5 * npcData.scale, 1.5 * npcData.scale);
+		//}
 		
 		setSize(npcData.sizeX, npcData.sizeY);
 		offset.set(npcData.offsetX, npcData.offsetY);
@@ -49,8 +58,8 @@ class IngredientEnemy extends FlxSprite
 	
 	public function getDrops(): Array<IngredientPickup> {
 		var numberOfDrops = 1;
-		
-		switch(level) {
+		nbDrop = FlxG.random.int(1, Std.int(maxScale));
+		switch(nbDrop) {
 			case 0:
 				var numberOfDrops = 1 + (FlxG.random.bool(25) ? 1 : 0);
 			case 1:

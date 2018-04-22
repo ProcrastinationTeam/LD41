@@ -2869,92 +2869,258 @@
 						{
 							"x": 60,
 							"y": 4,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Tomato",
+									"chance": 1
+								}
+							]
 						},
 						{
 							"x": 6,
 							"y": 6,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Fish",
+									"chance": 1
+								}
+							]
 						},
 						{
 							"x": 33,
 							"y": 6,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Carrot",
+									"chance": 1
+								},
+								{
+									"npc": "Leek",
+									"chance": 0.5
+								}
+							]
 						},
 						{
 							"x": 51,
 							"y": 9,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Cheese",
+									"chance": 0.2
+								},
+								{
+									"npc": "Avocado",
+									"chance": 0.8
+								}
+							]
 						},
 						{
 							"x": 31,
 							"y": 10,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Eggplant",
+									"chance": 0.5
+								},
+								{
+									"npc": "Cheese",
+									"chance": 1
+								}
+							]
 						},
 						{
 							"x": 12,
 							"y": 13,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Cow",
+									"chance": 0.5
+								},
+								{
+									"npc": "Chicken",
+									"chance": 0.2
+								}
+							]
 						},
 						{
 							"x": 46,
 							"y": 17,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Avocado",
+									"chance": 0.5
+								},
+								{
+									"npc": "Pepper",
+									"chance": 1
+								}
+							]
 						},
 						{
 							"x": 3,
 							"y": 25,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Carrot",
+									"chance": 0.6
+								},
+								{
+									"npc": "Bread",
+									"chance": 0.3
+								}
+							]
 						},
 						{
 							"x": 18,
 							"y": 25,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Eggplant",
+									"chance": 0.5
+								}
+							]
 						},
 						{
 							"x": 59,
 							"y": 28,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Chicken",
+									"chance": 0.5
+								}
+							]
 						},
 						{
 							"x": 9,
 							"y": 30,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Tomato",
+									"chance": 1
+								}
+							]
 						},
 						{
 							"x": 44,
 							"y": 33,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Bread",
+									"chance": 0.1
+								},
+								{
+									"npc": "Carrot",
+									"chance": 0.1
+								},
+								{
+									"npc": "Chicken",
+									"chance": 0.1
+								},
+								{
+									"npc": "Cow",
+									"chance": 0.25
+								},
+								{
+									"npc": "Eggplant",
+									"chance": 0.25
+								}
+							]
 						},
 						{
 							"x": 26,
 							"y": 34,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Carrot",
+									"chance": 0.6
+								},
+								{
+									"npc": "Avocado",
+									"chance": 0.15
+								},
+								{
+									"npc": "Leek",
+									"chance": 0.35
+								}
+							]
 						},
 						{
 							"x": 2,
 							"y": 38,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Chicken",
+									"chance": 0.25
+								},
+								{
+									"npc": "Carrot",
+									"chance": 0.75
+								}
+							]
 						},
 						{
 							"x": 10,
 							"y": 40,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Carrot",
+									"chance": 1
+								},
+								{
+									"npc": "Cheese",
+									"chance": 0.5
+								}
+							]
 						},
 						{
 							"x": 60,
 							"y": 40,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Tomato",
+									"chance": 0.75
+								},
+								{
+									"npc": "Fish",
+									"chance": 0.25
+								},
+								{
+									"npc": "Leek",
+									"chance": 0.2
+								}
+							]
 						},
 						{
 							"x": 20,
 							"y": 41,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Pepper",
+									"chance": 0.5
+								},
+								{
+									"npc": "Cow",
+									"chance": 0.5
+								}
+							]
 						},
 						{
 							"x": 29,
 							"y": 42,
-							"mobs": []
+							"mobs": [
+								{
+									"npc": "Bread",
+									"chance": 0.5
+								},
+								{
+									"npc": "Avocado",
+									"chance": 0.2
+								},
+								{
+									"npc": "Eggplant",
+									"chance": 0.3
+								}
+							]
 						}
 					],
 					"ingredients": [

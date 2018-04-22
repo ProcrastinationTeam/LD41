@@ -26,6 +26,8 @@ class PlayState extends FlxState {
 	private var loadedCookbook			: CookBook;
 	private var cookbookToLoad			: Bool = false;
 	private var recipePicker			: RecipePicker;
+	private var validateRecipe          : Map<CdbData.IngredientsKind,Int> = new Map<CdbData.IngredientsKind,Int>();
+	
 	
 	private var cameraUI				: FlxCamera;
 	private var cameraCookBook			: FlxCamera;
@@ -216,12 +218,12 @@ class PlayState extends FlxState {
 			}
 		}
 		
-		if (recipePickerOpen && FlxG.keys.justPressed.UP)
+		if (recipePickerOpen && FlxG.keys.justPressed.Z)
 		{
 			recipePicker.changeCursorPos(-1);
 		}
 		
-		if (recipePickerOpen && FlxG.keys.justPressed.DOWN)
+		if (recipePickerOpen && FlxG.keys.justPressed.S)
 		{
 			recipePicker.changeCursorPos(1);
 		}
@@ -235,8 +237,143 @@ class PlayState extends FlxState {
 		{
 			recipePicker.validRecipe();
 		}
+		//trace(levelDataName);
+		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.LEFT)
+		{
+			
+			
+			if (Storage.recipe1name != null)
+			{
+				var validIngredient  = 0;
+				validateRecipe = new Map<CdbData.IngredientsKind,Int>();
+				for (ingredient in Storage.recipe1)
+				{
+					var value = 0;
+					if (validateRecipe.get(ingredient) != null)
+					{
+						value = validateRecipe.get(ingredient);
+					}
+					value++;
+					validateRecipe.set(ingredient, value);
+				}
+				
+				trace("RECETTE 1 :" +validateRecipe.toString());
+				
+				
+				for (key in validateRecipe.keys())
+				{
+					if (Storage.ingredientsCount.get(key) >= validateRecipe.get(key))
+					{
+						validIngredient += validateRecipe.get(key);
+					}
+				}
+				
+				trace("VALID INGRE : " + validIngredient);
+				
+				if(validIngredient == Storage.recipe1.length)
+				{
+					for (key in validateRecipe.keys())
+					{
+						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
+					}
+					
+					inventory.loadInventory();
+				}
+			}
+			
+		}
 		
+		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.DOWN)
+		{
+			
+			
+			if (Storage.recipe2name != null)
+			{
+				var validIngredient  = 0;
+				validateRecipe = new Map<CdbData.IngredientsKind,Int>();
+				
+				for (ingredient in Storage.recipe2)
+				{
+					var value = 0;
+					if (validateRecipe.get(ingredient) != null)
+					{
+						value = validateRecipe.get(ingredient);
+					}
+					value++;
+					validateRecipe.set(ingredient, value);
+				}
+				
+				trace("RECETTE 2 :" +validateRecipe.toString());
+				
+				
+				for (key in validateRecipe.keys())
+				{
+					if (Storage.ingredientsCount.get(key) >= validateRecipe.get(key))
+					{
+						validIngredient += validateRecipe.get(key);
+						
+					}
+					
+				}
+				trace("VALID INGRE : " + validIngredient);
+				
+				if(validIngredient == Storage.recipe2.length)
+				{
+					for (key in validateRecipe.keys())
+					{
+						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
+					}
+					
+					inventory.loadInventory();
+				}
+			}
+			
+		}
 		
+		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.RIGHT)
+		{
+			
+			
+			if (Storage.recipe3name != null)
+			{
+				var validIngredient  = 0;
+				validateRecipe = new Map<CdbData.IngredientsKind,Int>();
+				
+				for (ingredient in Storage.recipe3)
+				{
+					var value = 0;
+					if (validateRecipe.get(ingredient) != null)
+					{
+						value = validateRecipe.get(ingredient);
+					}
+					value++;
+					validateRecipe.set(ingredient, value);
+				}
+				
+				trace("RECETTE 3 :" + validateRecipe.toString());
+				
+				
+				for (key in validateRecipe.keys())
+				{
+					if (Storage.ingredientsCount.get(key) >= validateRecipe.get(key))
+					{
+						validIngredient += validateRecipe.get(key);
+					}
+				}
+				
+				trace("VALID INGRE : " + validIngredient);
+				
+				if(validIngredient == Storage.recipe3.length)
+				{
+					for (key in validateRecipe.keys())
+					{
+						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
+					}
+					
+					inventory.loadInventory();
+				}
+			}
+		}
 		
 		// Debug
 		#if debug

@@ -55,7 +55,6 @@ class PlayerInventory extends FlxSpriteGroup
 			toAdd.setPosition(0 + nb * (_spriteSize * _computedScale) , 0);
 			toAdd.updateHitbox();
 			
-			
 			var spr = new FlxSprite(0 + nb * (_spriteSize * _computedScale), 0);
 			spr.loadGraphic("assets/" + ingredient.image.file, true, _spriteSize, _spriteSize, false);
 			spr.animation.frameIndex = ingredient.image.x + 15 * ingredient.image.y;
@@ -66,9 +65,6 @@ class PlayerInventory extends FlxSpriteGroup
 			
 			_text = new FlxText(spr.x + (_computedScale * spr.width - 4), spr.y + (_computedScale * spr.height - 8), 0, "0", 8);
 			_text.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.GREEN, 1, 1);
-			
-			
-			
 			
 			if (init)
 			{
@@ -97,9 +93,14 @@ class PlayerInventory extends FlxSpriteGroup
 
 	}
 	
+	public function sendRecipe()
+	{
+		
+	}
+	
 	public function updateValueSub(kind: CdbData.IngredientsKind, value : Int)
 	{
-		var computedValue = _ingredientMap.get(kind);
+		var computedValue = Storage.ingredientsCount.get(kind);
 		trace(computedValue);
 		
 		if (computedValue - value < 0)
@@ -124,7 +125,7 @@ class PlayerInventory extends FlxSpriteGroup
 	
 	public function updateValueAdd(kind: CdbData.IngredientsKind, value : Int)
 	{
-		var computedValue = _ingredientMap.get(kind);
+		var computedValue = Storage.ingredientsCount.get(kind);
 		trace(computedValue);
 		
 		if (computedValue + value > 9)

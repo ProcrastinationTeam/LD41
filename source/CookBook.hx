@@ -34,11 +34,6 @@ class CookBook extends FlxSpriteGroup
 		
 		_recipeList = new FlxTypedGroup<Recipe>();
 		
-		// PickList
-		
-		//_recipePicker = new RecipePicker(playerInventory);
-		//add(_recipePicker);
-		
 	}
 	
 	public function addRecipeInBook(recipe: Recipe)
@@ -51,8 +46,6 @@ class CookBook extends FlxSpriteGroup
 			add(recipe._name);
 			
 		}
-		
-		
 		
 		//SAVE LE COOKBOOK
 		switch (_limitRecipe) 

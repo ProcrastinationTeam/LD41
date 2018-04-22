@@ -114,7 +114,12 @@ class Player extends FlxSprite
 				
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
-				animation.play("walk_up");
+				
+				if (canAttack && keyReleased) {
+					animation.play("attack_up");
+				} else {
+					animation.play("walk_up");
+				}
 			}
 			else if (_down)
 			{
@@ -128,7 +133,11 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
 				
-				animation.play("walk_down");
+				if (canAttack && keyReleased) {
+					animation.play("attack_down");
+				} else {
+					animation.play("walk_down");
+				}
 			}
 			else if (_left)
 			{
@@ -142,13 +151,18 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
 				
-				
-				animation.play("walk_left");
+				if (canAttack && keyReleased) {
+					animation.play("attack_left");
+				} else {
+					animation.play("walk_left");
+				}
 			}
 			else if (_right)
 			{
 				aimAt = 3;
 				facing = FlxObject.RIGHT;
+				
+				
 				offsetX = offsetValue -5;
 				offsetY = -spriteResolution/3;
 				currentWeaponSprite.facing = FlxObject.RIGHT;
@@ -157,13 +171,18 @@ class Player extends FlxSprite
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
 				
-				
-				animation.play("walk_right");
+				if (canAttack && keyReleased) {
+					animation.play("attack_right");
+				} else {
+					animation.play("walk_right");
+				}
 			}
 			currentWeaponSprite.x = this.x + offsetX;
 			currentWeaponSprite.y = this.y + offsetY;
 			
-			currentWeaponSprite.visible = true;
+			new FlxTimer().start(0.1, function(timer:FlxTimer) {
+				currentWeaponSprite.visible = true;
+			});
 			currentWeaponSprite.allowCollisions = FlxObject.ANY;
 			
 			canAttack = false;

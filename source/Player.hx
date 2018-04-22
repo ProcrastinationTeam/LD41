@@ -45,6 +45,7 @@ class Player extends FlxSprite
 	
 	public var currentWeapon:Int = 0;
 	public var keySpaceReleased:Bool = true;
+	public var moveKeyReleased:Bool = true;
 	
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
@@ -211,9 +212,12 @@ class Player extends FlxSprite
 			_up = _down = false;
 		if (_left && _right)
 			_left = _right = false;
-			
+		
+		var anim = "";	
+		
 		if (_up || _down || _left || _right)
 		{
+			moveKeyReleased = false;
 			var mA:Float = 0;
 			if (_up)
 			{
@@ -223,8 +227,7 @@ class Player extends FlxSprite
 				else if (_right)
 					mA += 45;
 				//facing = FlxObject.UP;
-				
-				animation.play("walk_up");
+				anim = "up";
 			}
 			else if (_down)
 			{
@@ -235,23 +238,25 @@ class Player extends FlxSprite
 					mA -= 45;
 				//facing = FlxObject.DOWN;
 				
-				animation.play("walk_down");
+				anim = "down";
 			}
 			else if (_left)
 			{
 				mA = 180;
 				//facing = FlxObject.LEFT;
 				
-				animation.play("walk_left");
+				anim = "left";
 			}
 			else if (_right)
 			{
 				mA = 0;
 				//facing = FlxObject.RIGHT;
 				
-				animation.play("walk_right");
+				anim = "right";
 			}
 				 
+			if(canAttack)
+				animation.play("walk_" + anim);
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
 			
@@ -322,6 +327,13 @@ class Player extends FlxSprite
 			canAttack = true;
 		}
 		
+		if (FlxG.keys.anyJustReleased([Z, Q, S, D]))
+		{
+			moveKeyReleased = true;
+		}
+		
+		if(moveKeyReleased && canAttack)
+			animation.play("idle");
 		//compute player movement
 		movement();
 		

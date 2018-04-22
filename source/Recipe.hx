@@ -22,10 +22,10 @@ class Recipe extends FlxSpriteGroup
 	public var _name: FlxText;
 	public var _nbIngredient : Int = 0;
 
-	public function new() 
+	public function new(name:String) 
 	{
 		super();
-		_name = new FlxText(0, 0, 0, "Pot au feu", 8, true );
+		_name = new FlxText(0, 0, 0, name, 8, true );
 		
 		var computedOffset = (CookBook.cWidth - (_name.text.length * _name.size)) ;
 		_name.setPosition(computedOffset, 16);
@@ -33,10 +33,10 @@ class Recipe extends FlxSpriteGroup
 
 		_ingredientList = new FlxTypedGroup<Ingredient>();
 
-		addIngredientToRecipe(CdbData.IngredientsKind.Carrot);
-		addIngredientToRecipe(CdbData.IngredientsKind.Avocado);
-		addIngredientToRecipe(CdbData.IngredientsKind.Bread);
-		addIngredientToRecipe(CdbData.IngredientsKind.Chicken);
+		//addIngredientToRecipe(CdbData.IngredientsKind.Carrot);
+		//addIngredientToRecipe(CdbData.IngredientsKind.Avocado);
+		//addIngredientToRecipe(CdbData.IngredientsKind.Bread);
+		//addIngredientToRecipe(CdbData.IngredientsKind.Chicken);
 		
 		
 	}

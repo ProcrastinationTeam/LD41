@@ -46,8 +46,8 @@ class CookBook extends FlxSpriteGroup
 		
 		//Test Recipe
 		
-		var rec = new Recipe();
-		addRecipeInBook(rec);
+		//var rec = new Recipe();
+		//addRecipeInBook(rec);
 		
 	}
 	

@@ -102,7 +102,7 @@ class PlayState extends FlxState {
 		
 		//Picker
 		
-		recipePicker = new RecipePicker(inventory);
+		recipePicker = new RecipePicker(inventory,cookbook);
 		add(recipePicker);
 		
 		cameraRecipePicker = new FlxCamera(10, 40, 192, 256, 1);

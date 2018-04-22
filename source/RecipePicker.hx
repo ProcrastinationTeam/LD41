@@ -39,12 +39,14 @@ class RecipePicker extends FlxSpriteGroup
 	
 	public var _currentRecipe: Recipe;
 	public var _ingredientRecipeArray : Array<CdbData.IngredientsKind>;
+	public var _cookbook:CookBook;
 	
 
-	public function new(playerInventory: PlayerInventory) 
+	public function new(playerInventory: PlayerInventory, cookbook : CookBook) 
 	{
 		super();
 		
+		_cookbook = cookbook;
 		_ingredientRecipeArray = new Array<CdbData.IngredientsKind>();
 		_playerInventory = playerInventory;
 		_ingredientMap = new Map<CdbData.IngredientsKind, FlxSprite>();
@@ -152,10 +154,16 @@ class RecipePicker extends FlxSpriteGroup
 	
 	public function validRecipe()
 	{
-		_currentRecipe = new Recipe();
+		_currentRecipe = new Recipe("Bouillabaisse");
 		
 		//_ingredientRecipeArray
-		_currentRecipe.addIngredientToRecipe();
+		while (_ingredientRecipeArray.length != 0) 
+		{
+			_currentRecipe.addIngredientToRecipe(_ingredientRecipeArray.pop());
+		}
+		
+		_cookbook.addRecipeInBook(_currentRecipe);
+		
 	}
 	
 	

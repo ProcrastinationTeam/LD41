@@ -5891,7 +5891,7 @@
 							}
 						}
 					],
-					"frameRate": 6
+					"frameRate": 4
 				},
 				{
 					"name": "walk_down",

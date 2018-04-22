@@ -50,9 +50,16 @@ class Player extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		loadGraphic(AssetPaths.cook__png, true, spriteResolution, spriteResolution);
+		loadGraphic(AssetPaths.sprite_shit__png, true, spriteResolution, spriteResolution);
+		animation.frameIndex = 20;
 		setSize(20, 10);
 		offset.set(6, 22);
+		
+		
+		for (anim in CdbData.playerAnimations.all) {
+			animation.add(anim.name.toString(), [for(frame in anim.frames) frame.frame.x + frame.frame.y * Tweaking.stride], anim.frameRate);
+		}
+		animation.play("idle");
 		//setFacingFlip(FlxObject.LEFT, false, false);
 		//setFacingFlip(FlxObject.RIGHT, true, false);
 		//animation.add("lr", [3, 4, 3, 5], 6, false);
@@ -106,6 +113,7 @@ class Player extends FlxSprite
 				
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
+				animation.play("walk_up");
 			}
 			else if (_down)
 			{
@@ -118,6 +126,8 @@ class Player extends FlxSprite
 				
 				currentWeaponSprite.setSize(10, spriteResolution - 5);
 				currentWeaponSprite.offset.set(spriteResolution / 3, 0);
+				
+				animation.play("walk_down");
 			}
 			else if (_left)
 			{
@@ -130,6 +140,9 @@ class Player extends FlxSprite
 				
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
+				
+				
+				animation.play("walk_left");
 			}
 			else if (_right)
 			{
@@ -142,6 +155,9 @@ class Player extends FlxSprite
 				
 				currentWeaponSprite.setSize(spriteResolution - 5, 10);
 				currentWeaponSprite.offset.set(0, spriteResolution / 3);
+				
+				
+				animation.play("walk_right");
 			}
 			currentWeaponSprite.x = this.x + offsetX;
 			currentWeaponSprite.y = this.y + offsetY;
@@ -207,6 +223,8 @@ class Player extends FlxSprite
 				else if (_right)
 					mA += 45;
 				//facing = FlxObject.UP;
+				
+				animation.play("walk_up");
 			}
 			else if (_down)
 			{
@@ -216,16 +234,22 @@ class Player extends FlxSprite
 				else if (_right)
 					mA -= 45;
 				//facing = FlxObject.DOWN;
+				
+				animation.play("walk_down");
 			}
 			else if (_left)
 			{
 				mA = 180;
 				//facing = FlxObject.LEFT;
+				
+				animation.play("walk_left");
 			}
 			else if (_right)
 			{
 				mA = 0;
 				//facing = FlxObject.RIGHT;
+				
+				animation.play("walk_right");
 			}
 				 
 			velocity.set(speed, 0);

@@ -148,7 +148,9 @@ class PlayState extends FlxState {
 			add(recipePicker);
 			
 			cameraRecipePicker = new FlxCamera(10, 40, 192, 256, 1);
-			cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+			cameraRecipePicker.visible = false;
+			//cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+			//cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width + 10 , cameraRecipePicker.y);
 			FlxG.cameras.add(cameraRecipePicker);
 			recipePicker.cameras = [cameraRecipePicker];
 		}
@@ -186,36 +188,41 @@ class PlayState extends FlxState {
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
 		
 		//RECIPE BOOK
-		if (FlxG.keys.justPressed.P)
+		if (FlxG.keys.pressed.P)
 		{
-			cookbookOpen = !cookbookOpen;
-			if (cookbookOpen)
+			if (!cookbookOpen)
 			{
+				cookbookOpen = true;
 				cameraCookBook.setPosition(cameraCookBook.x - cookbook._backgroundSprite.width, cameraCookBook.y);
 			}
-			else
+		}
+		
+		if (FlxG.keys.justReleased.P)
+		{
+			
+			if (!recipePickerOpen)
 			{
+				cookbookOpen = false;
 				cameraCookBook.setPosition(cameraCookBook.x + cookbook._backgroundSprite.width, cameraCookBook.y);
 			}
-			
-			
 		}
 		
 		if (recipePickerHere)
 		{
 			if (FlxG.keys.justPressed.O)
 			{
+				cameraRecipePicker.visible = !cameraRecipePicker.visible;
 				recipePickerOpen = !recipePickerOpen;
-				if (recipePickerOpen)
+				
+				cookbookOpen = !cookbookOpen;
+				if (cookbookOpen)
 				{
-					cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+					cameraCookBook.setPosition(cameraCookBook.x - cookbook._backgroundSprite.width, cameraCookBook.y);
 				}
 				else
 				{
-					cameraRecipePicker.setPosition(cameraRecipePicker.x - recipePicker._backgroundSprite.width, cameraRecipePicker.y);
+					cameraCookBook.setPosition(cameraCookBook.x + cookbook._backgroundSprite.width, cameraCookBook.y);
 				}
-				
-				//cookbook.startRecipePicker();
 			}
 		}
 		

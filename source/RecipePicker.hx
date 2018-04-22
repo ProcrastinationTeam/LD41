@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
@@ -42,10 +43,16 @@ class RecipePicker extends FlxSpriteGroup
 	public var _sprRecipeList: Array<FlxSprite>;
 	public var _cookbook:CookBook;
 	
+	public var _excludeArray: Array<Int>;
+	
+	public static var recipeNameArray : Array<String> = ["Pot au feu", "Bouillabaisse", "Ail'oli", "Steak Frite", "Riz au lait"];
+	
 
 	public function new(playerInventory: PlayerInventory, cookbook : CookBook) 
 	{
 		super();
+		
+		_excludeArray = new Array<Int>();
 		
 		_sprRecipeList = new Array<FlxSprite>();
 		_cookbook = cookbook;
@@ -156,8 +163,10 @@ class RecipePicker extends FlxSpriteGroup
 	{
 		if (_ingredientRecipeArray.length > 1)
 		{
-			
-			_currentRecipe = new Recipe("Bouillabaisse");
+			var rand = FlxG.random.int(0, 4, _excludeArray);
+			_excludeArray.push(rand);
+			var name = RecipePicker.recipeNameArray[rand];
+			_currentRecipe = new Recipe(name);
 		
 			//_ingredientRecipeArray
 			while (_ingredientRecipeArray.length != 0) 
@@ -176,6 +185,8 @@ class RecipePicker extends FlxSpriteGroup
 		}
 		
 		//Reset count
+	
+		_ingredientRecipeArray = new Array<CdbData.IngredientsKind>();
 		_count = 0;
 	}
 	
@@ -183,6 +194,7 @@ class RecipePicker extends FlxSpriteGroup
 	{
 		remove(sprite);
 	}
+	
 	
 	
 	

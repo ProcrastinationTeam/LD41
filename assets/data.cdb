@@ -1123,7 +1123,7 @@
 							"frameRate": 2
 						},
 						{
-							"name": "",
+							"name": "walk",
 							"frames": [
 								{
 									"frame": {
@@ -7300,14 +7300,6 @@
 							"frame": {
 								"file": "images/sprite_shit.png",
 								"size": 32,
-								"x": 9,
-								"y": 6
-							}
-						},
-						{
-							"frame": {
-								"file": "images/sprite_shit.png",
-								"size": 32,
 								"x": 10,
 								"y": 6
 							}
@@ -7327,9 +7319,17 @@
 								"x": 9,
 								"y": 6
 							}
+						},
+						{
+							"frame": {
+								"file": "images/sprite_shit.png",
+								"size": 32,
+								"x": 9,
+								"y": 6
+							}
 						}
 					],
-					"frameRate": 6
+					"frameRate": 10
 				},
 				{
 					"name": "attack_down",

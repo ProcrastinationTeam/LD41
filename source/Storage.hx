@@ -8,4 +8,6 @@ class Storage
 {
 	public static var cookbook : CookBook;
 	
+	
+	
 }

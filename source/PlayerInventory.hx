@@ -57,7 +57,8 @@ class PlayerInventory extends FlxSpriteGroup
 			
 			
 			var spr = new FlxSprite(0 + nb * (_spriteSize * _computedScale), 0);
-			spr.loadGraphic("assets/" + ingredient.image.file, false, _spriteSize, _spriteSize, false);
+			spr.loadGraphic("assets/" + ingredient.image.file, true, _spriteSize, _spriteSize, false);
+			spr.animation.frameIndex = ingredient.image.x + 15 * ingredient.image.y;
 			spr.scale.set(_computedScale, _computedScale);
 			spr.updateHitbox();
 			

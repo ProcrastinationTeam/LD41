@@ -14,22 +14,13 @@ class Player extends FlxSprite
 {
 	public var spriteResolution:Int = 32;
 	
-	public var playerStats:PlayerStatWrapper;
-	
-	//public var maxHealth:Float = 100;
-	//public var currentHealth:Float = 100;
-	//public var speed:Float = 200;
-	//public var sliceDmg:Float = 10;
-	//public var peelDmg:Float = 10;
-	//public var range:Float = 5;
-	//public var armor:Float = 0;
-	//public var dmgReduction:Float = 0;
-	//public var atckSpeed:Float = 0.5;
-	//public var atckDuration:Float = 0.2;
-	
+	public var playerStats:PlayerStatWrapper;	
 	
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
+	
+	public var aimDisabled:Bool = false;
+	public var moveDisabled:Bool = false;
 	
 	public var attackTimer:FlxTimer;
 	public var canAttackTimer:FlxTimer;
@@ -356,6 +347,26 @@ class Player extends FlxSprite
 			return playerStats.sliceDmg;
 	}
 	
+	public function disableMovement():Void
+	{
+		moveDisabled = true;
+	}
+	
+	public function enableMovement():Void
+	{
+		moveDisabled = false;
+	}
+	
+	public function disableAim():Void
+	{
+		aimDisabled = true;
+	}
+	
+	public function enableAim():Void
+	{
+		aimDisabled = true;
+	}
+	
 	override public function update(elapsed:Float):Void 
 	{
 		//make sure key are released//
@@ -386,10 +397,14 @@ class Player extends FlxSprite
 			invincible--;
 		
 		//compute player movement
-		movement();
+		if(!moveDisabled)
+			movement();
 		
-		changeWeapon();
-		aim();
+		if (!aimDisabled)
+		{
+			changeWeapon();
+			aim();			
+		}
 		
 		super.update(elapsed);
 	}

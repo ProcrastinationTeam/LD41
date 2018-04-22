@@ -22,6 +22,9 @@ class IngredientPickup extends FlxSprite
 		animation.frameIndex = data.image.x + data.image.y * stride; // tileset.stride
 		
 		ingredientType = ingredient;
+		
+		setSize(data.sizeX + 4, data.sizeY + 4);
+		offset.set(data.offsetX - 2, data.offsetY - 2);
 	}
 	
 	override public function kill():Void

@@ -405,6 +405,24 @@ class PlayState extends FlxState {
 		} else if (FlxG.keys.justPressed.R) {
 			FlxG.switchState(new PlayState(levelDataName));
 		}
+		
+		if (FlxG.keys.justPressed.NUMPADPERIOD) {
+			FlxG.switchState(new PlayState("Cellar_32_0"));
+		} else if (FlxG.keys.justPressed.NUMPADZERO) {
+			FlxG.switchState(new PlayState("Kitchen_32"));
+		} else if (FlxG.keys.justPressed.NUMPADONE) {
+			FlxG.switchState(new PlayState("Cellar_32_1"));
+		} else if (FlxG.keys.justPressed.NUMPADTWO) {
+			FlxG.switchState(new PlayState("Cellar_32_2"));
+		} else if (FlxG.keys.justPressed.NUMPADTHREE) {
+			FlxG.switchState(new PlayState("Cellar_32_3"));
+		} else if (FlxG.keys.justPressed.NUMPADFOUR) {
+			FlxG.switchState(new PlayState("Cellar_32_4"));
+		}
+		//} else if (FlxG.keys.justPressed.NUMPADFIVE) {
+			//FlxG.switchState(new PlayState("Cellar_32_5"));
+		//} else if (FlxG.keys.justPressed.NUMPADSIX) {
+			//FlxG.switchState(new PlayState("Cellar_32_6"));
 		#end
 	}
 	
@@ -415,7 +433,7 @@ class PlayState extends FlxState {
 			if (goto.l == "Kitchen_32") {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));
 			} else {
-				var levelName = goto.l + "_1";
+				var levelName = goto.l + "_4";
 				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
 				trace(levelName);
 				FlxG.switchState(new PlayState(levelName, goto.anchor,false));

@@ -16,11 +16,7 @@ class MenuState extends FlxState
 		super.update(elapsed);
 		
 		if (FlxG.mouse.justPressed || FlxG.keys.justPressed.SPACE) {
-			FlxG.switchState(new PlayState("Kitchen_32", "Start",true,true));
-		}
-		
-		if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO) {
-			FlxG.switchState(new LucasPlayState());
+			FlxG.switchState(new PlayState("Kitchen_32", "Start", true, true));
 		}
 		
 		if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {

@@ -34,13 +34,13 @@ class IngredientEnemy extends FlxSprite
 		switch(level) {
 			case 0:
 				hp = npcData.healthPoints;
-				scale.set(1, 1);
+				scale.set(1 * npcData.scale, 1 * npcData.scale);
 			case 1:
 				hp = npcData.healthPoints * 1.5;
-				scale.set(1.25, 1.25);
+				scale.set(1.25 * npcData.scale, 1.25 * npcData.scale);
 			case 2:
 				hp = npcData.healthPoints * 2;
-				scale.set(1.5, 1.5);
+				scale.set(1.5 * npcData.scale, 1.5 * npcData.scale);
 		}
 		
 		setSize(npcData.sizeX, npcData.sizeY);

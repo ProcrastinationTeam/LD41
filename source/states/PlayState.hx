@@ -96,9 +96,10 @@ class PlayState extends FlxState {
 		
 		//Player health
 		var playerH = new PlayerHUD(level.player);
-		//playerH.setPosition(100, 100);
 		playerH.scrollFactor.set(0, 0);
 		add(playerH);
+		
+		
 		
 		////Inventory
 		if (!initialInventoryLoad)
@@ -121,21 +122,21 @@ class PlayState extends FlxState {
 		FlxG.cameras.add(cameraUI);
 		inventory.cameras = [cameraUI];
 		
-		//customerCardList = new CustomerCardList();
-		//add(customerCardList);
-		//
-		//cameraHUD = new FlxCamera(0, Std.int(inventory._spriteSize * inventory._computedScale), 32, 32 * 5);
+		//cameraHUD = new FlxCamera(0, Std.int(inventory._spriteSize * inventory._computedScale) + 10 , 32, 32 * 5);
 		//FlxG.cameras.add(cameraHUD);
 		//customerCardList.cameras = [cameraHUD];
-		
-		
-		
+
 		cookbook = new CookBook(inventory);
 		add(cookbook);
 		
 		cameraCookBook = new FlxCamera(FlxG.width - 10, Std.int(FlxG.height/2), 96, 128, 1);
 		FlxG.cameras.add(cameraCookBook);
 		cookbook.cameras = [cameraCookBook];
+		
+		customerCardList = new CustomerCardList(cookbook);
+		customerCardList.scrollFactor.set(0, 0);
+		add(customerCardList);
+		
 
 		//RecipeBook camera
 		if (Storage.recipe1name != null)
@@ -403,6 +404,12 @@ class PlayState extends FlxState {
 				}
 			}
 		}
+		
+		if (FlxG.keys.justPressed.A)
+		{
+			var cust = new Customer(0, 0, 0, cookbook, customerCardList);
+		}
+		
 		
 		// Debug
 		#if debug

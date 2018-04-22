@@ -20,7 +20,6 @@ class PlayerHUD extends FlxSpriteGroup
 		healthString = "HEALTH: ";
 		healthText = new FlxText(5, 26, 0, healthString + Storage.player1Stats.currentHealth + "%", 8);
 		healthText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.RED, 1, 1);
-		//healthText.scrollFactor.set(0, 0);
 		add(healthText);
 	}
 	
@@ -33,9 +32,6 @@ class PlayerHUD extends FlxSpriteGroup
 	}
 	
 	
-	//public function updatePlayerLifeText(value:Int)
-	//{
-		//healthString + value + "%";
-	//}
+
 	
 }

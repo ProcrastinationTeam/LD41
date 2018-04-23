@@ -534,7 +534,7 @@ class PlayState extends FlxState {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));
 			} else {
 				//var levelName = goto.l + "_0";
-				var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
+				var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 3));
 				trace(levelName);
 				FlxG.switchState(new PlayState(levelName, goto.anchor,false));
 			}

@@ -613,7 +613,7 @@ class PlayState extends FlxState {
 		var commandNumber = level.mapOfCommands.get(triggerSprite);
 		
 		// TODO: commandNumber est l'id de [0 à 5] de la zone triggered
-		trace(commandNumber);
+		//trace(commandNumber);
 		
 	}
 	

@@ -143,7 +143,7 @@ class IngredientEnemy extends FlxSprite
 		
 		if (!canAttack)
 			animation.play("attack");
-		if (invincible > 0)
+		else if (invincible > 0)
 			animation.play("hurt");
 		super.draw();
 	}
@@ -307,10 +307,13 @@ class IngredientEnemy extends FlxSprite
 				if (vec.y < 0)
 					angle *= -1;
 					
-				trace(angle);
-				attack(speed*2, angle);
-				
-				//attackPlayer(speed*10);
+				//trace("Attack");
+				//attack(speed*2, angle);
+				var rand = FlxG.random.int(0, 5000) % 2;
+				if(rand == 0)
+					specialAttack(speed * 2, angle);
+				else
+					attackPlayer(speed*10);
 			}
 			else if(invincible == 0 && canAttack)
 				FlxVelocity.moveTowardsPoint(this, playerPos, Std.int(speed*1.5));

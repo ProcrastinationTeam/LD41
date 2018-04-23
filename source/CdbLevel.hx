@@ -31,8 +31,9 @@ import flixel.FlxG;
 class CdbLevel {
 	// "Entities"
 	public var player 					: Player;
+	public var playerShadow				: ShadowSprite;
 	public var npcSprites 				: FlxTypedSpriteGroup<IngredientEnemy>				= new FlxTypedSpriteGroup<IngredientEnemy>();
-	public var npcShadowsSprites 		: FlxTypedSpriteGroup<IngredientShadowSprite>		= new FlxTypedSpriteGroup<IngredientShadowSprite>();
+	public var npcShadowsSprites 		: FlxTypedSpriteGroup<ShadowSprite>		= new FlxTypedSpriteGroup<ShadowSprite>();
 	public var pickupSprites 			: FlxTypedSpriteGroup<IngredientPickup>				= new FlxTypedSpriteGroup<IngredientPickup>();
 	
 	// Properties of the map (tile props and object props)
@@ -160,6 +161,8 @@ class CdbLevel {
 		// Place the player
 		var newPosition = mapOfAnchor.get(anchor);
 		player = new Player(newPosition.x * levelData.props.tileSize, newPosition.y * levelData.props.tileSize);
+		playerShadow = new ShadowSprite(player, true);
+		npcShadowsSprites.add(playerShadow);
 		
 		// pickups (custom layer)
 		for (item in pickupSprites) {
@@ -217,11 +220,11 @@ class CdbLevel {
 			case CdbData.NpcsKind.Carrot:
 				var mobSprite = new Carrot(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);
-				npcShadowsSprites.add(new IngredientShadowSprite(mobSprite));
+				npcShadowsSprites.add(new ShadowSprite(mobSprite));
 			default:
 				var mobSprite = new IngredientEnemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);
-				npcShadowsSprites.add(new IngredientShadowSprite(mobSprite));
+				npcShadowsSprites.add(new ShadowSprite(mobSprite));
 		}
 		
 		//var mobSprite = new FlxSprite(x * levelData.props.tileSize, y * levelData.props.tileSize);

@@ -1,6 +1,7 @@
 package states;
 
 
+import assetpaths.MusicAssetsPath;
 import assetpaths.SoundAssetsPaths.SoundAssetsPath;
 import flixel.FlxCamera;
 import flixel.FlxCamera.FlxCameraFollowStyle;
@@ -10,6 +11,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
+import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -44,6 +46,10 @@ class PlayState extends FlxState {
 	public  var initialInventoryLoad	: Bool = false;
 	
 	
+	private var _soundFadeIn						: FlxSound;
+	private var _soundFadeOut						: FlxSound;
+	
+	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
 		super();
 		this.levelDataName = levelDataName;
@@ -57,7 +63,7 @@ class PlayState extends FlxState {
 		super.create();
 		
 		if (levelDataName == null) {
-			levelDataName = "FirstVillage";
+			levelDataName = "Kitchen_32";
 		}
 		
 		CdbData.load(Assets.getText(AssetPaths.data__cdb));
@@ -186,7 +192,22 @@ class PlayState extends FlxState {
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, true);
 		
-		//FlxG.sound.playMusic(AssetPaths.Darkjungle__ogg, 0.5);
+		if (levelDataName == "Kitchen_32") {
+			// TODO: condition en fonction de la vie du player ?
+			if (true) {
+				FlxG.sound.playMusic(MusicAssetsPath.Kitchen__ogg);
+			} else {
+				FlxG.sound.playMusic(MusicAssetsPath.Kitchenfast__ogg);
+			}
+		} else {
+			FlxG.sound.playMusic(MusicAssetsPath.Darkjungle__ogg);
+		}
+		FlxG.sound.music.fadeIn(1, 0, 0.7);
+		
+		_soundFadeIn = FlxG.sound.load(SoundAssetsPath.fadein__ogg, 0.25);
+		_soundFadeOut = FlxG.sound.load(SoundAssetsPath.fadeout__ogg, 0.25);
+		
+		_soundFadeIn.play();
 	}
 	
 	override public function update(elapsed:Float):Void {
@@ -214,6 +235,9 @@ class PlayState extends FlxState {
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
+		
+		// pas propre pour éviter que les npcs s'enfuient
+		FlxG.collide(level.npcSprites, level.changeScreenTriggers);
 		
 		//FlxG.overlap(level.npcSprites, level.npcSprites, StopTween);
 		//FlxG.overlap(level.npcSprites, level.collisionsGroup, StopTween);
@@ -421,6 +445,9 @@ class PlayState extends FlxState {
 			var cust = new Customer(0, 0, 0, cookbook, customerCardList);
 		}
 		
+		if (FlxG.keys.justPressed.M) {
+			FlxG.sound.toggleMuted();
+		}
 		
 		// Debug
 		#if debug
@@ -502,6 +529,8 @@ class PlayState extends FlxState {
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {
 		var goto:Goto = level.mapOfGoto.get(triggerSprite);
 		
+		_soundFadeOut.play();
+		FlxG.sound.music.fadeOut(0.2, 0);
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
 			if (goto.l == "Kitchen_32") {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));

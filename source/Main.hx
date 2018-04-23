@@ -20,5 +20,7 @@ class Main extends Sprite
 		FlxG.sound.muteKeys = null;
 		FlxG.sound.volumeUpKeys = null;
 		FlxG.sound.volumeDownKeys = null;
+		
+		FlxG.sound.volume = 0.5;
 	}
 }

@@ -54,6 +54,8 @@ class PlayState extends FlxState {
 	private var _soundFadeIn						: FlxSound;
 	private var _soundFadeOut						: FlxSound;
 	
+	private var explicationText : FlxText;
+	
 	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
 		super();
@@ -109,7 +111,6 @@ class PlayState extends FlxState {
 		add(level.player.weapons.peeler);
 
 		add(level.player.weapons.knife);
-		
 		
 		//Player health
 		var playerH = new PlayerHUD(level.player);
@@ -180,7 +181,8 @@ class PlayState extends FlxState {
 		}
 		
 		//Picker
-		if (recipePickerHere)
+		// Horrible facon de regarder si on doit créer les recettes
+		if (Storage.recipe3.length == 0)
 		{
 			recipePicker = new RecipePicker(inventory,cookbook);
 			add(recipePicker);
@@ -191,6 +193,20 @@ class PlayState extends FlxState {
 			//cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width + 10 , cameraRecipePicker.y);
 			FlxG.cameras.add(cameraRecipePicker);
 			recipePicker.cameras = [cameraRecipePicker];
+			
+			explicationText = new FlxText(0);
+			explicationText.size = 12;
+			explicationText.text = "Create today's menu [O]";
+			explicationText.screenCenter();
+			explicationText.y -= 50;
+			explicationText.scrollFactor.set(0, 0);
+			explicationText.borderStyle = FlxTextBorderStyle.OUTLINE;
+			explicationText.cameras = [FlxG.camera];
+			add(explicationText);
+			
+			//if (recipePicker._recipesAreFull) {
+				//
+			//}
 		}
 		
 		
@@ -242,7 +258,6 @@ class PlayState extends FlxState {
 		FlxG.collide(level.npcSprites, level.overObjectsGroup);
 		FlxG.collide(level.npcSprites, level.npcSprites);
 		
-		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
 		
@@ -251,6 +266,12 @@ class PlayState extends FlxState {
 		// pas propre pour éviter que les npcs s'enfuient
 		FlxG.collide(level.npcSprites, level.changeScreenTriggers);
 		
+		// pas propre, pour empêcher le player de s'enfuir de la cuisine tant que y'a pas 3 recettes dans le bouquin
+		if (levelDataName == "Kitchen_32" && Storage.recipe3.length == 0) {
+			FlxG.collide(level.player, level.changeScreenTriggers);
+		} else {
+			FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
+		}
 		
 		level.npcSprites.forEachAlive(checkEnemyVision);
 		
@@ -276,7 +297,7 @@ class PlayState extends FlxState {
 			}
 		}
 		
-		if (recipePickerHere)
+		if (Storage.recipe3.length == 0)
 		{
 			if (FlxG.keys.justPressed.O)
 			{
@@ -476,6 +497,22 @@ class PlayState extends FlxState {
 		
 		if (FlxG.keys.justPressed.M) {
 			FlxG.sound.toggleMuted();
+		}
+		
+		if (explicationText != null) {
+			if (recipePicker._recipesAreFull) {
+				explicationText.fieldWidth = 225;
+				explicationText.text = "Go down to your cellar to find ingredients\n\n Press [P] to open your Cookédex";
+				explicationText.alignment = FlxTextAlign.CENTER;
+				explicationText.autoSize = false;
+				explicationText.screenCenter();
+				explicationText.y -= 50;
+			}
+			if (recipePickerOpen) {
+				explicationText.visible = false;
+			} else {
+				explicationText.visible = true;
+			}
 		}
 		
 		// Debug

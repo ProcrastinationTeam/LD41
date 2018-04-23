@@ -101,6 +101,7 @@ class PlayState extends FlxState {
 		
 		// Then, trigger zones
 		add(level.changeScreenTriggers);
+		add(level.commandTriggers);
 		
 		// Adding the collisions group
 		add(level.collisionsGroup);
@@ -244,6 +245,8 @@ class PlayState extends FlxState {
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
+		
+		FlxG.overlap(level.player, level.commandTriggers, OnTriggerCommandCallback);
 		
 		// pas propre pour éviter que les npcs s'enfuient
 		FlxG.collide(level.npcSprites, level.changeScreenTriggers);
@@ -562,11 +565,19 @@ class PlayState extends FlxState {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));
 			} else {
 				//var levelName = goto.l + "_0";
-				var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
+				var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 3));
 				trace(levelName);
 				FlxG.switchState(new PlayState(levelName, goto.anchor,false));
 			}
 		});
+	}
+	
+	private function OnTriggerCommandCallback(player:Player, triggerSprite:FlxSprite) {
+		var commandNumber = level.mapOfCommands.get(triggerSprite);
+		
+		// TODO: commandNumber est l'id de [0 à 5] de la zone triggered
+		trace(commandNumber);
+		
 	}
 	
 	private function PlayerPickup(player:Player, ingredient:IngredientPickup):Void

@@ -74,6 +74,9 @@ class PlayState extends FlxState {
 		// Then "ground objects" (alway under the rest)
 		add(level.groundObjectsGroup);
 		
+		// ugly shadows
+		add(level.npcShadowsSprites);
+		
 		//////// Then "sortable" items (player, npcs, pickups, etc) so we can manipulate the draw order
 		// objects (mostly non interactive doodads like trees, rocks, etc)
 		add(level.sortableGroup);

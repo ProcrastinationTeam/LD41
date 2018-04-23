@@ -57,8 +57,10 @@ class CdbLevel {
 	public var sortableGroup			: FlxSpriteGroup				= new FlxSpriteGroup();
 	
 	public var changeScreenTriggers		: FlxSpriteGroup				= new FlxSpriteGroup();
+	public var commandTriggers			: FlxSpriteGroup					= new FlxSpriteGroup();
 	
 	public var mapOfGoto				: Map<FlxSprite, Goto> 			= new Map<FlxSprite, Goto>();
+	public var mapOfCommands			: Map<FlxSprite, Int> 			= new Map<FlxSprite, Int>();
 	public var mapOfAnchor				: Map<String, FlxPoint> 		= new Map<String, FlxPoint>();
 	
 	///////////////////////////////
@@ -824,6 +826,20 @@ class CdbLevel {
 					trace('Anchor - id: [$id]');
 					
 					mapOfAnchor.set(id, new FlxPoint(trigger.x, trigger.y));
+					
+					// Une des commandes client
+					if (StringTools.startsWith(id, "Client")) {
+						var sprite = new FlxSprite(trigger.x * levelData.props.tileSize + 12, trigger.y * levelData.props.tileSize);
+						sprite.makeGraphic(levelData.props.tileSize * trigger.width, levelData.props.tileSize * trigger.height, FlxColor.TRANSPARENT);
+						sprite.setSize(levelData.props.tileSize * trigger.width / 4, levelData.props.tileSize * trigger.height / 4);
+						sprite.immovable = true;
+						sprite.active = false;
+						sprite.moves = false;
+						//sprite.allowCollisions = FlxObject.NONE;
+						
+						commandTriggers.add(sprite);
+						mapOfCommands.set(sprite, Std.parseInt(id.charAt(6)) - 1);
+					}
 					
 				case CdbData.Action.Goto(l, anchor):
 					// Departure point

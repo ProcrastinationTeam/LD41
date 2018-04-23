@@ -21,5 +21,10 @@ class IngredientShadowSprite extends FlxSprite
 	override public function update(elapsed:Float):Void {
 		x = target.x + (target.width / 2) - 16;
 		y = target.y + target.offset.y + target.height - 16;
+		
+		// Si on veut garder les ombres à la mort
+		if (!target.alive) {
+			super.kill();
+		}
 	}
 }

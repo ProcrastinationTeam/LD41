@@ -18,7 +18,7 @@ class CustomerCard extends FlxSpriteGroup
 	public function new(customer : Customer)
 	{
 		super();
-		_recipe = recipe;
+		//_recipe = recipe;
 		_backgroundSprite = new FlxSprite(0, 0);
 		_backgroundSprite.loadGraphic("assets/images/customerTicket.png", false, 32, 32, false);
 		add(_backgroundSprite);
@@ -40,7 +40,7 @@ class CustomerCard extends FlxSpriteGroup
 		_cardId = customer._id;
 
 		trace("CUSTOMER NUMBER :" + customer._id);
-		trace("RECIPE CHOOSE :" + customer._recipeName);
+		trace("RECIPE CHOOSE :" + customer._recipeNameChoose);
 
 	}
 

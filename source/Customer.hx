@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.util.FlxTimer;
 
 /**
  * ...
@@ -16,6 +17,7 @@ class Customer extends FlxSprite
 	public var _cardList : CustomerCardList;
 	public var _recipeNameChoose : String;
 	public var _recipeIdChoose: Int;
+	
 
 	public function new(?X:Float=0, ?Y:Float=0, id : Int, cookbook : CookBook, cardList: CustomerCardList)
 	{
@@ -23,7 +25,7 @@ class Customer extends FlxSprite
 
 		_cardList = cardList;
 		_id = id;
-
+	
 		var rand = FlxG.random.int(0, 2);
 		switch (rand) {
 			case 0:
@@ -43,4 +45,6 @@ class Customer extends FlxSprite
 		Storage.nbCustomer++;
 	}
 
+	
+	
 }

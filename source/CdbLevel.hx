@@ -221,6 +221,10 @@ class CdbLevel {
 				var mobSprite = new Carrot(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);
 				npcShadowsSprites.add(new ShadowSprite(mobSprite));
+			case CdbData.NpcsKind.Fish:
+				var mobSprite = new IngredientEnemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
+				npcSprites.add(mobSprite);
+				// No shadow for the fish
 			default:
 				var mobSprite = new IngredientEnemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);

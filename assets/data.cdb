@@ -619,7 +619,7 @@
 							"frameRate": 8
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -696,7 +696,7 @@
 							"frameRate": 2
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -819,7 +819,7 @@
 							"frameRate": 8
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -942,7 +942,7 @@
 							"frameRate": 8
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1081,7 +1081,7 @@
 							"frameRate": 4
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1166,7 +1166,7 @@
 							"frameRate": 4
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1180,7 +1180,7 @@
 							"frameRate": 1
 						}
 					],
-					"drop": "Milk",
+					"drop": "Steak",
 					"sizeX": 22,
 					"sizeY": 28,
 					"offsetX": 10,
@@ -1281,7 +1281,7 @@
 							"frameRate": 10
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1358,7 +1358,7 @@
 							"frameRate": 8
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1441,7 +1441,7 @@
 							"frameRate": 5
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1455,7 +1455,7 @@
 							"frameRate": 1
 						}
 					],
-					"drop": "Chicken",
+					"drop": "Fish",
 					"sizeX": 0,
 					"sizeY": 0,
 					"offsetX": 0,
@@ -1524,7 +1524,7 @@
 							"frameRate": 6
 						},
 						{
-							"name": "",
+							"name": "hurt",
 							"frames": [
 								{
 									"frame": {
@@ -1538,7 +1538,7 @@
 							"frameRate": 1
 						}
 					],
-					"drop": "Chicken",
+					"drop": "Bread",
 					"sizeX": 0,
 					"sizeY": 0,
 					"offsetX": 0,

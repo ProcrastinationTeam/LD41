@@ -39,10 +39,9 @@ class IngredientEnemy extends FlxSprite
 	public var idleTmrMin:Int = 1;
 	public var idleTmrMax:Int = 4;
 	
-	public var attackTween:FlxTween;
 	public var canAttack:Bool = true;
 	public var nbAttack:Int = 2;
-	public var basicAttackRange:Float = 50;
+	public var basicAttackRange:Float = 10;
 	public var attackTime:Float = 0.3;
 	public var attackRecovery:Float = 1;
 	
@@ -147,8 +146,9 @@ class IngredientEnemy extends FlxSprite
 			_actionTimer = FlxG.random.int(idleTmrMin, idleTmrMax);
 			
 			_moveDir = FlxG.random.int(0, 360);
-			trace(currentIdle);
+			//trace(currentIdle);
 		}
+		
 		if (seesPlayer)
 		{
 			_brain.activeState = chase;
@@ -174,6 +174,7 @@ class IngredientEnemy extends FlxSprite
 				{
 					attack(speed, _moveDir);
 				}
+			default:
 		}
 		_actionTimer -= FlxG.elapsed;
 	
@@ -196,9 +197,11 @@ class IngredientEnemy extends FlxSprite
 		attackPoint.set(basicAttackRange, 0);
 		attackPoint.rotate(FlxPoint.weak(), direction);
 		
-		attackPoint.x = x + attackPoint.x;
-		attackPoint.y = y + attackPoint.y;
+		attackPoint.x = x + attackPoint.x * basicAttackRange;
+		attackPoint.y = y + attackPoint.y * basicAttackRange;
 		canAttack = false;
+		trace("pos : " +getPosition());
+		trace("attackpnt : " +attackPoint);
 		FlxVelocity.moveTowardsPoint(this, attackPoint, speed, Std.int(attackTime * 1000));
 		attackTimer.start(attackTime, enableAttack);
 	}

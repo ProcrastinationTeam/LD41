@@ -93,6 +93,8 @@ class PlayState extends FlxState {
 		// ugly shadows
 		add(level.npcShadowsSprites);
 		
+		add(level.npcFireBall);
+		
 		//////// Then "sortable" items (player, npcs, pickups, etc) so we can manipulate the draw order
 		// objects (mostly non interactive doodads like trees, rocks, etc)
 		add(level.sortableGroup);
@@ -255,6 +257,7 @@ class PlayState extends FlxState {
 		// Collisions handling
 		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
 		FlxG.overlap(level.player, level.npcSprites, PlayerTakeDammages);
+		FlxG.overlap(level.player, level.npcFireBall, PlayerTakeDammagesFireBall);
 		
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
@@ -643,6 +646,30 @@ class PlayState extends FlxState {
 	}
 	
 	private function PlayerTakeDammages(player:Player, enemy:IngredientEnemy):Void
+	{
+		if (player.takeDamage(enemy.damage, enemy.getGraphicMidpoint()))
+		{
+			//var tweenEnemy = FlxTween.tween(player, {alpha: 0}, 0.1 , {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+			//new FlxTimer().start(0.4, function(timer:FlxTimer):Void 
+			//{
+				//tweenEnemy.cancel();
+				//player.alpha = 1;
+			//});
+		}
+		else
+		{
+			Storage.player1Stats.reset();
+			
+			//_soundFadeOut.play();
+			FlxG.sound.music.fadeOut(0.2, 0);
+			FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
+				FlxG.switchState(new GameOverState());
+			});
+			
+		}
+	}
+	
+	private function PlayerTakeDammagesFireBall(player:Player, enemy:FireBall):Void
 	{
 		if (player.takeDamage(enemy.damage, enemy.getGraphicMidpoint()))
 		{

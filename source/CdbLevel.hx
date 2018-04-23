@@ -33,7 +33,8 @@ class CdbLevel {
 	public var player 					: Player;
 	public var playerShadow				: ShadowSprite;
 	public var npcSprites 				: FlxTypedSpriteGroup<IngredientEnemy>				= new FlxTypedSpriteGroup<IngredientEnemy>();
-	public var npcShadowsSprites 		: FlxTypedSpriteGroup<ShadowSprite>		= new FlxTypedSpriteGroup<ShadowSprite>();
+	public var npcShadowsSprites 		: FlxTypedSpriteGroup<ShadowSprite>					= new FlxTypedSpriteGroup<ShadowSprite>();
+	public var npcFireBall 				: FlxTypedSpriteGroup<FireBall>						= new FlxTypedSpriteGroup<FireBall>();
 	public var pickupSprites 			: FlxTypedSpriteGroup<IngredientPickup>				= new FlxTypedSpriteGroup<IngredientPickup>();
 	
 	// Properties of the map (tile props and object props)
@@ -222,6 +223,11 @@ class CdbLevel {
 			case CdbData.NpcsKind.Carrot:
 				var mobSprite = new Carrot(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);
+				npcShadowsSprites.add(new ShadowSprite(mobSprite));
+			case CdbData.NpcsKind.Pepper:
+				var mobSprite = new Pepper(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
+				npcSprites.add(mobSprite);
+				npcFireBall.add(mobSprite.fireBall);
 				npcShadowsSprites.add(new ShadowSprite(mobSprite));
 			case CdbData.NpcsKind.Fish:
 				var mobSprite = new IngredientEnemy(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);

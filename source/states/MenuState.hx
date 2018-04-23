@@ -130,7 +130,7 @@ class MenuState extends FlxState {
 			}
 		}
 		
-		if (soundBzz.playing) {
+		if (soundBzz.playing && FlxG.random.bool(50)) {
 			var rand = FlxG.random.float();
 			lightSprite.alpha = rand;
 			darkSprite.alpha = 1 - rand;

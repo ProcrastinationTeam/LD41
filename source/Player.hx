@@ -347,7 +347,7 @@ class Player extends FlxSprite
 		if (invincible == 0)
 		{
 			var randomHurtSound = FlxG.random.int(1, 3);
-			trace(randomHurtSound);
+			//trace(randomHurtSound);
 			switch(randomHurtSound) {
 				case 1:
 					soundHurt1.play();

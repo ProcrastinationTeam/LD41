@@ -618,7 +618,7 @@ class PlayState extends FlxState {
 		var playerPos = level.player.getMidpoint();
 		if (level.tilemapObjects.ray(e.getMidpoint(), playerPos))
 		{
-			if (playerPos.distanceTo(e.getPosition()) > e.detectionRadius)
+			if (playerPos.distanceTo(e.getPosition()) > e.currentDetectionRadius)
 			{
 				e.seesPlayer = false;
 			}

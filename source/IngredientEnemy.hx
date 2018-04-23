@@ -28,7 +28,11 @@ class IngredientEnemy extends FlxSprite
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
-	public var detectionRadius:Float = 75;
+	
+	public var currentDetectionRadius:Float = 75;
+	public var detectionRadiusIdle:Float = 75;
+	public var detectionRadiusChase:Float = 115;
+	
 	public var invincible:Int = 0;
 	public var nbInvincibilityFrame:Int = 15;
 	
@@ -134,6 +138,8 @@ class IngredientEnemy extends FlxSprite
 		}
 		if (invincible > 0)
 			animation.play("hurt");
+		if (!canAttack)
+			animation.play("attack");
 		super.draw();
 	}
 	
@@ -152,6 +158,7 @@ class IngredientEnemy extends FlxSprite
 		if (seesPlayer)
 		{
 			_brain.activeState = chase;
+			currentDetectionRadius = detectionRadiusChase;
 			_actionTimer = 0;
 		}
 		
@@ -163,7 +170,7 @@ class IngredientEnemy extends FlxSprite
 			case "ATTACK":
 				if (canAttack)
 				{
-					attack(speed * 0.5, _moveDir);
+					attack(speed, _moveDir);
 				}
 				
 			case "MOVE_TO_PLAYER":
@@ -172,7 +179,7 @@ class IngredientEnemy extends FlxSprite
 			case "SPECIAL_ATTACK":
 				if (canAttack)
 				{
-					attack(speed, _moveDir);
+					specialAttack(speed, _moveDir);
 				}
 			default:
 		}
@@ -200,8 +207,19 @@ class IngredientEnemy extends FlxSprite
 		attackPoint.x = x + attackPoint.x * basicAttackRange;
 		attackPoint.y = y + attackPoint.y * basicAttackRange;
 		canAttack = false;
-		trace("pos : " +getPosition());
-		trace("attackpnt : " +attackPoint);
+		FlxVelocity.moveTowardsPoint(this, attackPoint, speed, Std.int(attackTime * 1000));
+		attackTimer.start(attackTime, enableAttack);
+	}
+	
+	public function specialAttack(speed:Float, direction:Float):Void
+	{
+		var attackPoint:FlxPoint = new FlxPoint();
+		attackPoint.set(basicAttackRange, 0);
+		attackPoint.rotate(FlxPoint.weak(), direction);
+		
+		attackPoint.x = x + attackPoint.x * basicAttackRange;
+		attackPoint.y = y + attackPoint.y * basicAttackRange;
+		canAttack = false;
 		FlxVelocity.moveTowardsPoint(this, attackPoint, speed, Std.int(attackTime * 1000));
 		attackTimer.start(attackTime, enableAttack);
 	}
@@ -304,6 +322,7 @@ class IngredientEnemy extends FlxSprite
 		if (!seesPlayer)
 		{
 			_brain.activeState = idle;
+			currentDetectionRadius = detectionRadiusIdle;
 		}
 		else
 		{

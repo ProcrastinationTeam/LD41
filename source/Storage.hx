@@ -22,6 +22,8 @@ class Storage
 	
 	public static var nbCustomer : Int;
 	public static var customerArray : Array<Customer>;
+	
+	public static var timerArray : Array<Float>;
 
 	
 }

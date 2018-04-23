@@ -53,7 +53,7 @@ class CustomerCardList extends FlxSpriteGroup
 			trace("BUILDING CARD LIST");
 			for (customer in Storage.customerArray)
 			{
-				addCustomerAtSpecificId(customer);
+				addCustomerSpecial(customer);
 			}
 		}
 
@@ -61,7 +61,7 @@ class CustomerCardList extends FlxSpriteGroup
 
 	}
 	
-	public function addCustomerAtSpecificId(customer: Customer )
+	public function addCustomerSpecial(customer: Customer )
 	{
 		
 		trace("SPOT ARRAY : " + _spotToTake);
@@ -73,9 +73,8 @@ class CustomerCardList extends FlxSpriteGroup
 			if (spot)
 			{
 				_spotToTake[count] = false;
-				var card = new CustomerCard(customer, _spotPosById.get(count));
+				var card = new CustomerCard(customer, _spotPosById.get(count),count,3);
 				_customerArray.push(customer);
-				//Storage.customerArray.push(customer);
 				_customerList.add(card);
 				return;
 			}
@@ -97,7 +96,7 @@ class CustomerCardList extends FlxSpriteGroup
 			if (spot)
 			{
 				_spotToTake[count] = false;
-				var card = new CustomerCard(customer, _spotPosById.get(count));
+				var card = new CustomerCard(customer, _spotPosById.get(count),count);
 				_customerArray.push(customer);
 				Storage.customerArray.push(customer);
 				_customerList.add(card);
@@ -117,10 +116,6 @@ class CustomerCardList extends FlxSpriteGroup
 			
 			if (customer._recipeIdChoose == id)
 			{
-				//for (card in _customerList)
-				//{
-					//card.
-				//}
 				_customerList.members[count] = null;
 				_spotToTake[count] = true;
 				return true;

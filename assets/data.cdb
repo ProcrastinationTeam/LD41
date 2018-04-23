@@ -708,6 +708,20 @@
 								}
 							],
 							"frameRate": 1
+						},
+						{
+							"name": "attack",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 12,
+										"y": 1
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"sizeX": 20,
@@ -1178,6 +1192,28 @@
 								}
 							],
 							"frameRate": 1
+						},
+						{
+							"name": "attack",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 6,
+										"y": 4
+									}
+								},
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 7,
+										"y": 4
+									}
+								}
+							],
+							"frameRate": 6
 						}
 					],
 					"drop": "Steak",
@@ -1366,6 +1402,20 @@
 										"size": 32,
 										"x": 14,
 										"y": 6
+									}
+								}
+							],
+							"frameRate": 1
+						},
+						{
+							"name": "attack",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 0,
+										"y": 7
 									}
 								}
 							],

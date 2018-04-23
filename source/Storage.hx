@@ -26,5 +26,22 @@ class Storage
 	public static var timerArray : Array<Float>;
 	public static var positionArray : Array<Float>;
 
+	public static function reset() {
+		recipe1 = new Array<CdbData.IngredientsKind>();
+		recipe2 = new Array<CdbData.IngredientsKind>();
+		recipe3 = new Array<CdbData.IngredientsKind>();
+		recipe1name = null;
+		recipe2name = null;
+		recipe3name = null;
+		
+		player1Stats = new PlayerStatWrapper();
+		
+		ingredientsCount = new Map<CdbData.IngredientsKind,Int>();
+		
+		nbCustomer = null;
+		customerArray = null;
+		
+		timerArray = null;
+	}
 	
 }

@@ -53,6 +53,11 @@ class PlayState extends FlxState {
 	
 	private var _soundFadeIn						: FlxSound;
 	private var _soundFadeOut						: FlxSound;
+	private var soundNewCustomer					: FlxSound;
+	
+	private var explicationText : FlxText;
+	
+	private var soundCustomerHappy : Array<FlxSound> = new Array<FlxSound>();
 	
 	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
@@ -109,7 +114,6 @@ class PlayState extends FlxState {
 		add(level.player.weapons.peeler);
 
 		add(level.player.weapons.knife);
-		
 		
 		//Player health
 		var playerH = new PlayerHUD(level.player);
@@ -180,7 +184,8 @@ class PlayState extends FlxState {
 		}
 		
 		//Picker
-		if (recipePickerHere)
+		// Horrible facon de regarder si on doit créer les recettes
+		if (Storage.recipe3.length == 0)
 		{
 			recipePicker = new RecipePicker(inventory,cookbook);
 			add(recipePicker);
@@ -191,6 +196,20 @@ class PlayState extends FlxState {
 			//cameraRecipePicker.setPosition(cameraRecipePicker.x + recipePicker._backgroundSprite.width + 10 , cameraRecipePicker.y);
 			FlxG.cameras.add(cameraRecipePicker);
 			recipePicker.cameras = [cameraRecipePicker];
+			
+			explicationText = new FlxText(0);
+			explicationText.size = 12;
+			explicationText.text = "Create today's menu [O]";
+			explicationText.screenCenter();
+			explicationText.y -= 50;
+			explicationText.scrollFactor.set(0, 0);
+			explicationText.borderStyle = FlxTextBorderStyle.OUTLINE;
+			explicationText.cameras = [FlxG.camera];
+			add(explicationText);
+			
+			//if (recipePicker._recipesAreFull) {
+				//
+			//}
 		}
 		
 		
@@ -216,6 +235,12 @@ class PlayState extends FlxState {
 		
 		_soundFadeIn = FlxG.sound.load(SoundAssetsPath.fadein__ogg, 0.25);
 		_soundFadeOut = FlxG.sound.load(SoundAssetsPath.fadeout__ogg, 0.25);
+		soundNewCustomer = FlxG.sound.load(SoundAssetsPath.client_new_2__ogg, 0.7);
+		
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_1__ogg, 0.7));
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_2__ogg, 0.7));
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_3__ogg, 0.7));
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_4__ogg, 0.7));
 		
 		_soundFadeIn.play();
 	}
@@ -242,7 +267,6 @@ class PlayState extends FlxState {
 		FlxG.collide(level.npcSprites, level.overObjectsGroup);
 		FlxG.collide(level.npcSprites, level.npcSprites);
 		
-		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
 		
@@ -251,6 +275,12 @@ class PlayState extends FlxState {
 		// pas propre pour éviter que les npcs s'enfuient
 		FlxG.collide(level.npcSprites, level.changeScreenTriggers);
 		
+		// pas propre, pour empêcher le player de s'enfuir de la cuisine tant que y'a pas 3 recettes dans le bouquin
+		if (levelDataName == "Kitchen_32" && Storage.recipe3.length == 0) {
+			FlxG.collide(level.player, level.changeScreenTriggers);
+		} else {
+			FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
+		}
 		
 		level.npcSprites.forEachAlive(checkEnemyVision);
 		
@@ -276,7 +306,7 @@ class PlayState extends FlxState {
 			}
 		}
 		
-		if (recipePickerHere)
+		if (Storage.recipe3.length == 0)
 		{
 			if (FlxG.keys.justPressed.O)
 			{
@@ -288,7 +318,7 @@ class PlayState extends FlxState {
 		if (FlxG.keys.justPressed.NUMPADNINE)
 		{
 			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
-			
+			soundNewCustomer.play(true);
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADSEVEN)
@@ -297,12 +327,12 @@ class PlayState extends FlxState {
 			
 		}
 		
-		if (recipePickerOpen && FlxG.keys.justPressed.Z)
+		if (recipePickerOpen && FlxG.keys.justPressed.UP)
 		{
 			recipePicker.changeCursorPos(-1);
 		}
 		
-		if (recipePickerOpen && FlxG.keys.justPressed.S)
+		if (recipePickerOpen && FlxG.keys.justPressed.DOWN)
 		{
 			recipePicker.changeCursorPos(1);
 		}
@@ -364,6 +394,7 @@ class PlayState extends FlxState {
 					if (customerCardList.removeCard(1))
 					{
 						inventory.loadInventory();
+						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
 					
 				}
@@ -415,7 +446,9 @@ class PlayState extends FlxState {
 					if (customerCardList.removeCard(2))
 					{
 						inventory.loadInventory();
+						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
+					
 				}
 			}
 			
@@ -464,7 +497,9 @@ class PlayState extends FlxState {
 					if (customerCardList.removeCard(3))
 					{
 						inventory.loadInventory();
+						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
+					
 				}
 			}
 		}
@@ -476,6 +511,22 @@ class PlayState extends FlxState {
 		
 		if (FlxG.keys.justPressed.M) {
 			FlxG.sound.toggleMuted();
+		}
+		
+		if (explicationText != null) {
+			if (recipePicker._recipesAreFull) {
+				explicationText.fieldWidth = 225;
+				explicationText.text = "Go down to your cellar to find ingredients\n\n Press [P] to open your Cookédex";
+				explicationText.alignment = FlxTextAlign.CENTER;
+				explicationText.autoSize = false;
+				explicationText.screenCenter();
+				explicationText.y -= 50;
+			}
+			if (recipePickerOpen) {
+				explicationText.visible = false;
+			} else {
+				explicationText.visible = true;
+			}
 		}
 		
 		// Debug
@@ -503,7 +554,8 @@ class PlayState extends FlxState {
 					OnEnemyHurtCallback(level.player, randomEnemy);
 				}
 			}
-			if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
+			if (FlxG.keys.justPressed.R && FlxG.keys.pressed.CONTROL) {
+				Storage.reset();
 				FlxG.resetGame();
 			} else if (FlxG.keys.justPressed.R) {
 				FlxG.switchState(new PlayState(levelDataName));
@@ -537,11 +589,11 @@ class PlayState extends FlxState {
 			
 			if (cameraRecipePicker.visible) 
 			{
-				level.player.disableMovement();
+				level.player.disableAim();
 			}
 			else
 			{
-				level.player.enableMovement();
+				level.player.enableAim();
 			}
 			
 			cookbookOpen = !cookbookOpen;
@@ -576,7 +628,7 @@ class PlayState extends FlxState {
 		var commandNumber = level.mapOfCommands.get(triggerSprite);
 		
 		// TODO: commandNumber est l'id de [0 à 5] de la zone triggered
-		trace(commandNumber);
+		//trace(commandNumber);
 		
 	}
 	

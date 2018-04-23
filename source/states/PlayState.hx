@@ -61,6 +61,9 @@ class PlayState extends FlxState {
 	
 	private var soundCustomerHappy : Array<FlxSound> = new Array<FlxSound>();
 	
+	private var _totalElapsedTimeText			: FlxText;
+
+	
 	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
 		super();
@@ -320,6 +323,12 @@ class PlayState extends FlxState {
 				FlxG.sound.play(SoundAssetsPath.cookbook_open_close__ogg);
 				activeRecipePicker();		
 			}
+		}
+		
+		
+		// Timer du scord
+		if (StringTools.startsWith(levelDataName, "Cellar") || Storage.recipe3.length != 0) {
+			Storage.timer += elapsed;
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADNINE)

@@ -215,6 +215,12 @@ class PlayState extends FlxState {
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
 		
+		//FlxG.overlap(level.npcSprites, level.npcSprites, StopTween);
+		//FlxG.overlap(level.npcSprites, level.collisionsGroup, StopTween);
+		//FlxG.overlap(level.npcSprites, level.objectsGroup, StopTween);
+		//FlxG.overlap(level.npcSprites, level.groundObjectsGroup, StopTween);
+		//FlxG.overlap(level.npcSprites, level.overObjectsGroup, StopTween);
+		
 		level.npcSprites.forEachAlive(checkEnemyVision);
 		
 		//RECIPE BOOK
@@ -534,6 +540,12 @@ class PlayState extends FlxState {
 			Storage.player1Stats.reset();
 			FlxG.switchState(new GameOverState());
 		}
+	}
+	
+	private function StopTween(sprite: IngredientEnemy, collisionObject: FlxSprite):Void
+	{
+		if(sprite.canAttack == false)
+			sprite.attackTween.cancel();
 	}
 	
 	private var enemiesHurtTweenMap: Map<IngredientEnemy, FlxTween> = new Map<IngredientEnemy, FlxTween>();

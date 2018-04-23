@@ -19,7 +19,7 @@ class PlayerStatWrapper
 	public var isAlive:Bool = true;
 	
 	public var knockBackFactor:Float = 2;
-	public var enemyKnockBackFactor:Float = 1;
+	public var enemyKnockBackFactor:Float = 2;
 	
 	public var nbInvincibilityFrame:Int = 30;
 	

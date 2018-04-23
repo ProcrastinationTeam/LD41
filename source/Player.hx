@@ -474,7 +474,6 @@ class Player extends FlxSprite
 			{
 				velocity.set(playerStats.speed * playerStats.knockBackFactor, 0);
 				velocity.rotate(FlxPoint.weak(0, 0), knockBackAngle);
-			//velocity.set(normAwayX * playerStats.knockBackFactor, normAwayY * playerStats.knockBackFactor);
 			}
 			
 		}

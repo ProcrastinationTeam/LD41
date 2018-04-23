@@ -39,6 +39,12 @@ class MenuState extends FlxState {
 	
 	public var music : FlxSound;
 	
+	public var soundBzz : FlxSound;
+	public var timeSinceLastBzz : Float = 0;
+	public var minTimeBetweenBzz : Float = 2;
+	
+	public var tween : FlxTween;
+	
 	override public function create():Void
 	{
 		super.create();
@@ -49,20 +55,18 @@ class MenuState extends FlxState {
 		lightSprite = new FlxSprite();
 		lightSprite.loadGraphic(AssetPaths.home_light__png);
 		lightSprite.screenCenter(FlxAxes.XY);
+		lightSprite.alpha = 0;
 		add(lightSprite);
 		
 		darkSprite = new FlxSprite();
 		darkSprite.loadGraphic(AssetPaths.home_shadow__png);
 		darkSprite.screenCenter(FlxAxes.XY);
-		darkSprite.alpha = 0;
 		add(darkSprite);
 		
 		overlaySprite = new FlxSprite();
 		overlaySprite.loadGraphic(AssetPaths.home_overlay__png);
 		overlaySprite.screenCenter(FlxAxes.XY);
 		add(overlaySprite);
-		
-		FlxTween.tween(darkSprite, {alpha: 1}, 1.5, {type: FlxTween.PINGPONG, ease: FlxEase.smoothStepInOut});
 		
 		var creditText = new FlxText(5, 10);
 		creditText.text = "Made in 72h during the 41th Ludum Dare";
@@ -82,6 +86,8 @@ class MenuState extends FlxState {
 			add(jobText);
 		}
 		
+		soundBzz = FlxG.sound.load(SoundAssetsPath.neon_bruitage__ogg, 1, false, null, false, false, null, EndBzz);
+		
 		Storage.ingredientsCount =  new Map<CdbData.IngredientsKind,Int>();
 		Storage.recipe1 = new Array<CdbData.IngredientsKind>();
 		Storage.recipe2 = new Array<CdbData.IngredientsKind>();
@@ -96,6 +102,7 @@ class MenuState extends FlxState {
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		timeSinceLastBzz += elapsed;
 		
 		if (FlxG.mouse.justPressed || FlxG.keys.justPressed.SPACE) {
 			music.fadeOut(0.3);
@@ -116,5 +123,36 @@ class MenuState extends FlxState {
 		} else {
 			overlaySprite.alpha = 0;
 		}
+		
+		if (timeSinceLastBzz > minTimeBetweenBzz) {
+			if (FlxG.random.bool(10)) {
+				StartBzz();
+			}
+		}
+		
+		if (soundBzz.playing) {
+			var rand = FlxG.random.float();
+			lightSprite.alpha = rand;
+			darkSprite.alpha = 1 - rand;
+		}
+	}
+	
+	public function StartBzz() {
+		soundBzz.play();
+		
+		lightSprite.alpha = 1;
+		darkSprite.alpha = 0;
+		timeSinceLastBzz = 0;
+		
+		//tween = FlxTween.tween(darkSprite, {alpha: 0.5}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+	}
+	
+	public function EndBzz() {
+		//tween.cancel();
+		
+		lightSprite.alpha = 0;
+		darkSprite.alpha = 1;
+		timeSinceLastBzz = 0;
+		trace("bnjour");
 	}
 }

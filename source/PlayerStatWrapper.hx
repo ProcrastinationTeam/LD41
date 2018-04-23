@@ -18,7 +18,8 @@ class PlayerStatWrapper
 	public var atckDuration:Float = 0.2;
 	public var isAlive:Bool = true;
 	
-	public var knockBackFactor:Float = 1;
+	public var knockBackFactor:Float = 2;
+	public var enemyKnockBackFactor:Float = 1;
 	
 	public var nbInvincibilityFrame:Int = 30;
 	

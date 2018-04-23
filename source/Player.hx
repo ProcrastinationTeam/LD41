@@ -2,6 +2,7 @@ package;
 
 import CdbData;
 import assetpaths.SoundAssetsPaths.SoundAssetsPath;
+import flixel.math.FlxVelocity;
 import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -35,6 +36,9 @@ class Player extends FlxSprite
 	public var offsetValue:Int = 0;
 	
 	public var invincible:Int = 0;
+	public var normAwayX:Float = 0;
+	public var normAwayY:Float = 0;
+	public var knockBackAngle:Float = 0;
 	
 	//public var isAlive:Bool = true;
 	
@@ -289,8 +293,11 @@ class Player extends FlxSprite
 				 
 			if(canAttack)
 				animation.play("walk_" + anim);
+				
 			velocity.set(playerStats.speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
+			
+				
 			
 			//if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE)
 			//{
@@ -328,7 +335,7 @@ class Player extends FlxSprite
 	{
 	}
 	
-	public function takeDamage(Damage:Int, X:Float, Y:Float):Bool
+	public function takeDamage(Damage:Int, enemyPos:FlxPoint):Bool
 	{
 		if (invincible == 0)
 		{
@@ -339,18 +346,38 @@ class Player extends FlxSprite
 				playerStats.currentHealth = 0;
 				playerStats.isAlive = false;
 			}
-			knockBack(X, Y);
+			knockBack(enemyPos);
 			return playerStats.isAlive;
 		}
 		else
 			return true;
 	}
 	
-	public function knockBack(X:Float, Y:Float):Void
+	public function knockBack(enemyPos:FlxPoint):Void
 	{
 		var duration = 0.3;
-		FlxTween.linearMotion(this, x, y, x + (x - X) * playerStats.knockBackFactor, y + (y - Y) * playerStats.knockBackFactor, duration, true, { type: FlxTween.ONESHOT, ease: FlxEase.expoOut});
+		
+		var posTowardx = x + (x - enemyPos.x);
+		var posTowardy = y + (y - enemyPos.y);
+		var posToward = new FlxPoint(posTowardx, posTowardy);
+		
+		//FlxTween.linearMotion(this, x, y, x + (x - X) * playerStats.knockBackFactor, y + (y - Y) * playerStats.knockBackFactor, duration, true, { type: FlxTween.ONESHOT, ease: FlxEase.expoOut});
+		//FlxVelocity.moveTowardsPoint(this, posToward, 400);
 		//velocity.set((x - X) * playerStats.knockBackFactor, (y - Y) * playerStats.knockBackFactor);
+		
+		var awayX:Float = (getGraphicMidpoint().x - enemyPos.x);
+		var awayY:Float = (getGraphicMidpoint().y - enemyPos.y);
+		var length:Float = Math.sqrt((awayX * awayX) + (awayY * awayY));
+		
+		normAwayX = awayX / length;
+		normAwayY = awayY / length;
+		
+		knockBackAngle = Math.acos(normAwayX);
+		knockBackAngle = knockBackAngle * 180 / Math.PI;
+		
+		if (normAwayY < 0)
+			knockBackAngle *= -1;
+		
 	}
 	
 	public function HealDamage(Heal: Int):Void
@@ -440,8 +467,17 @@ class Player extends FlxSprite
 			invincible--;
 		
 		//compute player movement
-		if(!moveDisabled)
+		if (!moveDisabled)
+		{
 			movement();
+			if (invincible > playerStats.nbInvincibilityFrame - 2)
+			{
+				velocity.set(playerStats.speed * playerStats.knockBackFactor, 0);
+				velocity.rotate(FlxPoint.weak(0, 0), knockBackAngle);
+			//velocity.set(normAwayX * playerStats.knockBackFactor, normAwayY * playerStats.knockBackFactor);
+			}
+			
+		}
 		
 		if (!aimDisabled)
 		{

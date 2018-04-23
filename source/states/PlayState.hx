@@ -1,6 +1,7 @@
 package states;
 
 
+import assetpaths.MusicAssetsPath;
 import assetpaths.SoundAssetsPaths.SoundAssetsPath;
 import flixel.FlxCamera;
 import flixel.FlxCamera.FlxCameraFollowStyle;
@@ -8,6 +9,9 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.math.FlxPoint;
+import flixel.math.FlxVelocity;
+import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -42,6 +46,10 @@ class PlayState extends FlxState {
 	public  var initialInventoryLoad	: Bool = false;
 	
 	
+	private var _soundFadeIn						: FlxSound;
+	private var _soundFadeOut						: FlxSound;
+	
+	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
 		super();
 		this.levelDataName = levelDataName;
@@ -55,7 +63,7 @@ class PlayState extends FlxState {
 		super.create();
 		
 		if (levelDataName == null) {
-			levelDataName = "FirstVillage";
+			levelDataName = "Kitchen_32";
 		}
 		
 		CdbData.load(Assets.getText(AssetPaths.data__cdb));
@@ -71,6 +79,9 @@ class PlayState extends FlxState {
 		
 		// Then "ground objects" (alway under the rest)
 		add(level.groundObjectsGroup);
+		
+		// ugly shadows
+		add(level.npcShadowsSprites);
 		
 		//////// Then "sortable" items (player, npcs, pickups, etc) so we can manipulate the draw order
 		// objects (mostly non interactive doodads like trees, rocks, etc)
@@ -181,7 +192,22 @@ class PlayState extends FlxState {
 		
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, true);
 		
-		//FlxG.sound.playMusic(AssetPaths.Darkjungle__ogg, 0.5);
+		if (levelDataName == "Kitchen_32") {
+			// TODO: condition en fonction de la vie du player ?
+			if (true) {
+				FlxG.sound.playMusic(MusicAssetsPath.Kitchen__ogg);
+			} else {
+				FlxG.sound.playMusic(MusicAssetsPath.Kitchenfast__ogg);
+			}
+		} else {
+			FlxG.sound.playMusic(MusicAssetsPath.Darkjungle__ogg);
+		}
+		FlxG.sound.music.fadeIn(1, 0, 0.7);
+		
+		_soundFadeIn = FlxG.sound.load(SoundAssetsPath.fadein__ogg, 0.25);
+		_soundFadeOut = FlxG.sound.load(SoundAssetsPath.fadeout__ogg, 0.25);
+		
+		_soundFadeIn.play();
 	}
 	
 	override public function update(elapsed:Float):Void {
@@ -209,6 +235,10 @@ class PlayState extends FlxState {
 		FlxG.overlap(level.player, level.changeScreenTriggers, ChangeScreenTriggerCallback);
 		FlxG.overlap(level.player.weapons.peeler, level.npcSprites, OnEnemyHurtCallback);
 		FlxG.overlap(level.player.weapons.knife, level.npcSprites, OnEnemyHurtCallback);
+		
+		// pas propre pour éviter que les npcs s'enfuient
+		FlxG.collide(level.npcSprites, level.changeScreenTriggers);
+		
 		
 		level.npcSprites.forEachAlive(checkEnemyVision);
 		
@@ -410,6 +440,9 @@ class PlayState extends FlxState {
 			var cust = new Customer(0, 0, 0, cookbook, customerCardList);
 		}
 		
+		if (FlxG.keys.justPressed.M) {
+			FlxG.sound.toggleMuted();
+		}
 		
 		// Debug
 		#if debug
@@ -491,12 +524,14 @@ class PlayState extends FlxState {
 	private function ChangeScreenTriggerCallback(player:Player, triggerSprite:FlxSprite) {
 		var goto:Goto = level.mapOfGoto.get(triggerSprite);
 		
+		_soundFadeOut.play();
+		FlxG.sound.music.fadeOut(0.2, 0);
 		FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
 			if (goto.l == "Kitchen_32") {
 				FlxG.switchState(new PlayState(goto.l, goto.anchor,true));
 			} else {
-				var levelName = goto.l + "_0";
-				//var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
+				//var levelName = goto.l + "_0";
+				var levelName = goto.l + "_" + Std.string(FlxG.random.int(1, 2));
 				trace(levelName);
 				FlxG.switchState(new PlayState(levelName, goto.anchor,false));
 			}
@@ -515,7 +550,7 @@ class PlayState extends FlxState {
 	
 	private function PlayerTakeDammages(player:Player, enemy:IngredientEnemy):Void
 	{
-		if (player.takeDamage(enemy.damage, enemy.x, enemy.y))
+		if (player.takeDamage(enemy.damage, enemy.getGraphicMidpoint()))
 		{
 			//var tweenEnemy = FlxTween.tween(player, {alpha: 0}, 0.1 , {type: FlxTween.PINGPONG, ease: FlxEase.linear});
 			//new FlxTimer().start(0.4, function(timer:FlxTimer):Void 
@@ -527,18 +562,30 @@ class PlayState extends FlxState {
 		else
 		{
 			Storage.player1Stats.reset();
-			FlxG.switchState(new GameOverState());
+			
+			//_soundFadeOut.play();
+			FlxG.sound.music.fadeOut(0.2, 0);
+			FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
+				FlxG.switchState(new GameOverState());
+			});
+			
 		}
 	}
 	
 	private var enemiesHurtTweenMap: Map<IngredientEnemy, FlxTween> = new Map<IngredientEnemy, FlxTween>();
 	
-	private function OnEnemyHurtCallback(sprite: FlxSprite, enemy: IngredientEnemy) {
-		enemy.hp -= level.player.getCurrentWeaponDmg();
+	private function OnEnemyHurtCallback(sprite: FlxSprite, enemy: IngredientEnemy) 
+	{
+		if (enemy.takeDamage(level.player.getCurrentWeaponDmg(), level.player.getGraphicMidpoint()))
+		{
+				
+		}
 		
 		if (enemiesHurtTweenMap.get(enemy) == null || !enemiesHurtTweenMap.get(enemy).active) {
-			var duration = 0.3;
-			FlxTween.linearMotion(enemy, enemy.x, enemy.y, enemy.x + (enemy.x - level.player.x) * Storage.player1Stats.knockBackFactor, enemy.y + (enemy.y - level.player.y) * Storage.player1Stats.knockBackFactor, duration, true, { type: FlxTween.ONESHOT, ease: FlxEase.expoOut});
+			
+			
+			
+			//Blinking
 			var tweenEnemy = FlxTween.tween(enemy, {alpha: 0}, 0.05, {type: FlxTween.PINGPONG, ease: FlxEase.linear});
 			enemiesHurtTweenMap.set(enemy, tweenEnemy);
 			new FlxTimer().start(0.4, function(timer:FlxTimer):Void {
@@ -547,6 +594,9 @@ class PlayState extends FlxState {
 					enemy.alpha = 1;
 				}
 			});
+			/////////////
+			
+			
 		}
 		
 		if (enemy.hp <= 0) {
@@ -568,7 +618,7 @@ class PlayState extends FlxState {
 		var playerPos = level.player.getMidpoint();
 		if (level.tilemapObjects.ray(e.getMidpoint(), playerPos))
 		{
-			if (playerPos.distanceTo(e.getPosition()) > e.detectionRadius)
+			if (playerPos.distanceTo(e.getPosition()) > e.currentDetectionRadius)
 			{
 				e.seesPlayer = false;
 			}

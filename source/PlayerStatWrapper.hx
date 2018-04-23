@@ -1,4 +1,5 @@
 package;
+import flixel.math.FlxPoint;
 
 /**
  * ...
@@ -6,8 +7,8 @@ package;
  */
 class PlayerStatWrapper 
 {
-	public var maxHealth:Int = 100;
-	public var currentHealth:Int = 100;
+	public var maxHealth:Int = 1000;
+	public var currentHealth:Int = 1000;
 	public var speed:Float = 200;
 	public var sliceDmg:Int = 40;
 	public var peelDmg:Int = 40;
@@ -18,15 +19,18 @@ class PlayerStatWrapper
 	public var atckDuration:Float = 0.2;
 	public var isAlive:Bool = true;
 	
-	public var knockBackFactor:Float = 1;
+	public var knockBackFactor:Float = 2;
+	public var enemyKnockBackFactor:Float = 2;
 	
-	public var nbInvincibilityFrame:Int = 30;
+	public var nbInvincibilityFrame:Int = 60;
+	
+	public var playerPos:FlxPoint;
 	
 	public var money:Int = 0;
 	
 	public function new():Void
 	{
-		
+		playerPos = new FlxPoint(0, 0);
 	}
 	
 	public function reset() 

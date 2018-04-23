@@ -16,11 +16,11 @@ import flixel.util.FlxColor;
 class MenuState extends FlxState {
 	
 	private var names : Array<String> = [
-		"Tixier Lucas @LeRyokan",
-		"Ambrois Guillaume @Eponopono",
-		"Gicquel Grégoire",
+		"Tixier Lucas",
 		"Comptier Maxime",
-		"Fantino Thomas"
+		"Gicquel Grégoire",
+		"Fantino Thomas",
+		"Ambrois Guillaume",
 	];
 
 	private var jobs : Array<String> = [
@@ -68,7 +68,7 @@ class MenuState extends FlxState {
 		overlaySprite.screenCenter(FlxAxes.XY);
 		add(overlaySprite);
 		
-		var creditText = new FlxText(5, 10);
+		var creditText = new FlxText(5, 5);
 		creditText.text = "Made in 72h during the 41th Ludum Dare";
 		add(creditText);
 		
@@ -76,14 +76,14 @@ class MenuState extends FlxState {
 			var nameText = new FlxText();
 			nameText.text = names[i];
 			nameText.x = 5;
-			nameText.y = 230 + 10 * i;
+			nameText.y = 240 + 10 * i;
 			add(nameText);
 			
-			var jobText = new FlxText();
-			jobText.text = jobs[i];
-			jobText.x = 120;
-			jobText.y = 230 + 10 * i;
-			add(jobText);
+			//var jobText = new FlxText();
+			//jobText.text = jobs[i];
+			//jobText.x = 120;
+			//jobText.y = 230 + 10 * i;
+			//add(jobText);
 		}
 		
 		soundBzz = FlxG.sound.load(SoundAssetsPath.neon_bruitage__ogg, 1, false, null, false, false, null, EndBzz);

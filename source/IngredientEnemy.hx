@@ -28,7 +28,7 @@ class IngredientEnemy extends FlxSprite
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
-	public var detectionRadius:Float = 50;
+	public var detectionRadius:Float = 75;
 	public var invincible:Int = 0;
 	public var nbInvincibilityFrame:Int = 15;
 	
@@ -143,7 +143,7 @@ class IngredientEnemy extends FlxSprite
 		//if action complete we pick a new one
 		if (_actionTimer <= 0)
 		{
-			currentIdle = idleActions[FlxG.random.int(0, idleActions.length - 1)];
+			currentIdle = idleActions[FlxG.random.int(0, 5000)%(enumIdleSize-1)];
 			_actionTimer = FlxG.random.int(idleTmrMin, idleTmrMax);
 			
 			_moveDir = FlxG.random.int(0, 360);
@@ -217,7 +217,7 @@ class IngredientEnemy extends FlxSprite
 	public function enableAttack(t:FlxTimer):Void
 	{
 		canAttack = true;
-		_actionTimer = attackRecovery;
+		_actionTimer = 0;// attackRecovery;
 	}
 	
 	public function takeDamage(Damage:Float, enemyPos:FlxPoint):Bool

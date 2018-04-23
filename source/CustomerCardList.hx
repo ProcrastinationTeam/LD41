@@ -73,7 +73,7 @@ class CustomerCardList extends FlxSpriteGroup
 			if (spot)
 			{
 				_spotToTake[count] = false;
-				var card = new CustomerCard(customer, _spotPosById.get(count),count,3);
+				var card = new CustomerCard(customer, _spotPosById.get(count),count,Storage.timerArray[count]);
 				_customerArray.push(customer);
 				_customerList.add(card);
 				return;

@@ -20,6 +20,6 @@ class IngredientShadowSprite extends FlxSprite
 	
 	override public function update(elapsed:Float):Void {
 		x = target.x + (target.width / 2) - 16;
-		y = target.y + 12;
+		y = target.y + target.height - 16;
 	}
 }

@@ -24,6 +24,7 @@ class Storage
 	public static var customerArray : Array<Customer>;
 	
 	public static var timerArray : Array<Float>;
+	public static var positionArray : Array<Float>;
 
 	public static function reset() {
 		recipe1 = new Array<CdbData.IngredientsKind>();

@@ -18,6 +18,9 @@ class Customer extends FlxSprite
 	public var _recipeNameChoose : String;
 	public var _recipeIdChoose: Int;
 	
+	public var _timerLength : Int;
+
+	
 
 	public function new(?X:Float=0, ?Y:Float=0, id : Int, cookbook : CookBook, cardList: CustomerCardList)
 	{
@@ -30,17 +33,20 @@ class Customer extends FlxSprite
 		switch (rand) {
 			case 0:
 				_recipeNameChoose = Storage.recipe1name;
+				_timerLength = Storage.recipe1.length * 10 ;
 			case 1:
 				_recipeNameChoose = Storage.recipe2name;
+				_timerLength = Storage.recipe2.length * 10 ;
 			case 2:
 				_recipeNameChoose = Storage.recipe3name;
+				_timerLength = Storage.recipe3.length * 10;
 			default:
 		}
 		_recipeIdChoose = rand;
 
-		//trace("RECIP:" + _recipeChoose);
-	//	trace("CUSTOMER " + id +": " +_recipeChoose._name);
-
+		
+		
+		
 		_cardList.addCustomer(this);
 		Storage.nbCustomer++;
 	}

@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxTimer;
@@ -18,6 +19,9 @@ class CustomerCard extends FlxSpriteGroup
 	public var _recipeId						: Int;
 	public var _customer 						: Customer;
 	public var _timer 							: FlxTimer;
+	public var _currentTime						: Int;
+	
+	public var _movePerFrame					: Float =0.0;
 
 	public function new(customer : Customer, ypos : Int ,cardId:Int, timerValue: Int = 0)
 	{
@@ -28,11 +32,13 @@ class CustomerCard extends FlxSpriteGroup
 		
 		if (timerValue != 0)
 		{
+			_currentTime = timerValue;
 			_timer.start(timerValue, damagePlayer, 1);
 		}
 		else
 		{
-			_timer.start(5, damagePlayer, 1);
+			_currentTime = _customer._timerLength;
+			_timer.start(_customer._timerLength, damagePlayer, 1);
 		}
 		
 		_backgroundSprite = new FlxSprite(0, ypos);
@@ -57,12 +63,27 @@ class CustomerCard extends FlxSpriteGroup
 		}
 
 		add(_recipeSprite);
-
+		
+		
+		if (Storage.positionArray[_cardId]!= null)
+		{
+			_movePerFrame  = Storage.positionArray[_cardId] / _currentTime;
+			_movePerFrame /= 60;
+		}
+		else
+		{
+			_movePerFrame  = 32 / _currentTime;
+			_movePerFrame /= 60;
+		}
+		
+		
 	}
 	
 	override public function update(elapsed : Float)
 	{
+		this.x -= _movePerFrame;
 		Storage.timerArray[_cardId] = _timer.timeLeft;
+		Storage.positionArray[_cardId] = this.x;
 	}
 	
 	public function damagePlayer(timer : FlxTimer)

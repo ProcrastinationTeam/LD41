@@ -91,6 +91,7 @@ class MenuState extends FlxState {
 		Storage.ingredientsCount =  new Map<CdbData.IngredientsKind,Int>();
 		Storage.customerArray = new Array<Customer>();
 		Storage.timerArray = new Array<Float>();
+		Storage.positionArray = new Array<Float>();
 		Storage.recipe1 = new Array<CdbData.IngredientsKind>();
 		Storage.recipe2 = new Array<CdbData.IngredientsKind>();
 		Storage.recipe3 = new Array<CdbData.IngredientsKind>();

@@ -20,19 +20,19 @@ class IngredientEnemy extends FlxSprite
 	public var hp				: Float;
 	public var damage			: Int = 15;
 	
-	public var minScale			: Float = 0.5;
-	public var maxScale			: Float = 2.5;
+	public var minScale			: Float = 0.75;
+	public var maxScale			: Float = 1.75;
 	
-	public var speed:Float = 100;
+	public var speed:Float = 60;
 	private var _brain:FSM;
 	private var _actionTimer:Float;
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
 	
-	public var currentDetectionRadius:Float = 75;
-	public var detectionRadiusIdle:Float = 75;
-	public var detectionRadiusChase:Float = 115;
+	public var currentDetectionRadius:Float = 125;
+	public var detectionRadiusIdle:Float = 125;
+	public var detectionRadiusChase:Float = 150;
 	
 	public var invincible:Int = 0;
 	public var nbInvincibilityFrame:Int = 15;
@@ -213,7 +213,7 @@ class IngredientEnemy extends FlxSprite
 		attackPoint.y = y + attackPoint.y * basicAttackRange;
 		canAttack = false;
 		//trace(getPosition().distanceTo(attackPoint));
-		FlxVelocity.moveTowardsPoint(this, attackPoint, speed, Std.int(attackTime * 1000));
+		FlxVelocity.moveTowardsPoint(this, attackPoint, speed, Std.int(attackTime * 1000 * 2));
 		attackTimer.start(attackTime, enableAttack);
 	}
 	
@@ -221,7 +221,7 @@ class IngredientEnemy extends FlxSprite
 	{
 		canAttack = false;
 		//trace(getPosition().distanceTo(attackPoint));
-		FlxVelocity.moveTowardsPoint(this, playerPos, speed, Std.int(attackTime * 1000));
+		FlxVelocity.moveTowardsPoint(this, playerPos, speed, Std.int(attackTime * 1000 * 2));
 		attackTimer.start(attackTime, enableAttack);
 	}
 	

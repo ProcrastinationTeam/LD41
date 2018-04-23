@@ -733,6 +733,12 @@ class PlayState extends FlxState {
 	private function OnEnemyDiesCallBack(enemy: IngredientEnemy) {
 		for (drop in enemy.getDrops()) {
 			add(drop);
+			
+			//var shadowSprite = new ShadowSprite(drop);
+			//shadowSprite.scale.set(0.5, 0.5);
+			//shadowSprite.y -= 16;
+			//add(shadowSprite);
+			
 			drop.scale.set(0.01, 0.01);
 			FlxTween.tween(drop.scale, {x: 1, y: 1}, 0.3, {ease:FlxEase.elasticInOut});
 			var x = drop.x;

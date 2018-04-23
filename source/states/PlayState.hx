@@ -53,8 +53,11 @@ class PlayState extends FlxState {
 	
 	private var _soundFadeIn						: FlxSound;
 	private var _soundFadeOut						: FlxSound;
+	private var soundNewCustomer					: FlxSound;
 	
 	private var explicationText : FlxText;
+	
+	private var soundCustomerHappy : Array<FlxSound> = new Array<FlxSound>();
 	
 	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
@@ -232,6 +235,12 @@ class PlayState extends FlxState {
 		
 		_soundFadeIn = FlxG.sound.load(SoundAssetsPath.fadein__ogg, 0.25);
 		_soundFadeOut = FlxG.sound.load(SoundAssetsPath.fadeout__ogg, 0.25);
+		soundNewCustomer = FlxG.sound.load(SoundAssetsPath.client_new_2__ogg, 0.7);
+		
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_1__ogg, 0.7));
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_2__ogg, 0.7));
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_3__ogg, 0.7));
+		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_4__ogg, 0.7));
 		
 		_soundFadeIn.play();
 	}
@@ -309,7 +318,7 @@ class PlayState extends FlxState {
 		if (FlxG.keys.justPressed.NUMPADNINE)
 		{
 			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
-			
+			soundNewCustomer.play(true);
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADSEVEN)
@@ -385,6 +394,7 @@ class PlayState extends FlxState {
 					if (customerCardList.removeCard(1))
 					{
 						inventory.loadInventory();
+						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
 					
 				}
@@ -436,7 +446,9 @@ class PlayState extends FlxState {
 					if (customerCardList.removeCard(2))
 					{
 						inventory.loadInventory();
+						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
+					
 				}
 			}
 			
@@ -485,7 +497,9 @@ class PlayState extends FlxState {
 					if (customerCardList.removeCard(3))
 					{
 						inventory.loadInventory();
+						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
+					
 				}
 			}
 		}

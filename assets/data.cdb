@@ -8446,6 +8446,90 @@
 						}
 					],
 					"frameRate": 10
+				},
+				{
+					"name": "Client1",
+					"animation": [
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 0,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 0,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 0,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 0,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 0,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 1,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 1,
+								"y": 0
+							}
+						}
+					],
+					"frameRate": 6
+				},
+				{
+					"name": "Client2",
+					"animation": [
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 2,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 3,
+								"y": 0
+							}
+						}
+					],
+					"frameRate": 4
 				}
 			],
 			"separators": [],

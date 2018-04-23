@@ -8530,6 +8530,28 @@
 						}
 					],
 					"frameRate": 4
+				},
+				{
+					"name": "Client3",
+					"animation": [
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 4,
+								"y": 0
+							}
+						},
+						{
+							"frame": {
+								"file": "images/clients.png",
+								"size": 32,
+								"x": 5,
+								"y": 0
+							}
+						}
+					],
+					"frameRate": 4
 				}
 			],
 			"separators": [],

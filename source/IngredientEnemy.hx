@@ -39,10 +39,9 @@ class IngredientEnemy extends FlxSprite
 	public var idleTmrMin:Int = 1;
 	public var idleTmrMax:Int = 4;
 	
-	public var attackTween:FlxTween;
 	public var canAttack:Bool = true;
 	public var nbAttack:Int = 2;
-	public var basicAttackRange:Float = 50;
+	public var basicAttackRange:Float = 10;
 	public var attackTime:Float = 0.3;
 	public var attackRecovery:Float = 1;
 	
@@ -147,8 +146,9 @@ class IngredientEnemy extends FlxSprite
 			_actionTimer = FlxG.random.int(idleTmrMin, idleTmrMax);
 			
 			_moveDir = FlxG.random.int(0, 360);
-			
+			//trace(currentIdle);
 		}
+		
 		if (seesPlayer)
 		{
 			_brain.activeState = chase;
@@ -163,28 +163,18 @@ class IngredientEnemy extends FlxSprite
 			case "ATTACK":
 				if (canAttack)
 				{
-					attack(speed, _moveDir);
+					attack(speed * 0.5, _moveDir);
 				}
 				
 			case "MOVE_TO_PLAYER":
-				var awayX:Float = (getGraphicMidpoint().x - playerPos.x);
-				var awayY:Float = (getGraphicMidpoint().y - playerPos.y);
-				var length:Float = Math.sqrt((awayX * awayX) + (awayY * awayY));
-				
-				normAwayX = awayX / length;
-				normAwayY = awayY / length;
-				
-				_moveDir = Math.acos(normAwayX);
-				_moveDir = knockBackAngle * 180 / Math.PI;
-				
-				if (normAwayY < 0)
-					_moveDir *= -1;
-				move(speed * 0.5, _moveDir);
+				playerPos.copyFrom(Storage.player1Stats.playerPos);
+				moveToPlayer(speed);
 			case "SPECIAL_ATTACK":
 				if (canAttack)
 				{
 					attack(speed, _moveDir);
 				}
+			default:
 		}
 		_actionTimer -= FlxG.elapsed;
 	
@@ -196,15 +186,22 @@ class IngredientEnemy extends FlxSprite
 		velocity.rotate(FlxPoint.weak(), direction);
 	}
 	
+	public function moveToPlayer(speed:Float):Void
+	{
+		FlxVelocity.moveTowardsPoint(this, playerPos, Std.int(speed));
+	}
+	
 	public function attack(speed:Float, direction:Float):Void
 	{
 		var attackPoint:FlxPoint = new FlxPoint();
 		attackPoint.set(basicAttackRange, 0);
 		attackPoint.rotate(FlxPoint.weak(), direction);
 		
-		attackPoint.x = x + attackPoint.x;
-		attackPoint.y = y + attackPoint.y;
+		attackPoint.x = x + attackPoint.x * basicAttackRange;
+		attackPoint.y = y + attackPoint.y * basicAttackRange;
 		canAttack = false;
+		trace("pos : " +getPosition());
+		trace("attackpnt : " +attackPoint);
 		FlxVelocity.moveTowardsPoint(this, attackPoint, speed, Std.int(attackTime * 1000));
 		attackTimer.start(attackTime, enableAttack);
 	}

@@ -518,6 +518,20 @@
 								}
 							],
 							"frameRate": 7
+						},
+						{
+							"name": "hurt",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 8,
+										"y": 1
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"image": {
@@ -572,7 +586,7 @@
 									}
 								}
 							],
-							"frameRate": 2
+							"frameRate": 1
 						},
 						{
 							"name": "attack",
@@ -603,6 +617,20 @@
 								}
 							],
 							"frameRate": 8
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 2,
+										"y": 3
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"image": {
@@ -666,6 +694,20 @@
 								}
 							],
 							"frameRate": 2
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 5,
+										"y": 8
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"sizeX": 20,
@@ -775,6 +817,20 @@
 								}
 							],
 							"frameRate": 8
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 14,
+										"y": 4
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Cheese",
@@ -884,6 +940,20 @@
 								}
 							],
 							"frameRate": 8
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 6,
+										"y": 9
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Leek",
@@ -1009,6 +1079,20 @@
 								}
 							],
 							"frameRate": 4
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 7,
+										"y": 9
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Tomato",
@@ -1080,6 +1164,20 @@
 								}
 							],
 							"frameRate": 4
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 14,
+										"y": 2
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Milk",
@@ -1181,6 +1279,20 @@
 								}
 							],
 							"frameRate": 10
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 8,
+										"y": 9
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Eggplant",
@@ -1244,6 +1356,20 @@
 								}
 							],
 							"frameRate": 8
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 14,
+										"y": 6
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Chicken",
@@ -1276,7 +1402,7 @@
 									}
 								}
 							],
-							"frameRate": 5
+							"frameRate": 1
 						},
 						{
 							"name": "walk",
@@ -1290,7 +1416,7 @@
 									}
 								}
 							],
-							"frameRate": 2
+							"frameRate": 1
 						},
 						{
 							"name": "attack",
@@ -1313,6 +1439,20 @@
 								}
 							],
 							"frameRate": 5
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 32,
+										"x": 9,
+										"y": 9
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Chicken",
@@ -1382,6 +1522,20 @@
 								}
 							],
 							"frameRate": 6
+						},
+						{
+							"name": "",
+							"frames": [
+								{
+									"frame": {
+										"file": "images/sprite_shit.png",
+										"size": 16,
+										"x": 0,
+										"y": 0
+									}
+								}
+							],
+							"frameRate": 1
 						}
 					],
 					"drop": "Chicken",

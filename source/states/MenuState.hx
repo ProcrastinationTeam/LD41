@@ -49,7 +49,7 @@ class MenuState extends FlxState {
 	{
 		super.create();
 		
-		music = FlxG.sound.load(MusicAssetsPath.credits__ogg, 0.7, true);
+		music = FlxG.sound.load(MusicAssetsPath.credits__ogg, 1, true);
 		music.play();
 		
 		lightSprite = new FlxSprite();

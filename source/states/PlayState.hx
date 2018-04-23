@@ -562,7 +562,13 @@ class PlayState extends FlxState {
 		else
 		{
 			Storage.player1Stats.reset();
-			FlxG.switchState(new GameOverState());
+			
+			//_soundFadeOut.play();
+			FlxG.sound.music.fadeOut(0.2, 0);
+			FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
+				FlxG.switchState(new GameOverState());
+			});
+			
 		}
 	}
 	

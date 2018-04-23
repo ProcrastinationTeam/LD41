@@ -54,6 +54,9 @@ class Player extends FlxSprite
 	
 	public var soundSwing : FlxSound;
 	
+	public var soundHurt1 : FlxSound;
+	public var soundHurt2 : FlxSound;
+	public var soundHurt3 : FlxSound;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?playerID:Int=0) 
 	{
@@ -82,7 +85,11 @@ class Player extends FlxSprite
 		soundStep1 = FlxG.sound.load(SoundAssetsPath.player_step_1__ogg);
 		soundStep2 = FlxG.sound.load(SoundAssetsPath.player_step_2__ogg);
 		
-		soundSwing = FlxG.sound.load(SoundAssetsPath.player_swing__ogg, 0.3);
+		soundSwing = FlxG.sound.load(SoundAssetsPath.player_swing__ogg, 0.5);
+		
+		soundHurt1 = FlxG.sound.load(SoundAssetsPath.hurt_1__ogg);
+		soundHurt2 = FlxG.sound.load(SoundAssetsPath.hurt_2__ogg, 0.5);
+		soundHurt3= FlxG.sound.load(SoundAssetsPath.hurt_3__ogg);
 	}
 	
 	public function setPlayerStat(id:Int):Void
@@ -339,6 +346,16 @@ class Player extends FlxSprite
 	{
 		if (invincible == 0)
 		{
+			var randomHurtSound = FlxG.random.int(1, 3);
+			trace(randomHurtSound);
+			switch(randomHurtSound) {
+				case 1:
+					soundHurt1.play();
+				case 2:
+					soundHurt2.play();
+				case 3:
+					soundHurt3.play();
+			}
 			invincible = playerStats.nbInvincibilityFrame;
 			playerStats.currentHealth -= Damage;
 			if (playerStats.currentHealth <= 0)

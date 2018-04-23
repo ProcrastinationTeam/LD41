@@ -545,7 +545,7 @@
 					"sizeY": 28,
 					"offsetX": 11,
 					"offsetY": 4,
-					"healthPoints": 150,
+					"healthPoints": 50,
 					"scale": 1
 				},
 				{
@@ -644,7 +644,7 @@
 					"sizeY": 28,
 					"offsetX": 10,
 					"offsetY": 4,
-					"healthPoints": 200,
+					"healthPoints": 50,
 					"scale": 0.75
 				},
 				{
@@ -728,7 +728,7 @@
 					"sizeY": 28,
 					"offsetX": 6,
 					"offsetY": 4,
-					"healthPoints": 250,
+					"healthPoints": 50,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,
@@ -852,7 +852,7 @@
 					"sizeY": 32,
 					"offsetX": 0,
 					"offsetY": 0,
-					"healthPoints": 300,
+					"healthPoints": 50,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,
@@ -975,7 +975,7 @@
 					"sizeY": 32,
 					"offsetX": 11,
 					"offsetY": 0,
-					"healthPoints": 300,
+					"healthPoints": 50,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,
@@ -1114,7 +1114,7 @@
 					"sizeY": 20,
 					"offsetX": 3,
 					"offsetY": 8,
-					"healthPoints": 250,
+					"healthPoints": 50,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,
@@ -1221,7 +1221,7 @@
 					"sizeY": 28,
 					"offsetX": 10,
 					"offsetY": 4,
-					"healthPoints": 350,
+					"healthPoints": 50,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,
@@ -1336,7 +1336,7 @@
 					"sizeY": 32,
 					"offsetX": 8,
 					"offsetY": 0,
-					"healthPoints": 300,
+					"healthPoints": 50,
 					"image": {
 						"file": "images/sprite_shit.png",
 						"size": 32,
@@ -1427,7 +1427,7 @@
 					"sizeY": 32,
 					"offsetX": 3,
 					"offsetY": 0,
-					"healthPoints": 250,
+					"healthPoints": 50,
 					"scale": 0.8,
 					"image": {
 						"file": "images/sprite_shit.png",
@@ -1510,7 +1510,7 @@
 					"sizeY": 32,
 					"offsetX": 0,
 					"offsetY": 0,
-					"healthPoints": 300,
+					"healthPoints": 50,
 					"scale": 0.8,
 					"image": {
 						"file": "images/sprite_shit.png",
@@ -1593,7 +1593,7 @@
 					"sizeY": 32,
 					"offsetX": 8,
 					"offsetY": 0,
-					"healthPoints": 350,
+					"healthPoints": 50,
 					"scale": 0.9,
 					"image": {
 						"file": "images/sprite_shit.png",
@@ -2313,6 +2313,24 @@
 					"npcSpawnPoints": [],
 					"ingredients": [
 						{
+							"x": 22,
+							"y": 3,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 23,
+							"y": 3,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 25,
+							"y": 3,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
 							"x": 35,
 							"y": 3,
 							"kind": "Leek",
@@ -2331,6 +2349,30 @@
 							"additionalDrops": 0
 						},
 						{
+							"x": 24,
+							"y": 4,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 25,
+							"y": 4,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 27,
+							"y": 4,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 29,
+							"y": 4,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
 							"x": 36,
 							"y": 4,
 							"kind": "Steak",
@@ -2340,6 +2382,30 @@
 							"x": 21,
 							"y": 5,
 							"kind": "Fish",
+							"additionalDrops": 0
+						},
+						{
+							"x": 22,
+							"y": 5,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 24,
+							"y": 5,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 26,
+							"y": 5,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
+							"x": 27,
+							"y": 5,
+							"kind": "Chicken",
 							"additionalDrops": 0
 						},
 						{
@@ -2355,9 +2421,21 @@
 							"additionalDrops": 0
 						},
 						{
+							"x": 23,
+							"y": 6,
+							"kind": "Chicken",
+							"additionalDrops": 0
+						},
+						{
 							"x": 25,
 							"y": 6,
 							"kind": "Fish",
+							"additionalDrops": 0
+						},
+						{
+							"x": 26,
+							"y": 6,
+							"kind": "Chicken",
 							"additionalDrops": 0
 						},
 						{
@@ -2406,6 +2484,12 @@
 							"x": 24,
 							"y": 7,
 							"kind": "Fish",
+							"additionalDrops": 0
+						},
+						{
+							"x": 26,
+							"y": 7,
+							"kind": "Chicken",
 							"additionalDrops": 0
 						},
 						{

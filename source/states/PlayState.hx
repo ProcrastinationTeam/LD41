@@ -318,12 +318,12 @@ class PlayState extends FlxState {
 			
 		}
 		
-		if (recipePickerOpen && FlxG.keys.justPressed.Z)
+		if (recipePickerOpen && FlxG.keys.justPressed.UP)
 		{
 			recipePicker.changeCursorPos(-1);
 		}
 		
-		if (recipePickerOpen && FlxG.keys.justPressed.S)
+		if (recipePickerOpen && FlxG.keys.justPressed.DOWN)
 		{
 			recipePicker.changeCursorPos(1);
 		}
@@ -540,7 +540,8 @@ class PlayState extends FlxState {
 					OnEnemyHurtCallback(level.player, randomEnemy);
 				}
 			}
-			if (FlxG.keys.justPressed.R && FlxG.keys.pressed.SHIFT) {
+			if (FlxG.keys.justPressed.R && FlxG.keys.pressed.CONTROL) {
+				Storage.reset();
 				FlxG.resetGame();
 			} else if (FlxG.keys.justPressed.R) {
 				FlxG.switchState(new PlayState(levelDataName));
@@ -574,11 +575,11 @@ class PlayState extends FlxState {
 			
 			if (cameraRecipePicker.visible) 
 			{
-				level.player.disableMovement();
+				level.player.disableAim();
 			}
 			else
 			{
-				level.player.enableMovement();
+				level.player.enableAim();
 			}
 			
 			cookbookOpen = !cookbookOpen;

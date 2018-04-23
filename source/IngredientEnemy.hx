@@ -147,7 +147,7 @@ class IngredientEnemy extends FlxSprite
 			_actionTimer = FlxG.random.int(idleTmrMin, idleTmrMax);
 			
 			_moveDir = FlxG.random.int(0, 360);
-			
+			trace(currentIdle);
 		}
 		if (seesPlayer)
 		{
@@ -163,23 +163,12 @@ class IngredientEnemy extends FlxSprite
 			case "ATTACK":
 				if (canAttack)
 				{
-					attack(speed, _moveDir);
+					attack(speed * 0.5, _moveDir);
 				}
 				
 			case "MOVE_TO_PLAYER":
-				var awayX:Float = (getGraphicMidpoint().x - playerPos.x);
-				var awayY:Float = (getGraphicMidpoint().y - playerPos.y);
-				var length:Float = Math.sqrt((awayX * awayX) + (awayY * awayY));
-				
-				normAwayX = awayX / length;
-				normAwayY = awayY / length;
-				
-				_moveDir = Math.acos(normAwayX);
-				_moveDir = knockBackAngle * 180 / Math.PI;
-				
-				if (normAwayY < 0)
-					_moveDir *= -1;
-				move(speed * 0.5, _moveDir);
+				playerPos.copyFrom(Storage.player1Stats.playerPos);
+				moveToPlayer(speed);
 			case "SPECIAL_ATTACK":
 				if (canAttack)
 				{
@@ -194,6 +183,11 @@ class IngredientEnemy extends FlxSprite
 	{
 		velocity.set(speed, 0);
 		velocity.rotate(FlxPoint.weak(), direction);
+	}
+	
+	public function moveToPlayer(speed:Float):Void
+	{
+		FlxVelocity.moveTowardsPoint(this, playerPos, Std.int(speed));
 	}
 	
 	public function attack(speed:Float, direction:Float):Void

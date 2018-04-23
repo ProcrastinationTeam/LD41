@@ -1,4 +1,5 @@
 package;
+import flixel.math.FlxPoint;
 
 /**
  * ...
@@ -23,11 +24,13 @@ class PlayerStatWrapper
 	
 	public var nbInvincibilityFrame:Int = 30;
 	
+	public var playerPos:FlxPoint;
+	
 	public var money:Int = 0;
 	
 	public function new():Void
 	{
-		
+		playerPos = new FlxPoint(0, 0);
 	}
 	
 	public function reset() 

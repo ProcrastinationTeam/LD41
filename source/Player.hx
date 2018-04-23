@@ -378,6 +378,7 @@ class Player extends FlxSprite
 		if (normAwayY < 0)
 			knockBackAngle *= -1;
 		
+		//trace(knockBackAngle);
 	}
 	
 	public function HealDamage(Heal: Int):Void
@@ -483,7 +484,8 @@ class Player extends FlxSprite
 			changeWeapon();
 			aim();			
 		}
-		
+		playerStats.playerPos.x = x;
+		playerStats.playerPos.y = y;
 		super.update(elapsed);
 	}
 }

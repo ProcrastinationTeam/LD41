@@ -92,11 +92,7 @@ class PlayerInventory extends FlxSpriteGroup
 	{
 
 	}
-	
-	public function sendRecipe()
-	{
-		
-	}
+
 	
 	public function updateValueSub(kind: CdbData.IngredientsKind, value : Int)
 	{

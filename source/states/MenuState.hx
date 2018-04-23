@@ -89,6 +89,7 @@ class MenuState extends FlxState {
 		soundBzz = FlxG.sound.load(SoundAssetsPath.neon_bruitage__ogg, 1, false, null, false, false, null, EndBzz);
 		
 		Storage.ingredientsCount =  new Map<CdbData.IngredientsKind,Int>();
+		Storage.customerArray = new Array<Customer>();
 		Storage.recipe1 = new Array<CdbData.IngredientsKind>();
 		Storage.recipe2 = new Array<CdbData.IngredientsKind>();
 		Storage.recipe3 = new Array<CdbData.IngredientsKind>();
@@ -96,6 +97,8 @@ class MenuState extends FlxState {
 		Storage.recipe1name = null;
 		Storage.recipe2name = null;
 		Storage.recipe3name = null;
+		
+		Storage.nbCustomer = 0;
 	}
 
 	// TODO: zoom pour les credits

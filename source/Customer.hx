@@ -36,11 +36,11 @@ class Customer extends FlxSprite
 		}
 		_recipeIdChoose = rand;
 
-		trace("RECIP:" + _recipeChoose);
+		//trace("RECIP:" + _recipeChoose);
 	//	trace("CUSTOMER " + id +": " +_recipeChoose._name);
 
 		_cardList.addCustomer(this);
-
+		Storage.nbCustomer++;
 	}
 
 }

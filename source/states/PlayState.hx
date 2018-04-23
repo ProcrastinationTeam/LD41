@@ -12,6 +12,7 @@ import flixel.FlxState;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.system.FlxSound;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -44,6 +45,10 @@ class PlayState extends FlxState {
 	private var recipePickerOpen 		: Bool = false;
 	private var recipePickerHere 		: Bool = false;
 	public  var initialInventoryLoad	: Bool = false;
+	
+	
+	//narrative boolean
+	
 	
 	
 	private var _soundFadeIn						: FlxSound;
@@ -110,7 +115,7 @@ class PlayState extends FlxState {
 		playerH.scrollFactor.set(0, 0);
 		add(playerH);
 		
-		
+		playerH.cameras = [this.camera];
 		
 		////Inventory
 		if (!initialInventoryLoad)
@@ -133,9 +138,7 @@ class PlayState extends FlxState {
 		FlxG.cameras.add(cameraUI);
 		inventory.cameras = [cameraUI];
 		
-		//cameraHUD = new FlxCamera(0, Std.int(inventory._spriteSize * inventory._computedScale) + 10 , 32, 32 * 5);
-		//FlxG.cameras.add(cameraHUD);
-		//customerCardList.cameras = [cameraHUD];
+		
 
 		cookbook = new CookBook(inventory);
 		add(cookbook);
@@ -145,8 +148,14 @@ class PlayState extends FlxState {
 		cookbook.cameras = [cameraCookBook];
 		
 		customerCardList = new CustomerCardList(cookbook);
-		customerCardList.scrollFactor.set(0, 0);
+		//customerCardList.scrollFactor.set(0, 0);
 		add(customerCardList);
+		
+		//cameraHUD = new FlxCamera(0, Std.int(inventory._spriteSize * inventory._computedScale) + 10 , 32, 32 * 5);
+		cameraHUD = new FlxCamera(0, Std.int(inventory._spriteSize * inventory._computedScale)+ 20 , 32, 32 * 5);
+		//cameraHUD = new FlxCamera(0, 1000) + 10 , 32, 32 * 5);
+		FlxG.cameras.add(cameraHUD);
+		customerCardList.cameras = [cameraHUD];
 		
 
 		//RecipeBook camera
@@ -273,6 +282,18 @@ class PlayState extends FlxState {
 			}
 		}
 		
+		if (FlxG.keys.justPressed.NUMPADNINE)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			
+		}
+		
+		if (FlxG.keys.justPressed.NUMPADSEVEN)
+		{
+			customerCardList.removeCard(2);
+			
+		}
+		
 		if (recipePickerOpen && FlxG.keys.justPressed.Z)
 		{
 			recipePicker.changeCursorPos(-1);
@@ -298,7 +319,7 @@ class PlayState extends FlxState {
 			recipePicker.validRecipe();
 		}
 		//trace(levelDataName);
-		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.LEFT)
+		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADONE)
 		{
 			
 			
@@ -337,13 +358,17 @@ class PlayState extends FlxState {
 						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
 					}
 					
-					inventory.loadInventory();
+					if (customerCardList.removeCard(1))
+					{
+						inventory.loadInventory();
+					}
+					
 				}
 			}
 			
 		}
 		
-		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.DOWN)
+		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADTWO)
 		{
 			
 			
@@ -384,13 +409,16 @@ class PlayState extends FlxState {
 						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
 					}
 					
-					inventory.loadInventory();
+					if (customerCardList.removeCard(2))
+					{
+						inventory.loadInventory();
+					}
 				}
 			}
 			
 		}
 		
-		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.RIGHT)
+		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADTHREE)
 		{
 			
 			
@@ -430,7 +458,10 @@ class PlayState extends FlxState {
 						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
 					}
 					
-					inventory.loadInventory();
+					if (customerCardList.removeCard(3))
+					{
+						inventory.loadInventory();
+					}
 				}
 			}
 		}
@@ -630,6 +661,17 @@ class PlayState extends FlxState {
 		}
 		else
 			e.seesPlayer = false;
+	}
+	
+	
+	private function story():Void
+	{
+		var intro = "HELLO YOU ARE THE NEW COOK OF HUNTER DINER THIS DINNER IS A LITTLE BIT SPECIAL CUZ U HAVE TO GET THE ELEMENT IN THE CELLAR ! BEFORE DOING THIS YOU HAVE TO CHOOSE YOU RECIPE (A RECIPE MUST CONTAINS BETWEEN 2 AND 5 INGREDIENTS)";
+		
+		var introText = new FlxText(0, 0, 0, intro, 12);
+		
+		
+		
 	}
 	
 	/**

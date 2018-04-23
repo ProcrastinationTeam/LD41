@@ -20,7 +20,8 @@ class Storage
 	public static var ingredientsCount : Map<CdbData.IngredientsKind,Int> = new Map<CdbData.IngredientsKind,Int>();
 	
 	
-	
+	public static var nbCustomer : Int;
+	public static var customerArray : Array<Customer>;
 
 	
 }

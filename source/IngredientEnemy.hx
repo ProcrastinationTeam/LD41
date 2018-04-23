@@ -331,7 +331,7 @@ class IngredientEnemy extends FlxSprite
 		
 		var array:Array<IngredientPickup> = new Array<IngredientPickup>();
 		for (i in 0...Std.int(numberOfDrops) + 1) {
-			var drop = new IngredientPickup(x + FlxG.random.int( -32, 32), y + FlxG.random.int(-32, 32), npc.drop.name);
+			var drop = new IngredientPickup(x, y, npc.drop.name);
 			array.push(drop);
 		}
 		

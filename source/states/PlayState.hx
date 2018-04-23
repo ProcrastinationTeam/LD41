@@ -54,6 +54,8 @@ class PlayState extends FlxState {
 	private var _soundFadeIn						: FlxSound;
 	private var _soundFadeOut						: FlxSound;
 	private var soundNewCustomer					: FlxSound;
+	//private var soundDrop						: FlxSound;
+	//private var soundPickup						: FlxSound;
 	
 	private var explicationText : FlxText;
 	
@@ -236,6 +238,8 @@ class PlayState extends FlxState {
 		_soundFadeIn = FlxG.sound.load(SoundAssetsPath.fadein__ogg, 0.25);
 		_soundFadeOut = FlxG.sound.load(SoundAssetsPath.fadeout__ogg, 0.25);
 		soundNewCustomer = FlxG.sound.load(SoundAssetsPath.client_new_2__ogg, 0.7);
+		//soundDrop = FlxG.sound.load(SoundAssetsPath.ingredient_drop__ogg, 0.7);
+		//soundPickup = FlxG.sound.load(SoundAssetsPath.ingredient_pickup__ogg, 0.7);
 		
 		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_1__ogg, 0.7));
 		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_2__ogg, 0.7));
@@ -636,6 +640,7 @@ class PlayState extends FlxState {
 	{
 		if (player.alive && player.exists && ingredient.alive && ingredient.exists)
 		{
+			FlxG.sound.play(SoundAssetsPath.ingredient_pickup__ogg, 0.7);
 			ingredient.allowCollisions = FlxObject.NONE;
 			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
@@ -701,9 +706,17 @@ class PlayState extends FlxState {
 	private function OnEnemyDiesCallBack(enemy: IngredientEnemy) {
 		for (drop in enemy.getDrops()) {
 			add(drop);
-			level.pickupSprites.add(drop);
+			drop.scale.set(0.01, 0.01);
+			FlxTween.tween(drop.scale, {x: 1, y: 1}, 0.3, {ease:FlxEase.elasticInOut});
+			var x = drop.x;
+			var y = drop.y;
+			FlxTween.tween(drop, {x: x + FlxG.random.float(-32, 32), y: y + FlxG.random.float(-32, 32)}, 0.3, {ease:FlxEase.elasticInOut, onComplete: function(_) {
+				level.pickupSprites.add(drop);
+			}});
+			//FlxG.sound.play(SoundAssetsPath.ingredient_drop__ogg, 0.7);
 		}
 		enemy.kill();
+		FlxG.sound.play(SoundAssetsPath.enemy_death__ogg, 0.4);
 		level.npcSprites.remove(enemy, true);
 	}
 	

@@ -8,47 +8,52 @@ import flixel.text.FlxText;
  * ...
  * @author ElRyoGrande
  */
-class CookBook extends FlxSpriteGroup 
+class CookBook extends FlxSpriteGroup
 {
 	public static inline var cWidth : Int = 96;
 	public static inline var cHeight : Int = 128;
-	
-	public var _backgroundSprite : FlxSprite;
-	public var _recipeList : Map<String,Recipe>;
-	public var _text: FlxText;
+
+	// logic
 	public var _limitRecipe : Int = 0;
-	
+	public var _recipeList : Map<String,Recipe>;
+
+	//Graphics
+	public var _backgroundSprite : FlxSprite;
+	public var _text: FlxText;
+
+
+
+
+	//USEFULL ?
 	public var _ingredientMap : Map<CdbData.IngredientsKind, FlxSprite>;
-	
 	public var _playerInventory : PlayerInventory;
-	
-	//public var _recipePicker : RecipePicker;
-	
-	public function new(playerInventory: PlayerInventory) 
+
+
+	public function new(playerInventory: PlayerInventory)
 	{
 		super();
-		
+
 		_backgroundSprite = new FlxSprite(0, 0);
 		_backgroundSprite.loadGraphic("assets/images/bookCanvas.png", true, 96, 128, false);
 		add(_backgroundSprite);
-		
+
 		_recipeList = new Map<String,Recipe>();
-		
+
 	}
-	
+
 	public function addRecipeInBook(recipe: Recipe)
 	{
-		
+
 		if (_limitRecipe < 3)
 		{
 			recipe.setPosition(0, 30 * _limitRecipe);
 			add(recipe);
 			add(recipe._name);
-			
+
 		}
-		
+
 		//SAVE LE COOKBOOK
-		switch (_limitRecipe) 
+		switch (_limitRecipe)
 		{
 			case  0:
 				Storage.recipe1 =  recipe._recipeIngredientArray;
@@ -63,65 +68,65 @@ class CookBook extends FlxSpriteGroup
 				Storage.recipe3name = recipe._name.text;
 				_recipeList.set(Storage.recipe3name, recipe);
 			default:
-				
+
 		}
 		_limitRecipe++;
-	
-		
+
+
 	}
-	
+
 	public function loadRecipe1(recipeList : Array<CdbData.IngredientsKind>)
 	{
 		_limitRecipe = 0;
 		for (ingredient in recipeList)
 		{
 			trace("RECETTE " + Storage.recipe1name);
-			
+
 			var currentRecipe = new Recipe(Storage.recipe1name);
 			currentRecipe.setFullRecipe(recipeList);
 			currentRecipe.setPosition(0, 30 * _limitRecipe);
 			add(currentRecipe);
 			add(currentRecipe._name);
-			
+
 		}
 		_limitRecipe++;
-		
+
 	}
-	
+
 	public function loadRecipe2(recipeList : Array<CdbData.IngredientsKind>)
 	{
 		_limitRecipe = 1;
 		for (ingredient in recipeList)
 		{
 			trace("RECETTE " + Storage.recipe2name);
-			
+
 			var currentRecipe = new Recipe(Storage.recipe2name);
 			currentRecipe.setFullRecipe(recipeList);
 			currentRecipe.setPosition(0, 30 * _limitRecipe);
 			add(currentRecipe);
 			add(currentRecipe._name);
-			
+
 		}
 		_limitRecipe++;
 	}
-	
+
 	public function loadRecipe3(recipeList : Array<CdbData.IngredientsKind>)
 	{
 		_limitRecipe = 2;
 		for (ingredient in recipeList)
 		{
 			trace("RECETTE " + Storage.recipe3name);
-			
+
 			var currentRecipe = new Recipe(Storage.recipe3name);
 			currentRecipe.setFullRecipe(recipeList);
 			currentRecipe.setPosition(0, 30 * _limitRecipe);
 			add(currentRecipe);
 			add(currentRecipe._name);
-			
+
 		}
 		_limitRecipe++;
-		
+
 	}
-	
-	
+
+
 }

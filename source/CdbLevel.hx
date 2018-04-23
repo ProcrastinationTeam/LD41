@@ -224,6 +224,10 @@ class CdbLevel {
 				var mobSprite = new Carrot(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);
 				npcShadowsSprites.add(new ShadowSprite(mobSprite));
+			case CdbData.NpcsKind.Leek:
+				var mobSprite = new Leek(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
+				npcSprites.add(mobSprite);
+				npcShadowsSprites.add(new ShadowSprite(mobSprite));
 			case CdbData.NpcsKind.Pepper:
 				var mobSprite = new Pepper(x * levelData.props.tileSize, y * levelData.props.tileSize, npcData);
 				npcSprites.add(mobSprite);

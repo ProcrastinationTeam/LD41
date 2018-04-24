@@ -111,7 +111,11 @@ class CustomerCard extends FlxSpriteGroup
 		Storage.player1Stats.currentHealth -= 10;
 		_customerCardList._customerList.members[_cardId] = null;
 		_customerCardList._spotToTake[_cardId] = true;	
+		#if cpp
+		Storage.positionArray[_cardId] = 0;
+		#else
 		Storage.positionArray[_cardId] = null;
+		#end
 		//Storage.customerArray[_cardId] = null;
 		Storage.customerArray.remove(_customer);
 		//qthis.destroy();

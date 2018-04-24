@@ -108,7 +108,7 @@ class CustomerCard extends FlxSpriteGroup
 	
 	public function damagePlayer(timer : FlxTimer)
 	{
-		Storage.player1Stats.currentHealth -= 10;
+		Storage.player1Stats.currentHealth -= 200;
 		_customerCardList._customerList.members[_cardId] = null;
 		_customerCardList._spotToTake[_cardId] = true;	
 		Storage.positionArray[_cardId] = null;

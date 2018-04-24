@@ -66,7 +66,7 @@ class CustomerCard extends FlxSpriteGroup
 		add(_recipeSprite);
 		
 		
-		if (Storage.positionArray[_cardId]!= null)
+		if (Storage.positionArray[_cardId]!= 0)
 		{
 			this.x = Storage.positionArray[_cardId];
 			_movePerFrame = Storage.speedArray[_cardId];

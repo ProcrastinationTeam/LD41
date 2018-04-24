@@ -41,7 +41,7 @@ class Storage
 		
 		ingredientsCount = new Map<CdbData.IngredientsKind,Int>();
 		
-		nbCustomer = null;
+		nbCustomer = 0;
 		customerArray = null;
 		
 		timerArray = null;

@@ -74,7 +74,8 @@ class CustomerCardList extends FlxSpriteGroup
 			{
 				_spotToTake[count] = false;
 				var card = new CustomerCard(customer, this, _spotPosById.get(count),count,Storage.timerArray[count]);
-				_customerArray.push(customer);
+				//_customerArray.push(customer);
+				_customerArray[count] = customer;
 				_customerList.add(card);
 				return;
 			}
@@ -97,7 +98,8 @@ class CustomerCardList extends FlxSpriteGroup
 			{
 				_spotToTake[count] = false;
 				var card = new CustomerCard(customer,this, _spotPosById.get(count),count);
-				_customerArray.push(customer);
+				_customerArray[count] =customer;
+				//_customerArray.push(customer);
 				Storage.customerArray[count] = customer;
 				_customerList.add(card);
 				return;
@@ -110,6 +112,7 @@ class CustomerCardList extends FlxSpriteGroup
 	public function removeCardByIdRecipe(id : Int) : Bool
 	{
 		var count = 0;
+		trace("CUSTOMER ARRAY :" + _customerArray);
 		for (customer in _customerArray)
 		{
 			trace(customer._recipeIdChoose);
@@ -119,6 +122,7 @@ class CustomerCardList extends FlxSpriteGroup
 				_customerList.members[count] = null;
 				_spotToTake[count] = true;
 				Storage.positionArray[count] = null;
+				
 				//Storage.customerArray[count] = null;
 				Storage.customerArray.remove(customer);
 				return true;

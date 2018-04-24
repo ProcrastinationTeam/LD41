@@ -33,13 +33,13 @@ class Customer extends FlxSprite
 		switch (rand) {
 			case 0:
 				_recipeNameChoose = Storage.recipe1name;
-				_timerLength = Storage.recipe1.length * 10 ;
+				_timerLength = Storage.recipe1.length * 25 ;
 			case 1:
 				_recipeNameChoose = Storage.recipe2name;
-				_timerLength = Storage.recipe2.length * 10 ;
+				_timerLength = Storage.recipe2.length * 25 ;
 			case 2:
 				_recipeNameChoose = Storage.recipe3name;
-				_timerLength = Storage.recipe3.length * 10;
+				_timerLength = Storage.recipe3.length * 25;
 			default:
 		}
 		_recipeIdChoose = rand;

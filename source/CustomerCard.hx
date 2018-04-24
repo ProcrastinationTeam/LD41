@@ -1,5 +1,6 @@
 package;
 
+import assetpaths.SoundAssetsPaths.SoundAssetsPath;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
@@ -107,7 +108,6 @@ class CustomerCard extends FlxSpriteGroup
 	
 	public function damagePlayer(timer : FlxTimer)
 	{
-		trace("DAMAGE PLAYER");
 		Storage.player1Stats.currentHealth -= 10;
 		_customerCardList._customerList.members[_cardId] = null;
 		_customerCardList._spotToTake[_cardId] = true;	
@@ -118,7 +118,7 @@ class CustomerCard extends FlxSpriteGroup
 		#end
 		//Storage.customerArray[_cardId] = null;
 		Storage.customerArray.remove(_customer);
-		//qthis.destroy();
+		FlxG.sound.play(SoundAssetsPath.client_pas_content__ogg).play(true); 
 	}
 	
 

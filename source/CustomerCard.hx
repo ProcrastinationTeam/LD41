@@ -18,15 +18,17 @@ class CustomerCard extends FlxSpriteGroup
 	public var _cardId							: Int;
 	public var _recipeId						: Int;
 	public var _customer 						: Customer;
+	public var _customerCardList 				: CustomerCardList;
 	public var _timer 							: FlxTimer;
 	public var _currentTime						: Float;
 	
 	public var _movePerFrame					: Float =0.0;
 
-	public function new(customer : Customer, ypos : Int ,cardId:Int, timerValue: Float = 0)
+	public function new(customer : Customer, customerCardList: CustomerCardList, ypos : Int , cardId:Int, timerValue: Float = 0)
 	{
 		super();
 		_cardId = cardId;
+		_customerCardList = customerCardList; 
 		_customer = customer;
 		_timer = new FlxTimer();
 		
@@ -48,6 +50,14 @@ class CustomerCard extends FlxSpriteGroup
 
 		_recipeSprite = new FlxSprite(0, ypos);
 
+		if (_customer == null)
+		{
+			trace("AIE");
+			trace("carte id : " + _cardId);
+		}
+		
+		trace("INFOS CUSTOMER : " + _customer._id + ","+ _customer._recipeIdChoose); 
+		
 		switch (_customer._recipeIdChoose) {
 			case 0:
 			_recipeSprite.loadGraphic(AssetPaths.sprite_shit__png, true, 32, 32, false);
@@ -89,13 +99,19 @@ class CustomerCard extends FlxSpriteGroup
 		Storage.timerArray[_cardId] = _timer.timeLeft;
 		Storage.positionArray[_cardId] = this.x;
 	}
+
 	
 	public function damagePlayer(timer : FlxTimer)
 	{
 		trace("DAMAGE PLAYER");
 		Storage.player1Stats.currentHealth -= 10;
+		_customerCardList._customerList.members[_cardId] = null;
+		_customerCardList._spotToTake[_cardId] = true;	
+		Storage.positionArray[_cardId] = null;
+		//Storage.customerArray[_cardId] = null;
+		Storage.customerArray.remove(_customer);
+		//qthis.destroy();
 	}
-	
 	
 
 }

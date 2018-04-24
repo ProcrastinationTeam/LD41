@@ -48,7 +48,7 @@ class Customer extends FlxSprite
 		
 		
 		_cardList.addCustomer(this);
-		Storage.nbCustomer++;
+		
 	}
 
 	

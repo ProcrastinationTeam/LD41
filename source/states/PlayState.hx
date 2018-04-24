@@ -318,12 +318,13 @@ class PlayState extends FlxState {
 		if (FlxG.keys.justPressed.NUMPADNINE)
 		{
 			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
 			soundNewCustomer.play(true);
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADSEVEN)
 		{
-			customerCardList.removeCard(2);
+			customerCardList.removeCardByIdRecipe(2);
 			
 		}
 		
@@ -351,6 +352,7 @@ class PlayState extends FlxState {
 		{
 			recipePicker.validRecipe();
 		}
+		
 		//trace(levelDataName);
 		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADONE)
 		{
@@ -386,13 +388,15 @@ class PlayState extends FlxState {
 				
 				if(validIngredient == Storage.recipe1.length)
 				{
-					for (key in validateRecipe.keys())
-					{
-						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
-					}
 					
-					if (customerCardList.removeCard(1))
+					
+					if (customerCardList.removeCardByIdRecipe(1))
 					{
+						for (key in validateRecipe.keys())
+						{
+							Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
+						}
+						
 						inventory.loadInventory();
 						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
@@ -438,13 +442,15 @@ class PlayState extends FlxState {
 				
 				if(validIngredient == Storage.recipe2.length)
 				{
-					for (key in validateRecipe.keys())
-					{
-						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
-					}
 					
-					if (customerCardList.removeCard(2))
+					
+					if (customerCardList.removeCardByIdRecipe(2))
 					{
+						for (key in validateRecipe.keys())
+						{
+							Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
+						}
+						
 						inventory.loadInventory();
 						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}
@@ -484,18 +490,20 @@ class PlayState extends FlxState {
 						validIngredient += validateRecipe.get(key);
 					}
 				}
-				
+				trace("QUANTITE DEMANDE : " + Storage.recipe3.length);
 				trace("VALID INGRE : " + validIngredient);
 				
 				if(validIngredient == Storage.recipe3.length)
 				{
-					for (key in validateRecipe.keys())
-					{
-						Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
-					}
 					
-					if (customerCardList.removeCard(3))
+					
+					if (customerCardList.removeCardByIdRecipe(3))
 					{
+						for (key in validateRecipe.keys())
+						{
+							Storage.ingredientsCount.set(key,Storage.ingredientsCount.get(key) - validateRecipe.get(key));
+						}
+						
 						inventory.loadInventory();
 						soundCustomerHappy[FlxG.random.int(0, soundCustomerHappy.length - 1)].play();
 					}

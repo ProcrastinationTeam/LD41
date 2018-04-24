@@ -15,8 +15,10 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 import typedefs.Goto;
@@ -54,10 +56,15 @@ class PlayState extends FlxState {
 	private var _soundFadeIn						: FlxSound;
 	private var _soundFadeOut						: FlxSound;
 	private var soundNewCustomer					: FlxSound;
+	//private var soundDrop						: FlxSound;
+	//private var soundPickup						: FlxSound;
 	
 	private var explicationText : FlxText;
 	
 	private var soundCustomerHappy : Array<FlxSound> = new Array<FlxSound>();
+	
+	private var _totalElapsedTimeText			: FlxText;
+
 	
 	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
@@ -92,6 +99,8 @@ class PlayState extends FlxState {
 		
 		// ugly shadows
 		add(level.npcShadowsSprites);
+		
+		add(level.npcFireBall);
 		
 		//////// Then "sortable" items (player, npcs, pickups, etc) so we can manipulate the draw order
 		// objects (mostly non interactive doodads like trees, rocks, etc)
@@ -162,7 +171,20 @@ class PlayState extends FlxState {
 		FlxG.cameras.add(cameraHUD);
 		customerCardList.cameras = [cameraHUD];
 		
-
+		_totalElapsedTimeText = new FlxText(0, 25, 100);
+		_totalElapsedTimeText.screenCenter(FlxAxes.X);
+		_totalElapsedTimeText.text = FlxStringUtil.formatTime(0, true);
+		_totalElapsedTimeText.autoSize = false;
+		_totalElapsedTimeText.alignment = FlxTextAlign.CENTER;
+		_totalElapsedTimeText.borderStyle = FlxTextBorderStyle.SHADOW;
+		_totalElapsedTimeText.borderSize = 3;
+		//_totalElapsedTimeText.cameras = [cameraHUD];
+		_totalElapsedTimeText.scrollFactor.set(0, 0);
+		trace(_totalElapsedTimeText);
+		add(_totalElapsedTimeText);
+		
+		
+		
 		//RecipeBook camera
 		if (Storage.recipe1name != null)
 		{
@@ -236,6 +258,8 @@ class PlayState extends FlxState {
 		_soundFadeIn = FlxG.sound.load(SoundAssetsPath.fadein__ogg, 0.25);
 		_soundFadeOut = FlxG.sound.load(SoundAssetsPath.fadeout__ogg, 0.25);
 		soundNewCustomer = FlxG.sound.load(SoundAssetsPath.client_new_2__ogg, 0.7);
+		//soundDrop = FlxG.sound.load(SoundAssetsPath.ingredient_drop__ogg, 0.7);
+		//soundPickup = FlxG.sound.load(SoundAssetsPath.ingredient_pickup__ogg, 0.7);
 		
 		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_1__ogg, 0.7));
 		soundCustomerHappy.push(FlxG.sound.load(SoundAssetsPath.client_success_2__ogg, 0.7));
@@ -255,6 +279,7 @@ class PlayState extends FlxState {
 		// Collisions handling
 		FlxG.overlap(level.player, level.pickupSprites, PlayerPickup);
 		FlxG.overlap(level.player, level.npcSprites, PlayerTakeDammages);
+		FlxG.overlap(level.player, level.npcFireBall, PlayerTakeDammagesFireBall);
 		
 		FlxG.collide(level.player, level.collisionsGroup);
 		FlxG.collide(level.player, level.objectsGroup);
@@ -313,6 +338,13 @@ class PlayState extends FlxState {
 				FlxG.sound.play(SoundAssetsPath.cookbook_open_close__ogg);
 				activeRecipePicker();		
 			}
+		}
+		
+		
+		// Timer du scord
+		if (StringTools.startsWith(levelDataName, "Cellar") || Storage.recipe3.length != 0) {
+			Storage.timer += elapsed;
+			_totalElapsedTimeText.text = FlxStringUtil.formatTime(Storage.timer, true);
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADNINE)
@@ -644,6 +676,7 @@ class PlayState extends FlxState {
 	{
 		if (player.alive && player.exists && ingredient.alive && ingredient.exists)
 		{
+			FlxG.sound.play(SoundAssetsPath.ingredient_pickup__ogg, 0.7);
 			ingredient.allowCollisions = FlxObject.NONE;
 			inventory.updateValueAdd(ingredient.ingredientType, 1);
 			ingredient.kill();
@@ -651,6 +684,30 @@ class PlayState extends FlxState {
 	}
 	
 	private function PlayerTakeDammages(player:Player, enemy:IngredientEnemy):Void
+	{
+		if (player.takeDamage(enemy.damage, enemy.getGraphicMidpoint()))
+		{
+			//var tweenEnemy = FlxTween.tween(player, {alpha: 0}, 0.1 , {type: FlxTween.PINGPONG, ease: FlxEase.linear});
+			//new FlxTimer().start(0.4, function(timer:FlxTimer):Void 
+			//{
+				//tweenEnemy.cancel();
+				//player.alpha = 1;
+			//});
+		}
+		else
+		{
+			Storage.player1Stats.reset();
+			
+			//_soundFadeOut.play();
+			FlxG.sound.music.fadeOut(0.2, 0);
+			FlxG.camera.fade(FlxColor.BLACK, 0.2, false, function() {
+				FlxG.switchState(new GameOverState());
+			});
+			
+		}
+	}
+	
+	private function PlayerTakeDammagesFireBall(player:Player, enemy:FireBall):Void
 	{
 		if (player.takeDamage(enemy.damage, enemy.getGraphicMidpoint()))
 		{
@@ -709,9 +766,23 @@ class PlayState extends FlxState {
 	private function OnEnemyDiesCallBack(enemy: IngredientEnemy) {
 		for (drop in enemy.getDrops()) {
 			add(drop);
-			level.pickupSprites.add(drop);
+			
+			//var shadowSprite = new ShadowSprite(drop);
+			//shadowSprite.scale.set(0.5, 0.5);
+			//shadowSprite.y -= 16;
+			//add(shadowSprite);
+			
+			drop.scale.set(0.01, 0.01);
+			FlxTween.tween(drop.scale, {x: 1, y: 1}, 0.3, {ease:FlxEase.elasticInOut});
+			var x = drop.x;
+			var y = drop.y;
+			FlxTween.tween(drop, {x: x + FlxG.random.float(-32, 32), y: y + FlxG.random.float(-32, 32)}, 0.3, {ease:FlxEase.elasticInOut, onComplete: function(_) {
+				level.pickupSprites.add(drop);
+			}});
+			//FlxG.sound.play(SoundAssetsPath.ingredient_drop__ogg, 0.7);
 		}
 		enemy.kill();
+		FlxG.sound.play(SoundAssetsPath.enemy_death__ogg, 0.4);
 		level.npcSprites.remove(enemy, true);
 	}
 	

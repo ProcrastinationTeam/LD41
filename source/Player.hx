@@ -503,6 +503,11 @@ class Player extends FlxSprite
 		}
 		playerStats.playerPos.x = x;
 		playerStats.playerPos.y = y;
+		
+		// définition de propreté
+		if (invincible != 0 && animation.name != "hurt") {
+			animation.play("hurt");
+		}
 		super.update(elapsed);
 	}
 }

@@ -10,7 +10,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class FireBall extends FlxSprite 
 {
-	public var damage:Int = 50;
+	public var damage:Int = 5;
 	public function new() 
 	{
 		super();

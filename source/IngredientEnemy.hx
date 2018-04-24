@@ -18,7 +18,7 @@ class IngredientEnemy extends FlxSprite
 	public var level			: Float;
 	public var nbDrop			: Int;
 	public var hp				: Float;
-	public var damage			: Int = 15;
+	public var damage			: Int = 2;
 	
 	public var minScale			: Float = 0.75;
 	public var maxScale			: Float = 1.75;

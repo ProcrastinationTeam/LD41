@@ -27,7 +27,7 @@ class Storage
 	public static var positionArray : Array<Float>;
 	public static var speedArray : Array<Float>;
 	
-	public static var timer : Float;
+	public static var timer : Float = 0;
 
 	public static function reset() {
 		recipe1 = new Array<CdbData.IngredientsKind>();
@@ -48,7 +48,7 @@ class Storage
 		positionArray = null;
 		speedArray = null;
 		
-		timer = null;
+		timer = 0;
 	}
 	
 }

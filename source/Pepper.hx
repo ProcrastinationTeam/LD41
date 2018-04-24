@@ -1,5 +1,6 @@
 package;
 import flixel.FlxObject;
+import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.math.FlxVelocity;
@@ -53,6 +54,7 @@ class Pepper extends IngredientEnemy
 		fireBall.velocity.set(direction.x * fireballSpeed, direction.y * fireballSpeed);
 		var timer = new FlxTimer();
 		fireBall.visible = true;
+		//fireBall.angle = FlxAngle.angleBetweenPoint(this, direction, true);
 		allowCollisions = FlxObject.ANY;
 		timer.start(fireballDuration, endFireball);
 	}

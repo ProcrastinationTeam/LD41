@@ -109,7 +109,7 @@ class IngredientEnemy extends FlxSprite
 	
 	override public function draw():Void
 	{
-		animation.play("idle", false, false, -1);
+		//animation.play("idle", false, false, -1);
 		if ((velocity.x != 0 || velocity.y != 0 ))
 		{
 			if (Math.abs(velocity.x) > Math.abs(velocity.y))
@@ -145,6 +145,8 @@ class IngredientEnemy extends FlxSprite
 			animation.play("attack");
 		else if (invincible > 0)
 			animation.play("hurt");
+		else
+			animation.play("idle", false, false, -1);
 		super.draw();
 	}
 	

@@ -15,8 +15,10 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 import typedefs.Goto;
@@ -169,7 +171,20 @@ class PlayState extends FlxState {
 		FlxG.cameras.add(cameraHUD);
 		customerCardList.cameras = [cameraHUD];
 		
-
+		_totalElapsedTimeText = new FlxText(0, 25, 100);
+		_totalElapsedTimeText.screenCenter(FlxAxes.X);
+		_totalElapsedTimeText.text = FlxStringUtil.formatTime(0, true);
+		_totalElapsedTimeText.autoSize = false;
+		_totalElapsedTimeText.alignment = FlxTextAlign.CENTER;
+		_totalElapsedTimeText.borderStyle = FlxTextBorderStyle.SHADOW;
+		_totalElapsedTimeText.borderSize = 3;
+		//_totalElapsedTimeText.cameras = [cameraHUD];
+		_totalElapsedTimeText.scrollFactor.set(0, 0);
+		trace(_totalElapsedTimeText);
+		add(_totalElapsedTimeText);
+		
+		
+		
 		//RecipeBook camera
 		if (Storage.recipe1name != null)
 		{
@@ -329,6 +344,7 @@ class PlayState extends FlxState {
 		// Timer du scord
 		if (StringTools.startsWith(levelDataName, "Cellar") || Storage.recipe3.length != 0) {
 			Storage.timer += elapsed;
+			_totalElapsedTimeText.text = FlxStringUtil.formatTime(Storage.timer, true);
 		}
 		
 		if (FlxG.keys.justPressed.NUMPADNINE)

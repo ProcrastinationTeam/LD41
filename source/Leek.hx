@@ -39,6 +39,7 @@ class Leek extends IngredientEnemy
 		//fire(getPosition(), vec);
 		//attackTimer.start(attackTime, enableAttack);
 		//FlxTween.linearMotion(this, x, y, x + (x - X) * playerStats.knockBackFactor, y + (y - Y) * playerStats.knockBackFactor, duration, true, { type: FlxTween.ONESHOT, ease: FlxEase.expoOut});
+		//tween = FlxTween.circularMotion(this, playerPos.x + (vec.x* 25), playerPos.y + (vec.x* 25), 50, 180+90, true, 1.5, { onComplete: completeAttack, type: FlxTween.ONESHOT, ease: FlxEase.expoInOut});
 		tween = FlxTween.circularMotion(this, x, y, 50, 0, true, 1.5, { onComplete: completeAttack, type: FlxTween.ONESHOT, ease: FlxEase.expoInOut});
 		
 	}

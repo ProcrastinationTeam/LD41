@@ -459,7 +459,7 @@ class PlayState extends FlxState {
 		}
 		
 		//trace(levelDataName);
-		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADONE)
+		if (levelDataName == "Kitchen_32" && (FlxG.keys.justPressed.NUMPADONE || FlxG.keys.justPressed.F))
 		{
 			
 			
@@ -511,7 +511,7 @@ class PlayState extends FlxState {
 			
 		}
 		
-		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADTWO)
+		if (levelDataName == "Kitchen_32" && (FlxG.keys.justPressed.NUMPADTWO || FlxG.keys.justPressed.G))
 		{
 			
 			
@@ -565,7 +565,7 @@ class PlayState extends FlxState {
 			
 		}
 		
-		if (levelDataName == "Kitchen_32" && FlxG.keys.justPressed.NUMPADTHREE)
+		if (levelDataName == "Kitchen_32" && (FlxG.keys.justPressed.NUMPADTHREE || FlxG.keys.justPressed.H))
 		{
 			
 			
@@ -617,10 +617,10 @@ class PlayState extends FlxState {
 			}
 		}
 		
-		if (FlxG.keys.justPressed.A)
-		{
-			var cust = new Customer(0, 0, 0, cookbook, customerCardList);
-		}
+		//if (FlxG.keys.justPressed.A)
+		//{
+			//var cust = new Customer(0, 0, 0, cookbook, customerCardList);
+		//}
 		
 		if (FlxG.keys.justPressed.M) {
 			FlxG.sound.toggleMuted();

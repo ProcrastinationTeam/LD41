@@ -246,9 +246,9 @@ class Player extends FlxSprite
 		var _right:Bool = false;
 		
 		
-		_up = FlxG.keys.anyPressed([Z]);
-		_down = FlxG.keys.anyPressed([S]);
-		_left = FlxG.keys.anyPressed([Q]);
+		_up = FlxG.keys.anyPressed([W]);
+		_down = FlxG.keys.anyPressed([A]);
+		_left = FlxG.keys.anyPressed([S]);
 		_right = FlxG.keys.anyPressed([D]);
 		
 		if (_up && _down)
@@ -471,7 +471,7 @@ class Player extends FlxSprite
 		{
 			canAttack = true;
 		}
-		if (FlxG.keys.anyJustReleased([Z, Q, S, D]))
+		if (FlxG.keys.anyJustReleased([W, A, S, D]))
 		{
 			moveKeyReleased = true;
 		}

@@ -65,9 +65,13 @@ class CustomerCard extends FlxSpriteGroup
 
 		add(_recipeSprite);
 		
-		
-		if (Storage.positionArray[_cardId]!= 0)
+		#if cpp
+		if (Storage.positionArray[_cardId] != 0)
+		#else
+		if (Storage.positionArray[_cardId] != null)
+		#end
 		{
+			trace(Storage.positionArray[_cardId]);
 			this.x = Storage.positionArray[_cardId];
 			_movePerFrame = Storage.speedArray[_cardId];
 			//_movePerFrame  = Storage.positionArray[_cardId] / _currentTime;

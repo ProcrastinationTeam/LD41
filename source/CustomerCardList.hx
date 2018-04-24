@@ -121,8 +121,11 @@ class CustomerCardList extends FlxSpriteGroup
 			{
 				_customerList.members[count] = null;
 				_spotToTake[count] = true;
+				#if cpp
+				Storage.positionArray[count] = 0;
+				#else
 				Storage.positionArray[count] = null;
-				
+				#end
 				//Storage.customerArray[count] = null;
 				Storage.customerArray.remove(customer);
 				return true;

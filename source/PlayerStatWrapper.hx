@@ -7,8 +7,8 @@ import flixel.math.FlxPoint;
  */
 class PlayerStatWrapper 
 {
-	public var maxHealth:Int = 1000;
-	public var currentHealth:Int = 1000;
+	public var maxHealth:Int = 100;
+	public var currentHealth:Int = 100;
 	public var speed:Float = 200;
 	public var sliceDmg:Int = 40;
 	public var peelDmg:Int = 40;
@@ -38,8 +38,8 @@ class PlayerStatWrapper
 		maxHealth = 100;
 		currentHealth = 100;
 		speed = 200;
-		sliceDmg = 10;
-		peelDmg = 10;
+		sliceDmg = 40;
+		peelDmg = 40;
 		range = 5;
 		armor = 0;
 		dmgReduction = 0;
@@ -47,7 +47,7 @@ class PlayerStatWrapper
 		atckDuration = 0.2;
 		isAlive = true;
 		
-		nbInvincibilityFrame = 30;
+		nbInvincibilityFrame = 60;
 	}
 	
 }

@@ -9,6 +9,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.system.FlxSound;
@@ -65,6 +66,7 @@ class PlayState extends FlxState {
 	
 	private var _totalElapsedTimeText			: FlxText;
 
+	private var _totalCustomer				:Int=0;
 	
 	
 	public function new(levelDataName:String, ?anchor:String, recipePick: Bool = false, initInvent : Bool = false) {
@@ -272,6 +274,77 @@ class PlayState extends FlxState {
 	override public function update(elapsed:Float):Void {
 		// Mandatory
 		super.update(elapsed);
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 15 && Storage.nbCustomer == 0)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 25 && Storage.nbCustomer == 1)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 45 && Storage.nbCustomer == 2)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 50 && Storage.nbCustomer == 3)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 55 && Storage.nbCustomer == 4)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 100 && Storage.nbCustomer == 5)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 120 && Storage.nbCustomer == 6)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 120  && Storage.nbCustomer == 7)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 160 && Storage.nbCustomer == 8)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
+		if (FlxMath.roundDecimal(Storage.timer, 0) == 190 && Storage.nbCustomer == 9)
+		{
+			var customer = new Customer(0, 0, Storage.nbCustomer, cookbook, customerCardList);
+			Storage.nbCustomer++;
+			soundNewCustomer.play(true);
+		}
+		
 		
 		// Sort objects by their y value
 		level.sortableGroup.sort(sortByY, FlxSort.DESCENDING);
